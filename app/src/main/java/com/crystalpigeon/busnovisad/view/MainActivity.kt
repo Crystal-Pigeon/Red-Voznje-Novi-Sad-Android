@@ -1,7 +1,8 @@
-package com.crystalpigeon.busnovisad
+package com.crystalpigeon.busnovisad.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.crystalpigeon.busnovisad.R
 
 class MainActivity : AppCompatActivity() {
 
