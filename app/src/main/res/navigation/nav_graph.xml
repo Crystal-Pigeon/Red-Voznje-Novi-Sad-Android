@@ -7,7 +7,16 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.crystalpigeon.busnovisad.view.MainFragment"
+        android:name="com.crystalpigeon.busnovisad.view.fragment.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_addLinesFragment"
+            app:destination="@id/addLinesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addLinesFragment"
+        android:name="com.crystalpigeon.busnovisad.view.fragment.AddLinesFragment"
+        android:label="fragment_add_lines"
+        tools:layout="@layout/fragment_add_lines" />
 </navigation>
