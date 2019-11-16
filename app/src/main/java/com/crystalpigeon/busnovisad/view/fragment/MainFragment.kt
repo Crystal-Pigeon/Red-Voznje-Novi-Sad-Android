@@ -11,7 +11,10 @@ import androidx.navigation.Navigation
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.PagerAdapter
+import com.crystalpigeon.busnovisad.view.adapter.UrbanSuburbanPagerAdapter
+import kotlinx.android.synthetic.main.fragment_add_lines.*
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_main.tablayout
 
 class MainFragment : Fragment() {
 
