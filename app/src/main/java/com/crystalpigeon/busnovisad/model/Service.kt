@@ -11,12 +11,9 @@ interface Service {
     fun getTimetable(): Observable<Response<List<TimetableResponse>>>
 
     @GET("all-lanes")
-    fun getCityLines(@Query("rv") rv: String) : Observable<Response<List<LinesResponse>>>
-
-    @GET("all-lanes")
-    fun getSuburbanLines(@Query("rv") rv: String) : Observable<Response<List<LinesResponse>>>
+    fun getUrbanSuburbanLines(@Query("rv") rv: String) : Observable<Response<List<UrbanSuburbanLinesResponse>>>
 
     @GET("all-buses/{busNumber}")
-    fun getLineByNumber(@Path("busNumber") busNumber: Int, @Query("rv") rv: String)
+    fun getLineByNumber(@Path("busNumber") busNumber: Int, @Query("rv") rv: String) : Observable<Response<List<LineResponse>>>
 
 }
