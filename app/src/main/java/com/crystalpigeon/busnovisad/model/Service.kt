@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface Service {
     @GET("http://www.gspns.rs/feeds/red-voznje")
-    fun getTimetable(): Observable<Response<List<TimetableResponse>>>
+    suspend fun getSeason(): List<SeasonResponse>
 
     @GET("all-lanes")
     fun getUrbanSuburbanLines(@Query("rv") rv: String) : Observable<Response<List<UrbanSuburbanLinesResponse>>>
