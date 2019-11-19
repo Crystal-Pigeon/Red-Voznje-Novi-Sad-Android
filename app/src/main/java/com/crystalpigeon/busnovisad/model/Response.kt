@@ -1,6 +1,6 @@
 package com.crystalpigeon.busnovisad.model
 
-data class TimetableResponse (
+data class SeasonResponse (
     val date : String,
     val redv: String
 )
