@@ -1,14 +1,13 @@
 <resources>
     <string name="app_name">Bus Novi Sad</string>
     <string name="bus_ns">Bus NS</string>
-    <string name="add_buses">Pritisnite \'+\' kako biste dodali autobuse</string>
+    <string name="add_buses">Pritisnite \"+\" kako biste dodali autobuse</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="work_day">Radni dan</string>
     <string name="saturday">Subota</string>
     <string name="sunday">Nedelja</string>
     <string name="urban">Gradski</string>
     <string name="suburban">Prigradski</string>
     <string name="add">Add</string>
+    <string name="bus_NS">Bus NS</string>
 </resources>
