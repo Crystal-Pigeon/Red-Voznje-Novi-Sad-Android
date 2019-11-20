@@ -1,10 +1,12 @@
-package com.crystalpigeon.busnovisad.model
+package com.crystalpigeon.busnovisad.model.repository
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.Const
+import com.crystalpigeon.busnovisad.model.SeasonResponse
+import com.crystalpigeon.busnovisad.model.Service
 import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import javax.inject.Inject

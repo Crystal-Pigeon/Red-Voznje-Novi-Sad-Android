@@ -3,6 +3,7 @@ package com.crystalpigeon.busnovisad.di
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import com.crystalpigeon.busnovisad.model.repository.LanesRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -21,4 +22,7 @@ class StorageModule {
         return preferences.edit()
     }
 
+    @Singleton
+    @Provides
+    fun provideLanesRepository(): LanesRepository = LanesRepository()
 }
