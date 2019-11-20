@@ -8,12 +8,9 @@ import com.crystalpigeon.busnovisad.Const
 import com.crystalpigeon.busnovisad.model.SeasonResponse
 import com.crystalpigeon.busnovisad.model.Service
 import kotlinx.coroutines.*
-import retrofit2.Retrofit
 import javax.inject.Inject
 
 class SeasonRepository {
-    @Inject
-    lateinit var retrofit: Retrofit
     @Inject
     lateinit var api: Service
     @Inject

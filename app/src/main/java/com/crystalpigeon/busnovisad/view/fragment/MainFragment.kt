@@ -16,8 +16,11 @@ import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.PagerAdapter
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
+import com.crystalpigeon.busnovisad.view.adapter.UrbanSuburbanPagerAdapter
+import kotlinx.android.synthetic.main.fragment_add_lines.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_main.tablayout
 
 class MainFragment : Fragment() {
     private lateinit var navController: NavController
@@ -33,6 +36,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController =
             Navigation.findNavController(activity as MainActivity, R.id.nav_host_fragment)
+        (activity as MainActivity).setActionBarTitle(R.string.bus_NS)
         viewpager.adapter = PagerAdapter(childFragmentManager, context!!)
         tablayout.setupWithViewPager(viewpager)
 
