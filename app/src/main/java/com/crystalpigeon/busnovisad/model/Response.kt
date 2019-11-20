@@ -1,26 +1,28 @@
 package com.crystalpigeon.busnovisad.model
 
+import com.squareup.moshi.Json
+
 data class SeasonResponse (
     val date : String,
     val redv: String
 )
 
-data class UrbanSuburbanLinesResponse (
+data class LaneResponse (
     val id: String,
-    val broj: String,
-    val linija: String
+    @field:Json(name = "broj") val number: String,
+    @field:Json(name = "linija") val laneName: String
 )
 
-data class LineResponse(
+data class ScheduleResponse(
     val id: String,
-    val broj: String,
-    val naziv: String,
-    val linija: String?,
-    val linijaA: String?,
-    val linijaB: String?,
-    val dan: String,
-    val raspored: HashMap<String,ArrayList<String>>?,
-    val rasporedA: HashMap<String,ArrayList<String>>?,
-    val rasporedB: HashMap<String,ArrayList<String>>?,
-    val dodaci: String
+    @field:Json(name = "broj")  val number: String,
+    @field:Json(name = "naziv")  val name: String,
+    @field:Json(name = "linija") val lane: String?,
+    @field:Json(name = "linijaA") val directionA: String?,
+    @field:Json(name = "linijaB") val directionB: String?,
+    @field:Json(name = "dan") val day: String,
+    @field:Json(name = "raspored") val schedule: HashMap<String,ArrayList<String>>?,
+    @field:Json(name = "rasporedA") val scheduleA: HashMap<String,ArrayList<String>>?,
+    @field:Json(name = "rasporedB") val scheduleB: HashMap<String,ArrayList<String>>?,
+    @field:Json(name = "dodaci") val extras: String
 )

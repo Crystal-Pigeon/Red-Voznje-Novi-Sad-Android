@@ -1,6 +1,5 @@
 package com.crystalpigeon.busnovisad.model
 
-import android.database.Observable
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,9 +10,10 @@ interface Service {
     suspend fun getSeason(): List<SeasonResponse>
 
     @GET("all-lanes")
-    fun getUrbanSuburbanLines(@Query("rv") rv: String) : Observable<Response<List<UrbanSuburbanLinesResponse>>>
+    suspend fun getLanes(@Query("rv") rv: String) :
+            List<LaneResponse>
 
     @GET("all-buses/{busNumber}")
-    fun getLineByNumber(@Path("busNumber") busNumber: Int, @Query("rv") rv: String) : Observable<Response<List<LineResponse>>>
+    fun getBusSchedule(@Path("busNumber") busNumber: Int, @Query("rv") rv: String) : Response<List<ScheduleResponse>>
 
 }
