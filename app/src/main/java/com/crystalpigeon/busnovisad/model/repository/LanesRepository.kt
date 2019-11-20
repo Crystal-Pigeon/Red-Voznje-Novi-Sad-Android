@@ -21,7 +21,6 @@ class LanesRepository {
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     private var lanesDao: LanesDao
-    private var isFresh = false
 
     init {
         BusNsApp.app.component.inject(this)
@@ -29,20 +28,20 @@ class LanesRepository {
     }
 
     fun getLanes(type: String): LiveData<List<Lane>> {
+        refreshLanes(type)
+        return lanesDao.getLanes(type)
+    }
+
+    private fun refreshLanes(type: String) {
         coroutineScope.launch(Dispatchers.IO) {
-            if (!isFresh) {
-                try {
-                    val lanes = api.getLanes(type)
-                    lanes.forEach {
-                        lanesDao.insert(Lane(it.id, it.number, it.laneName, type))
-                    }
-                    isFresh = true
-                } catch (e: Exception) {
-                    e.printStackTrace()
+            try {
+                val lanes = api.getLanes(type)
+                lanes.forEach {
+                    lanesDao.insert(Lane(it.id, it.number, it.laneName, type))
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
-
-        return lanesDao.getLanes(type)
     }
 }
