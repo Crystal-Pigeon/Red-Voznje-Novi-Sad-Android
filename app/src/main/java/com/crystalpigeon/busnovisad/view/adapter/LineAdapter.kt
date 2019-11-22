@@ -5,13 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.crystalpigeon.busnovisad.R
-import com.crystalpigeon.busnovisad.model.UrbanSuburbanLinesResponse
+import com.crystalpigeon.busnovisad.model.LaneResponse
 import kotlinx.android.synthetic.main.line.view.*
 
-class LineAdapter(lines: ArrayList<UrbanSuburbanLinesResponse>) :
+class LineAdapter(lines: ArrayList<LaneResponse>) :
     RecyclerView.Adapter<LineAdapter.ViewHolder>() {
 
-    private var lines: ArrayList<UrbanSuburbanLinesResponse>? = null
+    private var lines: ArrayList<LaneResponse>? = null
 
     init {
         this.lines = lines
@@ -35,9 +35,9 @@ class LineAdapter(lines: ArrayList<UrbanSuburbanLinesResponse>) :
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(line: UrbanSuburbanLinesResponse?) {
-            view.line_number.text = line?.broj
-            view.line_name.text = line?.linija
+        fun bind(line: LaneResponse?) {
+            view.line_number.text = line?.number
+            view.line_name.text = line?.laneName
         }
 
     }
