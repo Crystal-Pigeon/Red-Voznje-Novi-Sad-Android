@@ -5,4 +5,5 @@ object Const {
     const val LANE_URBAN = "rvg"
     const val LANE_SUBURBAN = "rvp"
     const val BASE_URL = "https://busnsapi.herokuapp.com/"
+    const val TYPE = "type"
 }
