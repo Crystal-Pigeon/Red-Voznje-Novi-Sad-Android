@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.UrbanSuburbanPagerAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_add_lines.*
 
 class AddLinesFragment : Fragment() {

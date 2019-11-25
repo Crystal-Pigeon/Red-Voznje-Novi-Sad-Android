@@ -16,10 +16,10 @@ class Schedule(
     val directionB: String?,
     val day: String,
     @TypeConverters(Converter::class)
-    val schedule: HashMap<String, ArrayList<String>>?,
+    val schedule: LinkedHashMap<String, ArrayList<String>>?,
     @TypeConverters(Converter::class)
-    val scheduleA: HashMap<String, ArrayList<String>>?,
+    val scheduleA: LinkedHashMap<String, ArrayList<String>>?,
     @TypeConverters(Converter::class)
-    val scheduleB: HashMap<String, ArrayList<String>>?,
+    val scheduleB: LinkedHashMap<String, ArrayList<String>>?,
     val extras: String?
 )

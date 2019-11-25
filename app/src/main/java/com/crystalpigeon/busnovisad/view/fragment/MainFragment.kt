@@ -5,21 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.crystalpigeon.busnovisad.BusNsApp
-import com.crystalpigeon.busnovisad.Const
 
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.PagerAdapter
-import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
-import com.crystalpigeon.busnovisad.view.adapter.UrbanSuburbanPagerAdapter
-import kotlinx.android.synthetic.main.fragment_add_lines.*
 import kotlinx.android.synthetic.main.fragment_main.*
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_main.tablayout
 
 class MainFragment : Fragment() {

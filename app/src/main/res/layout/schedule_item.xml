@@ -5,6 +5,7 @@
     android:layout_height="152dp"
     android:layout_margin="10dp"
     android:background="@color/colorWhite"
+    app:cardElevation="4dp"
     app:cardCornerRadius="10dp">
 
     <LinearLayout
@@ -33,8 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:textColor="@color/textColor"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/textColor" />
 
         </LinearLayout>
 
@@ -50,8 +51,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/textColor"
                 android:layout_weight="1"
+                android:textColor="@color/textColor"
                 android:visibility="gone" />
 
             <TextView
@@ -77,14 +78,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:orientation="horizontal"
             android:weightSum="2">
 
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="50dp"
                 android:layout_height="1dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -92,11 +93,13 @@
                 android:background="@color/colorPrimary" />
 
             <TextView
-                android:layout_width="fill_parent"
+                android:id="@+id/lineForDirectionB"
+                android:layout_width="50dp"
                 android:layout_height="1dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:visibility="visible"
                 android:background="@color/colorPrimary" />
 
         </LinearLayout>
@@ -109,56 +112,35 @@
 
             <LinearLayout
                 android:id="@+id/layoutRasp"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/rasp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColor"
-                    android:textSize="12sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutRaspA"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:visibility="visible">
 
-                <TextView
-                    android:id="@+id/raspA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColor"
-                    android:textSize="12sp" />
-
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutRaspB"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:visibility="visible">
-
-                <TextView
-                    android:id="@+id/raspB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:textColor="@color/textColor"
-                    android:textSize="12sp" />
 
             </LinearLayout>
 

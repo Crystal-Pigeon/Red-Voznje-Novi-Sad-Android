@@ -8,18 +8,18 @@ import java.lang.reflect.Type
 
 class Converters {
     @TypeConverter
-    fun fromHashMap(hashMap: HashMap<String, ArrayList<String>>): String {
+    fun fromLinkedHashMap(hashMap: LinkedHashMap<String, ArrayList<String>>): String {
         val moshi: Moshi = Moshi.Builder().build()
         val type: Type = Types.newParameterizedType(Map::class.java, String::class.java)
-        val adapter = moshi.adapter<HashMap<String, ArrayList<String>>>(type)
+        val adapter = moshi.adapter<LinkedHashMap<String, ArrayList<String>>>(type)
         return adapter.toJson(hashMap)
     }
 
     @TypeConverter
-    fun fromString(value: String): HashMap<String, ArrayList<String>>? {
+    fun fromString(value: String): LinkedHashMap<String, ArrayList<String>>? {
         val moshi: Moshi = Moshi.Builder().build()
         val type: Type = Types.newParameterizedType(String::class.java, Map::class.java)
-        val adapter = moshi.adapter<HashMap<String,ArrayList<String>>>(type)
+        val adapter = moshi.adapter<LinkedHashMap<String,ArrayList<String>>>(type)
         return adapter.fromJson(value)
     }
 }
