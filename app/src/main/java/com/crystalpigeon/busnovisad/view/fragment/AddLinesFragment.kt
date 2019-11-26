@@ -5,15 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.UrbanSuburbanPagerAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_add_lines.*
 
 class AddLinesFragment : Fragment() {
 
-    companion object Test {
+    lateinit var navController: NavController
+
+    companion object {
         fun newInstance(): AddLinesFragment {
             return AddLinesFragment()
         }
@@ -29,7 +32,14 @@ class AddLinesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setActionBarTitle(R.string.add)
+        (activity as MainActivity).showBackButton()
+        navController =
+            Navigation.findNavController(activity as MainActivity, R.id.nav_host_fragment)
         viewpager_add_lines.adapter = UrbanSuburbanPagerAdapter(childFragmentManager,context!!)
         tablayout.setupWithViewPager(viewpager_add_lines)
+
+        (activity as MainActivity).getBackButton().setOnClickListener {
+            navController.navigate(R.id.action_addLinesFragment_to_mainFragment)
+        }
     }
 }

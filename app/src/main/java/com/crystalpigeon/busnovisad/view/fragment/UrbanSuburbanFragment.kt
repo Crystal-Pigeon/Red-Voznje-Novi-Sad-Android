@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.Const
 import com.crystalpigeon.busnovisad.R
-import com.crystalpigeon.busnovisad.view.adapter.LineAdapter
+import com.crystalpigeon.busnovisad.view.adapter.LaneAdapter
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
 import kotlinx.android.synthetic.main.fragment_urban_suburban.*
 import javax.inject.Inject
 
 class UrbanSuburbanFragment : Fragment(){
 
-    lateinit var adapter: LineAdapter
+    lateinit var adapter: LaneAdapter
     var type: String? = null
 
     @Inject
@@ -25,7 +25,6 @@ class UrbanSuburbanFragment : Fragment(){
 
     init {
         BusNsApp.app.component.inject(this)
-
     }
 
     companion object {
@@ -44,15 +43,14 @@ class UrbanSuburbanFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = LineAdapter(arrayListOf())
+        adapter = LaneAdapter(arrayListOf(), context!!)
         rv_lines.layoutManager = LinearLayoutManager(context)
         rv_lines.adapter = adapter
 
         if (arguments != null) type = arguments?.getString(Const.TYPE)
         viewModel.getLanes(type!!).observe(this, Observer {
-            adapter.lines = ArrayList(it)
+            adapter.lanes = ArrayList(it)
             adapter.notifyDataSetChanged()
         })
-
     }
 }

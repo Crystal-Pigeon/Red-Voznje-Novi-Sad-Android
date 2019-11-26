@@ -2,6 +2,8 @@ package com.crystalpigeon.busnovisad.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
@@ -27,4 +29,10 @@ class MainActivity : AppCompatActivity() {
     fun setActionBarTitle(id: Int) {
         pageTitle.text = getString(id)
     }
+
+    fun getBackButton(): ImageView = back_button
+
+    fun hideBackButton() { back_button.visibility = View.GONE }
+
+    fun showBackButton() { back_button.visibility = View.VISIBLE }
 }
