@@ -5,11 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Lane::class, FavouriteLane::class], version = 8, exportSchema = false)
+@Database(entities = [Lane::class, Schedule::class, FavouriteLane::class], version = 2, exportSchema = false)
 abstract class BusDatabase : RoomDatabase() {
 
     abstract fun lanesDao(): LanesDao
     abstract fun favLanesDao(): FavouriteLanesDao
+    abstract fun schedulesDao(): SchedulesDao
 
     companion object {
         private var instance: BusDatabase? = null
