@@ -21,5 +21,5 @@ class Schedule(
     val scheduleA: LinkedHashMap<String, ArrayList<String>>?,
     @TypeConverters(Converter::class)
     val scheduleB: LinkedHashMap<String, ArrayList<String>>?,
-    val extras: String
+    val extras: String?
 )
