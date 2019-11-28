@@ -12,6 +12,7 @@ import com.crystalpigeon.busnovisad.view.adapter.ScheduleAdapter
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
 
+import com.crystalpigeon.busnovisad.view.MainActivity
 
 class ScheduleFragment : Fragment() {
 
@@ -21,7 +22,7 @@ class ScheduleFragment : Fragment() {
     private var hashMapB: LinkedHashMap<String, ArrayList<String>> = linkedMapOf()
     private var hashMapC: LinkedHashMap<String, ArrayList<String>> = linkedMapOf()
 
-    companion object Test {
+    companion object {
         fun newInstance(): ScheduleFragment {
             return ScheduleFragment()
         }
@@ -76,6 +77,7 @@ class ScheduleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).hideBackButton()
         return inflater.inflate(R.layout.fragment_schedule, container, false)
     }
 
