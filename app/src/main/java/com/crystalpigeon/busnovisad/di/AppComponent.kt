@@ -3,7 +3,7 @@ package com.crystalpigeon.busnovisad.di
 import com.crystalpigeon.busnovisad.model.repository.LanesRepository
 import com.crystalpigeon.busnovisad.model.repository.SeasonRepository
 import com.crystalpigeon.busnovisad.view.MainActivity
-import com.crystalpigeon.busnovisad.view.fragment.MainFragment
+import com.crystalpigeon.busnovisad.view.fragment.UrbanSuburbanFragment
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
 import dagger.Component
 import javax.inject.Singleton
@@ -15,4 +15,5 @@ interface AppComponent {
     fun inject(lanesRepository: LanesRepository)
     fun inject(mainActivity: MainActivity)
     fun inject(lanesViewModel: LanesViewModel)
+    fun inject(urbanSuburbanFragment: UrbanSuburbanFragment)
 }

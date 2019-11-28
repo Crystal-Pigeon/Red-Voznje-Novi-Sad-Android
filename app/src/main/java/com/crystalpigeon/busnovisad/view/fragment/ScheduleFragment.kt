@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.crystalpigeon.busnovisad.R
-
+import com.crystalpigeon.busnovisad.view.MainActivity
 
 class ScheduleFragment : Fragment() {
 
-    companion object Test {
+    companion object {
         fun newInstance(): ScheduleFragment {
             return ScheduleFragment()
         }
@@ -21,6 +21,7 @@ class ScheduleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).hideBackButton()
         return inflater.inflate(R.layout.fragment_schedule, container, false)
     }
 }
