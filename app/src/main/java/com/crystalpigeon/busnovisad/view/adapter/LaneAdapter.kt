@@ -46,18 +46,22 @@ class LaneAdapter(
 
             coroutineScope.launch {
                 withContext(Dispatchers.Main){
-                    if (favLanesDao.getFavLane(lane!!.id).isEmpty()) view.check.visibility = View.INVISIBLE
-                    else view.check.visibility = View.VISIBLE
+                    lane?.let {
+                        if (favLanesDao.getFavLane(it.id).isEmpty()) view.check.visibility = View.INVISIBLE
+                        else view.check.visibility = View.VISIBLE
+                    }
                 }
             }
             view.setOnClickListener {
-                coroutineScope.launch(Dispatchers.IO) {
-                    if(favLanesDao.getFavLane(lane!!.id).isEmpty()) {
-                        val favLane = FavouriteLane(lane.id, lane.type)
-                        favLanesDao.insertFavLane(favLane)
-                    }
-                    else favLanesDao.deleteFavLane(lane.id)
+                lane?.let{
+                    coroutineScope.launch(Dispatchers.IO) {
+                        if(favLanesDao.getFavLane(it.id).isEmpty()) {
+                            val favLane = FavouriteLane(it.id, it.type)
+                            favLanesDao.insertFavLane(favLane)
+                        }
+                        else favLanesDao.deleteFavLane(it.id)
 
+                    }
                 }
                 notifyItemChanged(adapterPosition)
             }
