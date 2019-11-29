@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.crystalpigeon.busnovisad.Const
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.fragment.UrbanSuburbanFragment
 
@@ -15,7 +16,13 @@ class UrbanSuburbanPagerAdapter(fm: FragmentManager, context: Context) :
         this.context = context
     }
 
-    override fun getItem(position: Int): Fragment = UrbanSuburbanFragment.newInstance()
+    override fun getItem(position: Int): Fragment {
+        return when (position) {
+            0 -> UrbanSuburbanFragment.newInstance(Const.LANE_URBAN)
+            1 -> UrbanSuburbanFragment.newInstance(Const.LANE_SUBURBAN)
+            else -> UrbanSuburbanFragment.newInstance("")
+        }
+    }
 
     override fun getCount(): Int = 2
 

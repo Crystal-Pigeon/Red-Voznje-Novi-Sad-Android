@@ -6,11 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [Lane::class, Schedule::class], version = 2, exportSchema = false)
+@Database(entities = [Lane::class, Schedule::class, FavouriteLane::class], version = 3, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class BusDatabase : RoomDatabase() {
 
-    abstract  fun lanesDao(): LanesDao
+    abstract fun lanesDao(): LanesDao
+    abstract fun favLanesDao(): FavouriteLanesDao
     abstract fun schedulesDao(): SchedulesDao
 
     companion object {
