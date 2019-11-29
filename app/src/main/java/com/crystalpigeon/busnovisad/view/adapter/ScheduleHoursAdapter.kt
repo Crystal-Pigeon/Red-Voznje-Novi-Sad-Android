@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.crystalpigeon.busnovisad.R
 import kotlinx.android.synthetic.main.schedule_hour.view.*
+import java.lang.IndexOutOfBoundsException
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
@@ -62,16 +63,34 @@ class ScheduleHoursAdapter : RecyclerView.Adapter<ScheduleHoursAdapter.ViewHolde
                 if (currentHour == hour.toInt()) {
                     val index = arrListHours.indexOf(hour)
                     if (index != -1) {
-                        val smallerHour = arrListHours[index - 1]
-                        val biggerHour = arrListHours[index + 1]
-                        hoursCollapsed.add(smallerHour)
+                        if (index - 1 >= 0) {
+                            val smallerHour = arrListHours[index - 1]
+                            hoursCollapsed.add(smallerHour)
+                        }
                         hoursCollapsed.add(hour)
-                        hoursCollapsed.add(biggerHour)
+                        if (index + 1 < arrListHours.size) {
+                            val biggerHour = arrListHours[index + 1]
+                            hoursCollapsed.add(biggerHour)
+                        }
                     }
                 }
             }
             if (hoursCollapsed.isEmpty()) {
-                hoursCollapsed.addAll(arrListHours.take(3))
+                arrListHours.forEach { hour ->
+                    if (currentHour!! < hour.toInt()) {
+                        if (hoursCollapsed.size < 3) {
+                            hoursCollapsed.add(hour)
+                        }
+                    }
+                }
+            }
+            //ako je jos uvek prazna..
+            if (hoursCollapsed.size < 3) {
+                arrListHours.forEach {
+                    if (hoursCollapsed.size < 3) {
+                        hoursCollapsed.add(it)
+                    }
+                }
             }
             this.hours = hoursCollapsed
         } else {
