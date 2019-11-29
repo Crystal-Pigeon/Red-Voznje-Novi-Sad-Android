@@ -21,7 +21,6 @@ import android.text.Spannable
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.util.TypedValue
-import androidx.core.content.res.ResourcesCompat
 
 class ScheduleAdapter(schedules: ArrayList<Schedule>?, context: Context) :
     RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
