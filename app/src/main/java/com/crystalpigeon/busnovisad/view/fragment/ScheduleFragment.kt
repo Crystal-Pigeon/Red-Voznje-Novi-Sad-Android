@@ -18,7 +18,6 @@ class ScheduleFragment : Fragment() {
 
     private lateinit var scheduleAdapter: ScheduleAdapter
 
-
     companion object {
         fun newInstance(): ScheduleFragment {
             return ScheduleFragment()

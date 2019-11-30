@@ -11,14 +11,13 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
 
-
 class ScheduleHoursAdapter : RecyclerView.Adapter<ScheduleHoursAdapter.ViewHolder>() {
     private var schedule: LinkedHashMap<String, ArrayList<String>>? = null
     private var hours: ArrayList<String>? = null
     private var hoursCollapsed: ArrayList<String> = ArrayList()
     private var hoursExpanded: ArrayList<String> = ArrayList()
     private var collapsed: Boolean = true
-    private var currentHour: Int? = null
+    private var currentHour: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
@@ -54,7 +53,7 @@ class ScheduleHoursAdapter : RecyclerView.Adapter<ScheduleHoursAdapter.ViewHolde
         this.schedule = schedule
         currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         hoursExpanded = ArrayList(schedule.keys)
-        hoursCollapsed = getCollapsedList(hoursExpanded, currentHour?:0)
+        hoursCollapsed = getCollapsedList(hoursExpanded, currentHour)
 
         if (collapsed) {
             this.hours = hoursCollapsed

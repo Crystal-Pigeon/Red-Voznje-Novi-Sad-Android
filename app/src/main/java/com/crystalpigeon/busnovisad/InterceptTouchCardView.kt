@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.cardview.widget.CardView
 
-
 class InterceptTouchCardView : CardView {
 
     constructor(context: Context) : super(context)
@@ -18,7 +17,5 @@ class InterceptTouchCardView : CardView {
         defStyleAttr
     )
 
-    override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
-        return true
-    }
+    override fun onInterceptTouchEvent(ev: MotionEvent) = true
 }
