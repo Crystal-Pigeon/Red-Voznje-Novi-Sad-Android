@@ -25,10 +25,6 @@ class ScheduleFragment : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +35,7 @@ class ScheduleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val listOfSchedule = mockListOfSchedules()
+        val listOfSchedule = arrayListOf<Schedule>()
 
         view.rv_schedule_for_lines.layoutManager = LinearLayoutManager(context)
         scheduleAdapter = ScheduleAdapter(arrayListOf(), context!!)
@@ -54,59 +50,5 @@ class ScheduleFragment : Fragment() {
             noLinesGroup.visibility = View.VISIBLE
         }
 
-    }
-
-    private fun mockListOfSchedules(): ArrayList<Schedule>{
-        val listOfSchedules = ArrayList<Schedule>()
-        val hashMapA: LinkedHashMap<String, ArrayList<String>> = linkedMapOf()
-        val hashMapB: LinkedHashMap<String, ArrayList<String>> = linkedMapOf()
-        val hashMapC: LinkedHashMap<String, ArrayList<String>> = linkedMapOf()
-        hashMapA["10"] = arrayListOf("10", "30")
-        hashMapA["11"] = arrayListOf("10", "30")
-        hashMapA["13"] = arrayListOf("10", "16", "23", "30", "32", "36", "45", "56", "57")
-        hashMapA["16"] = arrayListOf("20", "30", "40")
-        hashMapA["23"] = arrayListOf("20", "30", "40")
-        hashMapA["00"] = arrayListOf("05", "50")
-
-        hashMapB["10"] = arrayListOf("20", "30", "40")
-        hashMapB["22"] = arrayListOf("15", "45")
-
-        hashMapC["07"] = arrayListOf("03", "40")
-        hashMapC["17"] = arrayListOf("03", "40")
-        hashMapC["21"] = arrayListOf("03", "40")
-        hashMapC["00"] = arrayListOf("03", "40")
-
-
-        listOfSchedules.add(
-            Schedule(
-                "52",
-                "52",
-                "VETERNIK",
-                null,
-                "Polasci za VETERNIK",
-                "Polasci iz VETERNIK",
-                "R",
-                null,
-                hashMapA,
-                hashMapB,
-                null
-            )
-        )
-        listOfSchedules.add(
-            Schedule(
-                "69",
-                "69",
-                "CARDAK",
-                "CARDAK-KAMENICA",
-                null,
-                null,
-                "S",
-                hashMapC,
-                null,
-                null,
-                ""
-            )
-        )
-        return listOfSchedules
     }
 }

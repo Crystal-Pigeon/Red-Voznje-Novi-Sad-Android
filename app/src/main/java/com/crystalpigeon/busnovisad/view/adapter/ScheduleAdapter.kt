@@ -40,6 +40,7 @@ class ScheduleAdapter(var schedules: ArrayList<Schedule>, val context: Context) 
 
             view.setOnClickListener {
                 scheduleAAdapter.collapseExpand()
+                scheduleBAdapter.collapseExpand()
             }
         }
 

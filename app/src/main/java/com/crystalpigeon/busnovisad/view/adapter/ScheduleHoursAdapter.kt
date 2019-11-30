@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.crystalpigeon.busnovisad.R
 import kotlinx.android.synthetic.main.schedule_hour.view.*
-import java.lang.IndexOutOfBoundsException
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
@@ -17,6 +16,7 @@ class ScheduleHoursAdapter : RecyclerView.Adapter<ScheduleHoursAdapter.ViewHolde
     private var schedule: LinkedHashMap<String, ArrayList<String>>? = null
     private var hours: ArrayList<String>? = null
     private var hoursCollapsed: ArrayList<String> = ArrayList()
+    private var hoursExpanded: ArrayList<String> = ArrayList()
     private var collapsed: Boolean = true
     private var currentHour: Int? = null
 
@@ -53,61 +53,61 @@ class ScheduleHoursAdapter : RecyclerView.Adapter<ScheduleHoursAdapter.ViewHolde
     fun setSchedule(schedule: LinkedHashMap<String, ArrayList<String>>) {
         this.schedule = schedule
         currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        //prvi put ce biti collapsovano
-        val arrListHours: ArrayList<String> = ArrayList()
+        hoursExpanded = ArrayList(schedule.keys)
+        hoursCollapsed = getCollapsedList(hoursExpanded, currentHour?:0)
+
         if (collapsed) {
-            this.schedule!!.keys.forEach { hour ->
-                arrListHours.add(hour)
-            }
-            arrListHours.forEach { hour ->
-                if (currentHour == hour.toInt()) {
-                    val index = arrListHours.indexOf(hour)
-                    if (index != -1) {
-                        if (index - 1 >= 0) {
-                            val smallerHour = arrListHours[index - 1]
-                            hoursCollapsed.add(smallerHour)
-                        }
-                        hoursCollapsed.add(hour)
-                        if (index + 1 < arrListHours.size) {
-                            val biggerHour = arrListHours[index + 1]
-                            hoursCollapsed.add(biggerHour)
-                        }
-                    }
-                }
-            }
-            if (hoursCollapsed.isEmpty()) {
-                arrListHours.forEach { hour ->
-                    if (currentHour!! < hour.toInt()) {
-                        if (hoursCollapsed.size < 3) {
-                            hoursCollapsed.add(hour)
-                        }
-                    }
-                }
-            }
-            //ako je jos uvek prazna..
-            if (hoursCollapsed.size < 3) {
-                arrListHours.forEach {
-                    if (hoursCollapsed.size < 3) {
-                        hoursCollapsed.add(it)
-                    }
-                }
-            }
             this.hours = hoursCollapsed
         } else {
-            this.hours = ArrayList(schedule.keys)
+            this.hours = hoursExpanded
         }
         notifyDataSetChanged()
     }
 
-    fun collapseExpand() {
-        if (collapsed) {
-            collapsed = false
-            this.hours = ArrayList(schedule!!.keys)
-            notifyDataSetChanged()
-        } else {
-            collapsed = true
-            this.hours = hoursCollapsed
-            notifyDataSetChanged()
+    fun getCollapsedList(hoursExpanded: ArrayList<String>, currentHour: Int): ArrayList<String> {
+        val collapsed: ArrayList<String> = ArrayList()
+        for (i in 0 until hoursExpanded.size) {
+            if (currentHour == hoursExpanded[i].toInt()) {//There is exact hour
+                if (i > 0) {//There is one before
+                    collapsed.add(hoursExpanded[i - 1])
+                    collapsed.add(hoursExpanded[i])
+                    collapsed.add(hoursExpanded.getOrNull(i + 1) ?: break)
+                } else {//There is no one before
+                    collapsed.add(hoursExpanded[i])
+                    collapsed.add(hoursExpanded.getOrNull(i + 1) ?: break)
+                    collapsed.add(hoursExpanded.getOrNull(i + 2) ?: break)
+                }
+                break
+            } else if (hoursExpanded[i].toInt() > currentHour) {
+                //There is no current hour, we need to get the first next
+                collapsed.add(hoursExpanded[i])
+                collapsed.add(hoursExpanded.getOrNull(i + 1) ?: break)
+                collapsed.add(hoursExpanded.getOrNull(i + 2) ?: break)
+                break
+            }
         }
+
+        if (collapsed.size < 3) {
+            hoursExpanded.forEach {
+                if (collapsed.size < 3) {
+                   if(collapsed.indexOf(it) == -1)
+                       collapsed.add(it)
+                } else {
+                    return@forEach
+                }
+            }
+        }
+
+        return collapsed
+    }
+
+    fun collapseExpand() {
+        collapsed = !collapsed
+        if (collapsed) {
+            this.hours = hoursCollapsed
+        } else {
+            this.hours = hoursExpanded
+        }
+        notifyDataSetChanged()
     }
 }
