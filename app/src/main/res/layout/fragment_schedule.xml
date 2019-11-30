@@ -9,6 +9,7 @@
     tools:context=".view.fragment.MainFragment">
 
     <TextView
+        android:id="@+id/info"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/muli_regular"
@@ -16,14 +17,14 @@
         android:textAlignment="center"
         android:textColor="#A9A9B1"
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.100000024" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logo"
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:src="@drawable/logo_light"
@@ -32,5 +33,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/noLinesGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="info,logo"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_schedule_for_lines"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/colorWhite"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
