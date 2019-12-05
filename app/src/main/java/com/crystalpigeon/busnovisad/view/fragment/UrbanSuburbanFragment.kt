@@ -48,6 +48,7 @@ class UrbanSuburbanFragment : Fragment(){
         rv_lines.adapter = adapter
 
         if (arguments != null) type = arguments?.getString(Const.TYPE)
+
         viewModel.getLanes(type!!).observe(this, Observer {
             adapter.lanes = ArrayList(it)
             adapter.notifyDataSetChanged()

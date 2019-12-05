@@ -1,15 +1,14 @@
-package com.crystalpigeon.busnovisad.model
+package com.crystalpigeon.busnovisad.model.entity
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import retrofit2.Converter
 import java.util.ArrayList
 
-@Entity
-class Schedule(
-    @PrimaryKey @ColumnInfo(name = "id") val id: String, val number: String?,
+@Entity(primaryKeys = ["id", "day"])
+data class Schedule(
+    val id: String,
+    val number: String?,
     val name: String?,
     val lane: String?,
     val directionA: String?,

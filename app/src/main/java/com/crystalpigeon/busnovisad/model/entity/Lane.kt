@@ -1,4 +1,4 @@
-package com.crystalpigeon.busnovisad.model
+package com.crystalpigeon.busnovisad.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

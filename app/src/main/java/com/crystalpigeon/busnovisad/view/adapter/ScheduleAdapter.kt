@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.crystalpigeon.busnovisad.R
-import com.crystalpigeon.busnovisad.model.Schedule
+import com.crystalpigeon.busnovisad.model.entity.Schedule
 import kotlinx.android.synthetic.main.schedule_item.view.*
 import kotlin.collections.ArrayList
 import android.content.Context

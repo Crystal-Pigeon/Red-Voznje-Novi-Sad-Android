@@ -19,8 +19,7 @@ class UrbanSuburbanPagerAdapter(fm: FragmentManager, context: Context) :
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> UrbanSuburbanFragment.newInstance(Const.LANE_URBAN)
-            1 -> UrbanSuburbanFragment.newInstance(Const.LANE_SUBURBAN)
-            else -> UrbanSuburbanFragment.newInstance("")
+            else -> UrbanSuburbanFragment.newInstance(Const.LANE_SUBURBAN)
         }
     }
 

@@ -1,15 +1,13 @@
 package com.crystalpigeon.busnovisad.model.repository
 
 import android.content.SharedPreferences
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.Const
-import com.crystalpigeon.busnovisad.model.SeasonResponse
 import com.crystalpigeon.busnovisad.model.Service
-import kotlinx.coroutines.*
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class SeasonRepository {
     @Inject
     lateinit var api: Service
@@ -17,25 +15,20 @@ class SeasonRepository {
     lateinit var sharedPrefs: SharedPreferences
     @Inject
     lateinit var prefsEdit: SharedPreferences.Editor
-    private lateinit var season:  List<SeasonResponse>
-    private val parentJob = Job()
-    private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
 
     init {
         BusNsApp.app.component.inject(this)
     }
 
-    fun shouldUpdate(): LiveData<Boolean>{
-        val isSeason = MutableLiveData<Boolean>()
-        val oldValue = sharedPrefs.getString(Const.DATE, "")
+    suspend fun shouldUpdate(): Boolean {
+        val oldValue = sharedPrefs.getString(Const.DATE, null)
+        val season = api.getSeason()
 
-        coroutineScope.launch(Dispatchers.IO) {
-            season = api.getSeason()
-            if (oldValue == null || oldValue != season[0].date) {
-                isSeason.value = true
-                prefsEdit.putString(Const.DATE, season[0].date)
-            } else isSeason.value = false
+        if (oldValue == null || oldValue != season[0].date) {
+            prefsEdit.putString(Const.DATE, season[0].date).apply()
+            return true
+        } else {
+            return false
         }
-        return isSeason
     }
 }
