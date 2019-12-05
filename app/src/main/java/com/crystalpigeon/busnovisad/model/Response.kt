@@ -1,28 +1,30 @@
 package com.crystalpigeon.busnovisad.model
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
+
 
 data class SeasonResponse (
-    val date : String,
-    val redv: String
+    @SerializedName("datum") val date : String,
+    @SerializedName("redv") val season: String
 )
 
 data class LaneResponse (
-    val id: String,
-    @field:Json(name = "broj") val number: String,
-    @field:Json(name = "linija") val laneName: String
+    @SerializedName("id") val id: String,
+    @SerializedName("broj") val number: String,
+    @SerializedName("linija") val laneName: String
 )
 
 data class ScheduleResponse(
-    val id: String,
-    @field:Json(name = "broj")  val number: String,
-    @field:Json(name = "naziv")  val name: String,
-    @field:Json(name = "linija") val lane: String?,
-    @field:Json(name = "linijaA") val directionA: String?,
-    @field:Json(name = "linijaB") val directionB: String?,
-    @field:Json(name = "dan") val day: String,
-    @field:Json(name = "raspored") val schedule: HashMap<String,ArrayList<String>>?,
-    @field:Json(name = "rasporedA") val scheduleA: HashMap<String,ArrayList<String>>?,
-    @field:Json(name = "rasporedB") val scheduleB: HashMap<String,ArrayList<String>>?,
-    @field:Json(name = "dodaci") val extras: String
+    @SerializedName("id") val id: String,
+    @SerializedName("broj")  val number: String,
+    @SerializedName("naziv")  val name: String,
+    @SerializedName("linija") val lane: String?,
+    @SerializedName("linijaA") val directionA: String?,
+    @SerializedName("linijaB") val directionB: String?,
+    @SerializedName("dan") val day: String,
+    @SerializedName("raspored") val schedule: LinkedHashMap<String,ArrayList<String>>?,
+    @SerializedName("rasporedA") val scheduleA: LinkedHashMap<String, ArrayList<String>>,
+    @SerializedName("rasporedB") val scheduleB: LinkedHashMap<String,ArrayList<String>>?,
+    @SerializedName("dodaci") val extras: String
 )
+

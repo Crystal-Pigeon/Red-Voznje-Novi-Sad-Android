@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.model.BusDatabase
-import com.crystalpigeon.busnovisad.model.FavouriteLane
-import com.crystalpigeon.busnovisad.model.Lane
+import com.crystalpigeon.busnovisad.model.entity.FavoriteLane
+import com.crystalpigeon.busnovisad.model.entity.Lane
 import kotlinx.android.synthetic.main.line.view.*
 import kotlinx.coroutines.*
 
@@ -56,7 +56,10 @@ class LaneAdapter(
                 lane?.let{
                     coroutineScope.launch(Dispatchers.IO) {
                         if(favLanesDao.getFavLane(it.id).isEmpty()) {
-                            val favLane = FavouriteLane(it.id, it.type)
+                            val favLane = FavoriteLane(
+                                it.id,
+                                it.type
+                            )
                             favLanesDao.insertFavLane(favLane)
                         }
                         else favLanesDao.deleteFavLane(it.id)

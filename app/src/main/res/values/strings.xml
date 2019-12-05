@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Bus Novi Sad</string>
-    <string name="bus_ns">Bus NS</string>
     <string name="add_buses">Pritisnite \"+\" kako biste dodali autobuse</string>
 
     <string name="work_day">Radni dan</string>

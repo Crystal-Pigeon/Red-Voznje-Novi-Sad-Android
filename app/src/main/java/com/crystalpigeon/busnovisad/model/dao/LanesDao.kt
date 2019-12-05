@@ -1,10 +1,11 @@
-package com.crystalpigeon.busnovisad.model
+package com.crystalpigeon.busnovisad.model.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.*
 import androidx.room.Query
+import com.crystalpigeon.busnovisad.model.entity.Lane
 
 @Dao
 interface LanesDao {
@@ -14,4 +15,7 @@ interface LanesDao {
 
     @Insert(onConflict = IGNORE)
     suspend fun insert(lane: Lane)
+
+    @Query("SELECT * FROM lane WHERE id not in (:ids)")
+    fun getLanesExcept(ids: List<String>): List<Lane>
 }

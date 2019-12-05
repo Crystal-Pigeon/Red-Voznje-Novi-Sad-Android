@@ -10,10 +10,11 @@ interface Service {
     suspend fun getSeason(): List<SeasonResponse>
 
     @GET("all-lanes")
-    suspend fun getLanes(@Query("rv") rv: String) :
+    suspend fun getLanes(@Query("rv") rv: String):
             List<LaneResponse>
 
     @GET("all-buses/{busNumber}")
-    fun getBusSchedule(@Path("busNumber") busNumber: Int, @Query("rv") rv: String) : Response<List<ScheduleResponse>>
+    suspend fun getBusSchedule(@Path("busNumber") busNumber: String, @Query("rv") rv: String):
+            List<ScheduleResponse>
 
 }

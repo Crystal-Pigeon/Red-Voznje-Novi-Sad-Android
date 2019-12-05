@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.crystalpigeon.busnovisad.model.BusDatabase
-import com.crystalpigeon.busnovisad.model.Lane
-import com.crystalpigeon.busnovisad.model.LanesDao
+import com.crystalpigeon.busnovisad.model.dao.LanesDao
+import com.crystalpigeon.busnovisad.model.entity.Lane
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -16,7 +16,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
-import java.lang.Exception
 
 @RunWith(AndroidJUnit4::class)
 class LanesDaoTest {
@@ -45,7 +44,8 @@ class LanesDaoTest {
     @Test
     @Throws(Exception::class)
     fun insertLaneAndGetLanes() = runBlocking {
-        val lane = Lane("1.", "1", "Klisa - Centar", "rvg")
+        val lane =
+            Lane("1.", "1", "Klisa - Centar", "rvg")
         lanesDao.insert(lane)
 
         val allLanes = lanesDao.getLanes("rvg").waitForValue()
@@ -59,10 +59,16 @@ class LanesDaoTest {
     @Throws(Exception::class)
     fun getOnlyLanesByRvg() = runBlocking {
         val type = "rvg"
-        val lane = Lane("1.", "1", "Klisa - Centar - Strand", type)
+        val lane = Lane(
+            "1.",
+            "1",
+            "Klisa - Centar - Strand",
+            type
+        )
         lanesDao.insert(lane)
 
-        val lane2 = Lane("4.", "4", "Zeleznicka - Liman IV", type)
+        val lane2 =
+            Lane("4.", "4", "Zeleznicka - Liman IV", type)
         lanesDao.insert(lane2)
 
         val allLanes = lanesDao.getLanes(type).waitForValue()
@@ -76,13 +82,24 @@ class LanesDaoTest {
     fun getOnlyLanesByRvp() = runBlocking {
         val type = "rvp"
         val wrongType = "rvg"
-        val lane = Lane("32.", "32", "Temerin - Novi Sad", type)
+        val lane =
+            Lane("32.", "32", "Temerin - Novi Sad", type)
         lanesDao.insert(lane)
 
-        val lane2 = Lane("33*", "33", "Gospodjinci - Novi Sad", type)
+        val lane2 = Lane(
+            "33*",
+            "33",
+            "Gospodjinci - Novi Sad",
+            type
+        )
         lanesDao.insert(lane2)
 
-        val lane3 = Lane("4.", "4", "Zeleznicka - Liman IV", wrongType)
+        val lane3 = Lane(
+            "4.",
+            "4",
+            "Zeleznicka - Liman IV",
+            wrongType
+        )
         lanesDao.insert(lane3)
 
         val allLanes = lanesDao.getLanes(type).waitForValue()

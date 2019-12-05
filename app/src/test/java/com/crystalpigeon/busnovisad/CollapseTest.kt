@@ -6,7 +6,7 @@ import org.junit.Before
 import org.junit.Test
 
 class CollapseTest{
-    lateinit var adapter: ScheduleHoursAdapter
+    private lateinit var adapter: ScheduleHoursAdapter
 
     @Before
     fun setAdapter(){
