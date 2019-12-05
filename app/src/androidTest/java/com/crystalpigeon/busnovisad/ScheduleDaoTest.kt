@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.crystalpigeon.busnovisad.model.BusDatabase
-import com.crystalpigeon.busnovisad.model.Schedule
-import com.crystalpigeon.busnovisad.model.SchedulesDao
+import com.crystalpigeon.busnovisad.model.dao.SchedulesDao
+import com.crystalpigeon.busnovisad.model.entity.Schedule
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -43,17 +43,19 @@ class ScheduleDaoTest {
     fun insertScheduleAndGetScheduleByDay() = runBlocking {
         val map: LinkedHashMap<String, ArrayList<String>> = linkedMapOf()
         map["1"] = arrayListOf("10", "20")
-        val schedule = Schedule("1.",
+        val schedule = Schedule(
+            "1.",
             "1",
             "Klisa - Centar",
             null,
             "raspored A",
             "raspored B",
-            "N",
+            "R",
             map,
             map,
             map,
-            "dodaci")
+            "dodaci"
+        )
 
         schedulesDao.insert(schedule)
 
@@ -74,30 +76,48 @@ class ScheduleDaoTest {
     @Test @Throws(IOException::class)
     fun insertScheduleAndGetScheduleByDayAndLanes() = runBlocking {
         val map: LinkedHashMap<String, ArrayList<String>> = linkedMapOf("1" to arrayListOf("jedan", "dva"), "2" to arrayListOf("jedan", "dva"), "3" to arrayListOf("jedan", "dva"))
-        val schedule = Schedule("1.", "1", "Klisa - Centar", "Klisa - Centar",
-            "raspored A", "raspored B", "N", map, map, map, "dodaci")
+        val schedule1 = Schedule(
+            "1*", "1", "Klisa - Centar", "Klisa - Centar",
+            "raspored A", "raspored B", "R", map, map, map, "dodaci"
+        )
+        val schedule1Duplicate = Schedule(
+            "1*", "1", "Klisa - Centar", "Klisa - Centar",
+            "raspored A", "raspored B", "R", map, map, map, "dodaci"
+        )
 
-        schedulesDao.insert(schedule)
+        val schedule1N = Schedule(
+            "1*", "1", "Klisa - Centar", "Klisa - Centar",
+            "raspored A", "raspored B", "N", map, map, map, "dodaci"
+        )
 
-        val allSchedulesByDayAndLanes = schedulesDao.getSchedulesByDayAndLanes("N", arrayListOf("1.", "2")).waitForValue()
-        assertEquals(allSchedulesByDayAndLanes[0].id, schedule.id)
-        assertEquals(allSchedulesByDayAndLanes[0].number, schedule.number)
-        assertEquals(allSchedulesByDayAndLanes[0].name, schedule.name)
-        assertEquals(allSchedulesByDayAndLanes[0].lane, schedule.lane)
-        assertEquals(allSchedulesByDayAndLanes[0].directionA, schedule.directionA)
-        assertEquals(allSchedulesByDayAndLanes[0].directionB, schedule.directionB)
-        assertEquals(allSchedulesByDayAndLanes[0].day, schedule.day)
-        assertEquals(allSchedulesByDayAndLanes[0].schedule, schedule.schedule)
-        assertEquals(allSchedulesByDayAndLanes[0].scheduleA, schedule.scheduleA)
-        assertEquals(allSchedulesByDayAndLanes[0].scheduleB, schedule.scheduleB)
-        assertEquals(allSchedulesByDayAndLanes[0].extras, schedule.extras)
+
+        val schedule2 = Schedule(
+            "2.", "1", "Klisa - Centar", "Klisa - Centar",
+            "raspored A", "raspored B", "R", map, map, map, "dodaci"
+        )
+
+        val schedule3 = Schedule(
+            "14.", "1", "Klisa - Centar", "Klisa - Centar",
+            "raspored A", "raspored B", "R", map, map, map, "dodaci"
+        )
+
+        schedulesDao.insert(schedule1)
+        schedulesDao.insert(schedule1Duplicate)
+        schedulesDao.insert(schedule1N)
+        schedulesDao.insert(schedule2)
+        schedulesDao.insert(schedule3)
+
+        val allSchedulesByDayAndLanes = schedulesDao.getSchedulesByDayAndLanes("R", arrayListOf("1*", "2.", "14.")).waitForValue()
+        assertEquals(3, allSchedulesByDayAndLanes.size)
     }
 
     @Test @Throws(IOException::class)
     fun deleteAllSchedules() = runBlocking {
         val map: LinkedHashMap<String, ArrayList<String>> = linkedMapOf("1" to arrayListOf("jedan", "dva"), "2" to arrayListOf("jedan", "dva"), "3" to arrayListOf("jedan", "dva"))
-        val schedule = Schedule("1.", "1", "Klisa - Centar", "Klisa - Centar",
-            "raspored A", "raspored B", "N", map, map, map, "dodaci")
+        val schedule = Schedule(
+            "1.", "1", "Klisa - Centar", "Klisa - Centar",
+            "raspored A", "raspored B", "N", map, map, map, "dodaci"
+        )
 
         schedulesDao.insert(schedule)
 

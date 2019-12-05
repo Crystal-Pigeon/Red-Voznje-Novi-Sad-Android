@@ -34,7 +34,7 @@ dependencies {
     def dagger_version = "2.25.2"
     def retrofit_version = "2.6.2"
     def coroutines_version = "1.3.2"
-    def room_version = "2.2.1"
+    def room_version = "2.2.2"
     def lifecycle_version = "2.1.0"
 
     //Test
@@ -59,8 +59,9 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     //Retrofit
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:3.14.2"
 
     //Coroutines

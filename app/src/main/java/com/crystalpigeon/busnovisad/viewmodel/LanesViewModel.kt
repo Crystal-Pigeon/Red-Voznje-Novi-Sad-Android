@@ -15,10 +15,5 @@ class LanesViewModel {
         BusNsApp.app.component.inject(this)
     }
 
-    fun fetchAllLanes(){
-        lanesRepository.getLanes(LANE_URBAN)
-        lanesRepository.getLanes(LANE_SUBURBAN)
-    }
-
     fun getLanes(type: String) = lanesRepository.getLanes(type)
 }

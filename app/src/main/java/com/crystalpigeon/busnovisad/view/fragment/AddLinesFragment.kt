@@ -16,12 +16,6 @@ class AddLinesFragment : Fragment() {
 
     lateinit var navController: NavController
 
-    companion object {
-        fun newInstance(): AddLinesFragment {
-            return AddLinesFragment()
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +33,7 @@ class AddLinesFragment : Fragment() {
         tablayout.setupWithViewPager(viewpager_add_lines)
 
         (activity as MainActivity).getBackButton().setOnClickListener {
-            navController.navigate(R.id.action_addLinesFragment_to_mainFragment)
+            navController.popBackStack()
         }
     }
 }

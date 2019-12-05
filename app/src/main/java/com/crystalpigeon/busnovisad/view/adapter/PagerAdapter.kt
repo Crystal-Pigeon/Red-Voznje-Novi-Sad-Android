@@ -15,7 +15,13 @@ class PagerAdapter(fm: FragmentManager, context: Context) : FragmentPagerAdapter
         this.context = context
     }
     
-    override fun getItem(position: Int): Fragment = ScheduleFragment.newInstance()
+    override fun getItem(position: Int): Fragment {
+        return when(position) {
+            0 -> ScheduleFragment.newInstance("R")
+            1 -> ScheduleFragment.newInstance("S")
+            else -> ScheduleFragment.newInstance("N")
+        }
+    }
 
     override fun getCount(): Int = 3
 
