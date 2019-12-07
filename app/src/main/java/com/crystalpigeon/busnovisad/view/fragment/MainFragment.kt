@@ -28,7 +28,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController =
             Navigation.findNavController(activity as MainActivity, R.id.nav_host_fragment)
-        (activity as MainActivity).setActionBarTitle(R.string.bus_NS)
+        (activity as MainActivity).setActionBarTitle(R.string.app_name)
         viewpager.adapter = PagerAdapter(childFragmentManager, context!!)
         tablayout.setupWithViewPager(viewpager)
 

@@ -13,7 +13,7 @@
         android:layout_width="215dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/muli_regular"
-        android:text="@string/add_buses"
+        android:text="@string/click_the_plus_button_to_add_buses"
         android:textAlignment="center"
         android:textColor="#A9A9B1"
         android:textSize="17sp"

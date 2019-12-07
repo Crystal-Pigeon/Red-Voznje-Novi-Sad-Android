@@ -1,11 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Red Vožnje - Novi Sad</string>
+    <string name="app_name">Bus Novi Sad</string>
+
     <string name="work_day">Radni dan</string>
     <string name="saturday">Subota</string>
     <string name="sunday">Nedelja</string>
     <string name="urban">Gradski</string>
     <string name="suburban">Prigradski</string>
+
     <string name="click_the_plus_button_to_add_buses">Pritisnite \"+\" kako biste dodali autobuse</string>
+
     <string name="no_internet_connection">Nema internet konekcije</string>
     <string name="ok">U redu</string>
     <string name="add_lines">Dodaj linije</string>

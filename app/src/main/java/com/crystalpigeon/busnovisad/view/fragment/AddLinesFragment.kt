@@ -25,7 +25,7 @@ class AddLinesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as MainActivity).setActionBarTitle(R.string.add)
+        (activity as MainActivity).setActionBarTitle(R.string.add_lines)
         (activity as MainActivity).showBackButton()
         navController =
             Navigation.findNavController(activity as MainActivity, R.id.nav_host_fragment)
