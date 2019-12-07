@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.model.BusDatabase
+import com.crystalpigeon.busnovisad.model.dao.FavoriteLanesDao
 import com.crystalpigeon.busnovisad.model.entity.FavoriteLane
 import com.crystalpigeon.busnovisad.model.entity.Lane
 import kotlinx.android.synthetic.main.line.view.*
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 class LaneAdapter(
     var lanes: ArrayList<Lane>,
@@ -18,9 +21,14 @@ class LaneAdapter(
 ) :
     RecyclerView.Adapter<LaneAdapter.ViewHolder>() {
 
-    var favLanesDao = BusDatabase.getDatabase(context).favLanesDao()
+    @Inject
+    lateinit var favLanesDao: FavoriteLanesDao
     private val job = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
+
+    init {
+        BusNsApp.app.component.inject(this)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

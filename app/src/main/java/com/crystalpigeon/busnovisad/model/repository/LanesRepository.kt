@@ -20,13 +20,13 @@ class LanesRepository {
     @Inject
     lateinit var context: Context
 
-    private var lanesDao: LanesDao
-    private var favoriteLanesDao: FavoriteLanesDao
+    @Inject
+    lateinit var lanesDao: LanesDao
+    @Inject
+    lateinit var favoriteLanesDao: FavoriteLanesDao
 
     init {
         BusNsApp.app.component.inject(this)
-        lanesDao = BusDatabase.getDatabase(context).lanesDao()
-        favoriteLanesDao = BusDatabase.getDatabase(context).favLanesDao()
     }
 
     fun getLanes(type: String): LiveData<List<Lane>> {

@@ -21,14 +21,14 @@ class ScheduleRepository {
     @Inject
     lateinit var context: Context
 
-    private val schedulesDao: SchedulesDao
+    @Inject
+    lateinit var schedulesDao: SchedulesDao
 
-    private val favoriteLanesDao: FavoriteLanesDao
+    @Inject
+    lateinit var favoriteLanesDao: FavoriteLanesDao
 
     init {
         BusNsApp.app.component.inject(this)
-        schedulesDao = BusDatabase.getDatabase(context).schedulesDao()
-        favoriteLanesDao = BusDatabase.getDatabase(context).favLanesDao()
     }
 
     fun getScheduleFavorites(day: String): LiveData<List<Schedule>> {
