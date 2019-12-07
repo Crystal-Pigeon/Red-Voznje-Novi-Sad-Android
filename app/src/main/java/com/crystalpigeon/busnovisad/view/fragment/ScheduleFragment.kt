@@ -1,21 +1,19 @@
 package com.crystalpigeon.busnovisad.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
+import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.ScheduleAdapter
+import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
-
-import com.crystalpigeon.busnovisad.view.MainActivity
-import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
-import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class ScheduleFragment : Fragment() {

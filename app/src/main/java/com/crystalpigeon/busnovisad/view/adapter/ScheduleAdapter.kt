@@ -1,19 +1,17 @@
 package com.crystalpigeon.busnovisad.view.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.model.entity.Schedule
 import kotlinx.android.synthetic.main.schedule_item.view.*
-import kotlin.collections.ArrayList
-import android.content.Context
-import androidx.recyclerview.widget.LinearLayoutManager
 
 class ScheduleAdapter(var schedules: ArrayList<Schedule>, val context: Context) :
     RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -37,32 +35,30 @@ class ScheduleAdapter(var schedules: ArrayList<Schedule>, val context: Context) 
             view.scheduleB.layoutManager = LinearLayoutManager(context)
             view.scheduleA.adapter = scheduleAAdapter
             view.scheduleB.adapter = scheduleBAdapter
-
             view.setOnClickListener {
-                scheduleAAdapter.collapseExpand()
-                scheduleBAdapter.collapseExpand()
+                schedules[adapterPosition].collapsed = !schedules[adapterPosition].collapsed
+                notifyItemChanged(adapterPosition)
             }
         }
 
         fun bind(schedule: Schedule) {
             view.circle_id.text = schedule.number
             view.lineName.text = schedule.name
-
             if (schedule.lane != null) {
                 //Bus with one direction
                 view.groupB.visibility = View.GONE
                 view.directionA.text = schedule.lane
-                schedule.schedule?.let { scheduleAAdapter.setSchedule(it) }
+                schedule.schedule?.let { scheduleAAdapter.setSchedule(it, schedule.collapsed) }
             } else {
                 //Bus with direction A and B
                 view.groupB.visibility = View.VISIBLE
                 view.directionA.text = schedule.directionA
                 view.directionB.text = schedule.directionB
-                schedule.scheduleA?.let { scheduleAAdapter.setSchedule(it) }
-                schedule.scheduleB?.let { scheduleBAdapter.setSchedule(it) }
+                schedule.scheduleA?.let { scheduleAAdapter.setSchedule(it, schedule.collapsed) }
+                schedule.scheduleB?.let { scheduleBAdapter.setSchedule(it, schedule.collapsed) }
             }
 
-            if (schedule.extras != null) {
+            if (schedule.extras != null && !schedule.collapsed) {
                 view.extras.visibility = View.VISIBLE
                 view.extras.text = schedule.extras
             } else {

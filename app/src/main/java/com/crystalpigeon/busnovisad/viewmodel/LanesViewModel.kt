@@ -1,8 +1,6 @@
 package com.crystalpigeon.busnovisad.viewmodel
 
 import com.crystalpigeon.busnovisad.BusNsApp
-import com.crystalpigeon.busnovisad.Const.LANE_SUBURBAN
-import com.crystalpigeon.busnovisad.Const.LANE_URBAN
 import com.crystalpigeon.busnovisad.model.repository.LanesRepository
 import javax.inject.Inject
 

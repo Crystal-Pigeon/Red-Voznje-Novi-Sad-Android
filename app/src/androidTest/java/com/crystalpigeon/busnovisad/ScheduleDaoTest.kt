@@ -16,6 +16,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
+import java.util.*
+import kotlin.collections.ArrayList
 
 @RunWith(AndroidJUnit4::class)
 class ScheduleDaoTest {
@@ -41,7 +43,7 @@ class ScheduleDaoTest {
 
     @Test @Throws(IOException::class)
     fun insertScheduleAndGetScheduleByDay() = runBlocking {
-        val map: LinkedHashMap<String, ArrayList<String>> = linkedMapOf()
+        val map: SortedMap<String, ArrayList<String>> = sortedMapOf()
         map["1"] = arrayListOf("10", "20")
         val schedule = Schedule(
             "1.",
@@ -75,7 +77,7 @@ class ScheduleDaoTest {
 
     @Test @Throws(IOException::class)
     fun insertScheduleAndGetScheduleByDayAndLanes() = runBlocking {
-        val map: LinkedHashMap<String, ArrayList<String>> = linkedMapOf("1" to arrayListOf("jedan", "dva"), "2" to arrayListOf("jedan", "dva"), "3" to arrayListOf("jedan", "dva"))
+        val map: SortedMap<String, ArrayList<String>> = sortedMapOf("1" to arrayListOf("jedan", "dva"), "2" to arrayListOf("jedan", "dva"), "3" to arrayListOf("jedan", "dva"))
         val schedule1 = Schedule(
             "1*", "1", "Klisa - Centar", "Klisa - Centar",
             "raspored A", "raspored B", "R", map, map, map, "dodaci"
@@ -113,7 +115,7 @@ class ScheduleDaoTest {
 
     @Test @Throws(IOException::class)
     fun deleteAllSchedules() = runBlocking {
-        val map: LinkedHashMap<String, ArrayList<String>> = linkedMapOf("1" to arrayListOf("jedan", "dva"), "2" to arrayListOf("jedan", "dva"), "3" to arrayListOf("jedan", "dva"))
+        val map: SortedMap<String, ArrayList<String>> = sortedMapOf("1" to arrayListOf("jedan", "dva"), "2" to arrayListOf("jedan", "dva"), "3" to arrayListOf("jedan", "dva"))
         val schedule = Schedule(
             "1.", "1", "Klisa - Centar", "Klisa - Centar",
             "raspored A", "raspored B", "N", map, map, map, "dodaci"

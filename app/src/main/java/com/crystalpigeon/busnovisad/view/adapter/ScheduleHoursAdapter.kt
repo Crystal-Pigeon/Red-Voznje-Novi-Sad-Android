@@ -9,14 +9,10 @@ import com.crystalpigeon.busnovisad.R
 import kotlinx.android.synthetic.main.schedule_hour.view.*
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.LinkedHashMap
 
 class ScheduleHoursAdapter : RecyclerView.Adapter<ScheduleHoursAdapter.ViewHolder>() {
-    private var schedule: LinkedHashMap<String, ArrayList<String>>? = null
+    private var schedule: SortedMap<String, ArrayList<String>>? = null
     private var hours: ArrayList<String>? = null
-    private var hoursCollapsed: ArrayList<String> = ArrayList()
-    private var hoursExpanded: ArrayList<String> = ArrayList()
-    private var collapsed: Boolean = true
     private var currentHour: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -49,16 +45,14 @@ class ScheduleHoursAdapter : RecyclerView.Adapter<ScheduleHoursAdapter.ViewHolde
         }
     }
 
-    fun setSchedule(schedule: LinkedHashMap<String, ArrayList<String>>) {
+    fun setSchedule(schedule: SortedMap<String, ArrayList<String>>, collapsed: Boolean) {
         this.schedule = schedule
         currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        hoursExpanded = ArrayList(schedule.keys)
-        hoursCollapsed = getCollapsedList(hoursExpanded, currentHour)
 
         if (collapsed) {
-            this.hours = hoursCollapsed
+            this.hours = getCollapsedList(ArrayList(schedule.keys), currentHour)
         } else {
-            this.hours = hoursExpanded
+            this.hours = ArrayList(schedule.keys)
         }
         notifyDataSetChanged()
     }
@@ -98,15 +92,5 @@ class ScheduleHoursAdapter : RecyclerView.Adapter<ScheduleHoursAdapter.ViewHolde
         }
 
         return collapsed
-    }
-
-    fun collapseExpand() {
-        collapsed = !collapsed
-        if (collapsed) {
-            this.hours = hoursCollapsed
-        } else {
-            this.hours = hoursExpanded
-        }
-        notifyDataSetChanged()
     }
 }

@@ -42,5 +42,7 @@ class MainViewModel {
 
         val nonFavorites = lanesRepository.getNonFavorites()
         scheduleRepository.cacheSchedule(nonFavorites)
+
+        seasonRepository.seasonUpdated()
     }
 }

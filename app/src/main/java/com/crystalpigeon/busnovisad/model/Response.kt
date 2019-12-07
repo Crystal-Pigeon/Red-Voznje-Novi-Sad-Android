@@ -1,6 +1,7 @@
 package com.crystalpigeon.busnovisad.model
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 
 data class SeasonResponse (
@@ -22,9 +23,9 @@ data class ScheduleResponse(
     @SerializedName("linijaA") val directionA: String?,
     @SerializedName("linijaB") val directionB: String?,
     @SerializedName("dan") val day: String,
-    @SerializedName("raspored") val schedule: LinkedHashMap<String,ArrayList<String>>?,
-    @SerializedName("rasporedA") val scheduleA: LinkedHashMap<String, ArrayList<String>>,
-    @SerializedName("rasporedB") val scheduleB: LinkedHashMap<String,ArrayList<String>>?,
+    @SerializedName("raspored") val schedule: SortedMap<String,ArrayList<String>>?,
+    @SerializedName("rasporedA") val scheduleA: SortedMap<String, ArrayList<String>>?,
+    @SerializedName("rasporedB") val scheduleB: SortedMap<String,ArrayList<String>>?,
     @SerializedName("dodaci") val extras: String
 )
 
