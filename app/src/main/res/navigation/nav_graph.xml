@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_addLinesFragment"
-            app:destination="@id/addLinesFragment" />
+            app:destination="@id/addLinesFragment"
+            app:enterAnim="@anim/slide_in_right_enter"
+            app:exitAnim="@anim/slide_out_left_exit"
+            app:popEnterAnim="@anim/slide_in_left_enter"
+            app:popExitAnim="@anim/slide_out_right_exit" />
     </fragment>
     <fragment
         android:id="@+id/addLinesFragment"

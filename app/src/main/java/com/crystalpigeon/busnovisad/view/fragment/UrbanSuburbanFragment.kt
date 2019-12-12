@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class UrbanSuburbanFragment : Fragment(){
 
-    lateinit var adapter: LaneAdapter
+    var adapter: LaneAdapter? = null
     var type: String? = null
 
     @Inject
@@ -41,17 +41,19 @@ class UrbanSuburbanFragment : Fragment(){
         return inflater.inflate(R.layout.fragment_urban_suburban,container,false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (arguments != null) type = arguments?.getString(Const.TYPE)
+        viewModel.getLanes(type!!).observe(this, Observer {
+            adapter?.lanes = ArrayList(it)
+            adapter?.notifyDataSetChanged()
+        })
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = LaneAdapter(arrayListOf(), context!!)
         rv_lines.layoutManager = LinearLayoutManager(context)
         rv_lines.adapter = adapter
-
-        if (arguments != null) type = arguments?.getString(Const.TYPE)
-
-        viewModel.getLanes(type!!).observe(this, Observer {
-            adapter.lanes = ArrayList(it)
-            adapter.notifyDataSetChanged()
-        })
     }
 }
