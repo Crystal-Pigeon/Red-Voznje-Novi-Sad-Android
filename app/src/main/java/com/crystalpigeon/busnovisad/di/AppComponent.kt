@@ -5,6 +5,7 @@ import com.crystalpigeon.busnovisad.model.repository.ScheduleRepository
 import com.crystalpigeon.busnovisad.model.repository.SeasonRepository
 import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.LaneAdapter
+import com.crystalpigeon.busnovisad.view.fragment.MainFragment
 import com.crystalpigeon.busnovisad.view.fragment.ScheduleFragment
 import com.crystalpigeon.busnovisad.view.fragment.UrbanSuburbanFragment
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
@@ -24,4 +25,5 @@ interface AppComponent {
     fun inject(mainViewModel: MainViewModel)
     fun inject(scheduleFragment: ScheduleFragment)
     fun inject(laneAdapter: LaneAdapter)
+    fun inject(mainFragment: MainFragment)
 }

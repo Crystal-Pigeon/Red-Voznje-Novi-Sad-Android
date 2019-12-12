@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.crystalpigeon.busnovisad.BusNsApp
-import com.crystalpigeon.busnovisad.model.BusDatabase
 import com.crystalpigeon.busnovisad.model.Service
 import com.crystalpigeon.busnovisad.model.dao.FavoriteLanesDao
 import com.crystalpigeon.busnovisad.model.dao.SchedulesDao
 import com.crystalpigeon.busnovisad.model.entity.Lane
 import com.crystalpigeon.busnovisad.model.entity.Schedule
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -37,7 +39,7 @@ class ScheduleRepository {
         }
     }
 
-    private suspend fun fetchScheduleForBus(id: String, type: String) {
+    private suspend fun refreshScheduleForBus(id: String, type: String): Boolean {
         try {
             val schedules = api.getBusSchedule(id, type)
             schedules.forEach { s ->
@@ -57,13 +59,18 @@ class ScheduleRepository {
 
                 schedulesDao.insert(schedule)
             }
-
+            return true
         } catch (e: Exception) {
             e.printStackTrace()
+            return false
         }
     }
 
-    suspend fun cacheSchedule(buses: List<Lane>) {
-        buses.forEach { fetchScheduleForBus(it.id, it.type) }
+    fun cacheSchedule(buses: List<Lane>): ArrayList<Deferred<Boolean>> {
+        val deferredList = arrayListOf<Deferred<Boolean>>()
+        buses.forEach {
+            deferredList.add(GlobalScope.async { refreshScheduleForBus(it.id, it.type) })
+        }
+        return deferredList
     }
 }

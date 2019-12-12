@@ -1,12 +1,21 @@
 package com.crystalpigeon.busnovisad.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.model.repository.LanesRepository
 import com.crystalpigeon.busnovisad.model.repository.ScheduleRepository
 import com.crystalpigeon.busnovisad.model.repository.SeasonRepository
 import javax.inject.Inject
+import android.content.Context.CONNECTIVITY_SERVICE
+import android.net.ConnectivityManager
+import androidx.lifecycle.LiveData
+import com.crystalpigeon.busnovisad.model.entity.Schedule
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.awaitAll
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class MainViewModel {
     @Inject
@@ -18,31 +27,61 @@ class MainViewModel {
     @Inject
     lateinit var lanesRepository: LanesRepository
 
-    private val day = MutableLiveData<String>()
+    @Inject
+    lateinit var context: Context
+
+    val isLoading = MutableLiveData<Boolean>()
+    val networkError = MutableLiveData<Boolean>()
 
     init {
         BusNsApp.app.component.inject(this)
     }
 
-    fun getFavorites(day: String) {
-        this.day.value = day
+    fun getFavorites(day: String): LiveData<List<Schedule>> {
+        return scheduleRepository.getScheduleFavorites(day)
     }
 
-    val favorites = Transformations.switchMap(day) {
-        scheduleRepository.getScheduleFavorites(it)
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val activeNetworkInfo = connectivityManager?.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    }
+
+    fun getTabPositionByDate(): Int {
+        return when (Calendar.getInstance() .get(Calendar.DAY_OF_WEEK)) {
+            Calendar.SUNDAY -> 2
+            Calendar.SATURDAY -> 1
+            else -> 0
+        }
     }
 
     suspend fun fetchAllSchedule() {
         if (!seasonRepository.shouldUpdate()) return
+        if (!isNetworkAvailable()) {
+            networkError.postValue(true)
+            return
+        }
 
+        var successful = true
+        isLoading.postValue(true)
         lanesRepository.cacheAllLanes()
+        val jobs: ArrayList<Deferred<Boolean>> = arrayListOf()
 
         val favorites = lanesRepository.getFavorites()
-        scheduleRepository.cacheSchedule(favorites)
+        jobs.addAll(scheduleRepository.cacheSchedule(favorites))
 
         val nonFavorites = lanesRepository.getNonFavorites()
-        scheduleRepository.cacheSchedule(nonFavorites)
+        jobs.addAll(scheduleRepository.cacheSchedule(nonFavorites))
 
-        seasonRepository.seasonUpdated()
+        for (result in jobs) {
+            if (!result.await()) {
+                successful = false
+                break
+            }
+        }
+
+        isLoading.postValue(false)
+        if (successful) seasonRepository.seasonUpdated()
     }
 }

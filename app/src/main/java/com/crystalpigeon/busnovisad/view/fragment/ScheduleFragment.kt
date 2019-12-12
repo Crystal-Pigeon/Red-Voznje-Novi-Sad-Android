@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,26 +43,37 @@ class ScheduleFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_schedule, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         day = arguments?.getString("DAY")
 
-        view.rv_schedule_for_lines.layoutManager = LinearLayoutManager(context)
-        scheduleAdapter = ScheduleAdapter(arrayListOf(), context!!)
-        rv_schedule_for_lines.adapter = scheduleAdapter
-
-        viewModel.favorites.observe(this,
+        viewModel.getFavorites(day?:"R").observe(this,
             Observer { listOfSchedule ->
                 if (listOfSchedule.isNotEmpty()) {
                     noLinesGroup.visibility = View.GONE
                     rv_schedule_for_lines.visibility = View.VISIBLE
-                    scheduleAdapter.schedules = ArrayList(listOfSchedule)
-                    scheduleAdapter.notifyDataSetChanged()
+                    scheduleAdapter.updateSchedule(ArrayList(listOfSchedule))
                 } else {
                     noLinesGroup.visibility = View.VISIBLE
                 }
             })
 
-        day?.let { viewModel.getFavorites(it) }
+        viewModel.isLoading.observe(this, Observer {
+            if (it){
+                noLinesGroup.visibility = View.GONE
+                rv_schedule_for_lines.visibility = View.VISIBLE
+            } else {
+                noLinesGroup.visibility = View.VISIBLE
+                rv_schedule_for_lines.visibility = View.GONE
+            }
+            scheduleAdapter.loadingStarted(it)
+        })
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.rv_schedule_for_lines.layoutManager = LinearLayoutManager(context)
+        scheduleAdapter = ScheduleAdapter(arrayListOf(), context!!)
+        rv_schedule_for_lines.adapter = scheduleAdapter
     }
 }

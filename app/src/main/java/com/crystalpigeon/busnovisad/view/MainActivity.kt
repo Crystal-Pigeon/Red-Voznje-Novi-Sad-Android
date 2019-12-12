@@ -3,7 +3,9 @@ package com.crystalpigeon.busnovisad.view
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
@@ -34,6 +36,20 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        tryFetch()
+        mainViewModel.networkError.observe(this, Observer {
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.no_internet_connection))
+                .setPositiveButton(getString(R.string.try_again)) { d, _ ->
+                    tryFetch()
+                    d.dismiss()
+                }
+                .setNegativeButton(getString(R.string.cancel)){d, _ -> d.dismiss() }
+                .show()
+        })
+    }
+
+    private fun tryFetch(){
         coroutineScope.launch(Dispatchers.IO) {
             mainViewModel.fetchAllSchedule()
         }

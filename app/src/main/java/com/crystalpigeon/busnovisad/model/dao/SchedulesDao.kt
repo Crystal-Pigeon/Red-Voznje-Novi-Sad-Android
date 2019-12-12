@@ -16,6 +16,9 @@ interface SchedulesDao {
     @Query("SELECT * FROM schedule WHERE day LIKE :day and id in (:ids)")
     fun getSchedulesByDayAndLanes(day: String, ids: List<String>): LiveData<List<Schedule>>
 
+    @Query("SELECT count(*) FROM schedule")
+    suspend fun getNumberOfRows(): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(schedule: Schedule)
 

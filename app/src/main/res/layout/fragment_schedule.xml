@@ -12,16 +12,15 @@
         android:id="@+id/info"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/muli_regular"
         android:text="@string/click_the_plus_button_to_add_buses"
         android:textAlignment="center"
         android:textColor="#A9A9B1"
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.100000024" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/logo"

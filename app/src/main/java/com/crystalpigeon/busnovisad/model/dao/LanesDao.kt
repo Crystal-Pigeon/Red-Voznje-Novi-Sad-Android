@@ -13,9 +13,12 @@ interface LanesDao {
     @Query("SELECT * FROM lane WHERE type LIKE :type")
     fun getLanes(type: String): LiveData<List<Lane>>
 
-    @Insert(onConflict = IGNORE)
+    @Insert(onConflict = REPLACE)
     suspend fun insert(lane: Lane)
 
     @Query("SELECT * FROM lane WHERE id not in (:ids)")
     fun getLanesExcept(ids: List<String>): List<Lane>
+
+    @Query("DELETE FROM lane WHERE type = :type")
+    suspend fun deleteForType(type: String)
 }
