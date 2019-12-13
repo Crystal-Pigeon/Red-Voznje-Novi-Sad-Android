@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/muli_semibold"
         android:textColor="@color/textColor"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,6 +22,7 @@
         android:layout_marginStart="1dp"
         android:fontFamily="@font/muli_light"
         android:textColor="@color/textColor"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dots"
@@ -33,6 +35,7 @@
         android:layout_marginStart="2dp"
         android:fontFamily="@font/muli_regular"
         android:text=":"
+        android:textSize="12sp"
         android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/hour"
         app:layout_constraintTop_toTopOf="@+id/hour"

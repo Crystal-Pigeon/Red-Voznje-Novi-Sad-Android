@@ -16,7 +16,7 @@
         android:layout_marginStart="8dp"
         android:fontFamily="@font/muli_bold"
         android:textColor="#454F73"
-        android:textSize="15sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +31,7 @@
         android:fontFamily="@font/muli_regular"
         android:maxLines="2"
         android:textColor="#454F73"
-        android:textSize="13sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/check"
         app:layout_constraintHorizontal_bias="0.05"

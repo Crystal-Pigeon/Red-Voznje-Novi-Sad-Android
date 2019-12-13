@@ -18,7 +18,7 @@
         android:id="@+id/pageTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="#FFFFFF"
         android:layout_gravity="center"
         android:fontFamily="@font/muli_regular"/>
