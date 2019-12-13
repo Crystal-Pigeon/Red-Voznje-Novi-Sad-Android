@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.crystalpigeon.busnovisad.BusNsApp
@@ -35,6 +36,8 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController =
             Navigation.findNavController(activity as MainActivity, R.id.nav_host_fragment)
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            fabAddLines.setImageResource(R.drawable.plus_floating_button_dark)
         (activity as MainActivity).setActionBarTitle(R.string.app_name)
         val adapter = PagerAdapter(childFragmentManager, context!!)
         viewpager.adapter = adapter

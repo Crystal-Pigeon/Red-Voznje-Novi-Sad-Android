@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/background"
     tools:context=".view.fragment.MainFragment">
 
     <TextView
@@ -16,7 +16,7 @@
         android:fontFamily="@font/muli_regular"
         android:text="@string/click_the_plus_button_to_add_buses"
         android:textAlignment="center"
-        android:textColor="#A9A9B1"
+        android:textColor="@color/textColorBaseSchedule"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,8 +24,8 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:src="@drawable/logo_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/colorWhite"
+        android:background="@color/background"
         android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

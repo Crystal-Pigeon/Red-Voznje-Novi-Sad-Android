@@ -38,7 +38,7 @@ class ScheduleHoursAdapter : RecyclerView.Adapter<ScheduleHoursAdapter.ViewHolde
                 if (currentHour == hour?.toInt()) {
                     R.color.colorOrange
                 } else
-                    R.color.textColor
+                    R.color.textColorCardViewSchedule
 
             view.hour.setTextColor(ContextCompat.getColor(view.context, hourColor))
             view.minutes.text = schedule?.get(hour)?.joinToString(" ")
