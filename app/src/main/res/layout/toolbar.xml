@@ -23,4 +23,13 @@
         android:layout_gravity="center"
         android:fontFamily="@font/muli_regular"/>
 
+    <ImageView
+        android:id="@+id/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/settings"
+        android:layout_gravity="end"
+        android:padding="10dp"
+        tools:ignore="ContentDescription" />
+
 </androidx.appcompat.widget.Toolbar>

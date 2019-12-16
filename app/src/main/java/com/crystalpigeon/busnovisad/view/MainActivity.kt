@@ -59,6 +59,8 @@ class MainActivity : AppCompatActivity() {
         pageTitle.text = getString(id)
     }
 
+    fun getSettingsButton(): ImageView = settings
+
     fun getBackButton(): ImageView = back_button
 
     fun hideBackButton() { back_button.visibility = View.GONE }

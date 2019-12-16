@@ -35,5 +35,10 @@ class AddLinesFragment : Fragment() {
         (activity as MainActivity).getBackButton().setOnClickListener {
             navController.popBackStack()
         }
+
+        (activity as MainActivity).getSettingsButton().visibility = View.VISIBLE
+        (activity as MainActivity).getSettingsButton().setOnClickListener {
+            navController.navigate(R.id.action_addLinesFragment_to_settingsFragment)
+        }
     }
 }

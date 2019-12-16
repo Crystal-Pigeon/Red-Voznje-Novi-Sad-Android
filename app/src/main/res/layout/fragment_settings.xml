@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F4F4"
+    tools:context=".view.fragment.SettingsFragment">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#33454F73"
+            app:layout_constraintBottom_toTopOf="@+id/llLanguage" />
+
+        <LinearLayout
+            android:id="@+id/llLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:weightSum="2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="10dp"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/language"
+                    android:textColor="#454F73"
+                    android:textSize="15sp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tvLanguage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:textColor="#80454F73"
+                    android:textAlignment="textEnd"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#33454F73"
+            app:layout_constraintTop_toBottomOf="@id/llLanguage"/>
+
+        <TextView
+            android:id="@+id/changeLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli_regular"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/change_the_language_in_the_application"
+            android:textColor="#80454F73"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llLanguage" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#33454F73"
+            app:layout_constraintBottom_toTopOf="@+id/llTheme" />
+
+        <LinearLayout
+            android:id="@+id/llTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:weightSum="2"
+            app:layout_constraintTop_toTopOf="@id/changeLanguage"
+            android:padding="10dp"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Theme"
+                    android:textColor="#454F73"
+                    android:textSize="15sp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tvTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:textColor="#80454F73"
+                    android:textAlignment="textEnd"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#33454F73"
+            app:layout_constraintTop_toBottomOf="@id/llTheme"/>
+
+        <TextView
+            android:id="@+id/changeTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli_regular"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/change_the_theme_in_the_application"
+            android:textColor="#80454F73"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llTheme" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#33454F73"
+            app:layout_constraintBottom_toTopOf="@+id/llSupport" />
+
+        <RelativeLayout
+            android:id="@+id/llSupport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="#FFFFFF"
+            app:layout_constraintTop_toTopOf="@id/changeTheme">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/support"
+                    android:textColor="#454F73"
+                    android:textSize="15sp"
+                    android:padding="10dp"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:id="@+id/ivSupport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/forward_black"
+                    android:layout_gravity="end"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#33454F73"
+            app:layout_constraintTop_toBottomOf="@id/llSupport"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli_regular"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/open_the_support_window"
+            android:textColor="#80454F73"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llSupport" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

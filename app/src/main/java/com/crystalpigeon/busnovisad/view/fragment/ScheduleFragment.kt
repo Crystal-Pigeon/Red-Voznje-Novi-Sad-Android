@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
@@ -23,6 +24,7 @@ class ScheduleFragment : Fragment() {
     lateinit var viewModel: MainViewModel
     private lateinit var scheduleAdapter: ScheduleAdapter
     private var day: String? = ""
+    lateinit var navController: NavController
 
     companion object {
         fun newInstance(day: String): ScheduleFragment {
@@ -75,5 +77,12 @@ class ScheduleFragment : Fragment() {
         view.rv_schedule_for_lines.layoutManager = LinearLayoutManager(context)
         scheduleAdapter = ScheduleAdapter(arrayListOf(), context!!)
         rv_schedule_for_lines.adapter = scheduleAdapter
+        navController =
+            Navigation.findNavController(activity as MainActivity, R.id.nav_host_fragment)
+
+        (activity as MainActivity).getSettingsButton().visibility = View.VISIBLE
+        (activity as MainActivity).getSettingsButton().setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_settingsFragment)
+        }
     }
 }
