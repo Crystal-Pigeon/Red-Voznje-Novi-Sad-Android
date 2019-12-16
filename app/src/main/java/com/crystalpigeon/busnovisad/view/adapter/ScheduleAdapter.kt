@@ -10,6 +10,7 @@ import com.crystalpigeon.busnovisad.model.entity.Schedule
 import kotlinx.android.synthetic.main.schedule_item.view.*
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.DiffUtil
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.ScheduleDiffUtil
@@ -68,6 +69,8 @@ class ScheduleAdapter(var schedules: ArrayList<Schedule>, val context: Context) 
 
     inner class LoaderHolder(val view: View) : RecyclerView.ViewHolder(view) {
         init {
+            if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+                view.logo.setImageResource(R.drawable.logo_dark)
             val scaleDown = ObjectAnimator.ofPropertyValuesHolder(
                 view.logo,
                 PropertyValuesHolder.ofFloat("scaleX", 1.2f),

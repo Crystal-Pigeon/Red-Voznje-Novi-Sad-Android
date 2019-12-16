@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -84,5 +85,7 @@ class ScheduleFragment : Fragment() {
         (activity as MainActivity).getSettingsButton().setOnClickListener {
             navController.navigate(R.id.action_mainFragment_to_settingsFragment)
         }
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            logo.setImageResource(R.drawable.logo_dark)
     }
 }

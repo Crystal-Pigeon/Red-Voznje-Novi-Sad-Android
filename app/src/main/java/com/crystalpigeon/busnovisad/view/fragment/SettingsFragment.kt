@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.crystalpigeon.busnovisad.R
@@ -39,6 +40,8 @@ class SettingsFragment : Fragment() {
         ivSupport.setOnClickListener {
             navController.navigate(R.id.action_settingsFragment_to_supportFragment)
         }
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            ivSupport.setImageResource(R.drawable.forward_white)
     }
 
 }
