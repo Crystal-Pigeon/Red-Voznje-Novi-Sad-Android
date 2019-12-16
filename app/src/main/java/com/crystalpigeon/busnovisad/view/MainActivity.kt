@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         setContentView(R.layout.activity_main)
         tryFetch()
         mainViewModel.networkError.observe(this, Observer {
