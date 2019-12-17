@@ -17,4 +17,6 @@
     <color name="backgroundSettings">#323232</color>
     <color name="viewSettings">#40FFFFFF</color>
     <color name="textColorSettings">#80FFFFFF</color>
+    <color name="emailText">#FFFFFF</color>
+
 </resources>

@@ -52,6 +52,10 @@
     <string name="you_havent_added_any_lines_to_favorites">Niste dodali omiljene linije</string>
     <string name="loading_lines">Učitavaju se linije…</string>
     <string name="default_theme">Podrazumevana</string>
+    <string name="_1" translatable="false">1.</string>
+    <string name="_2" translatable="false">2.</string>
+    <string name="_3" translatable="false">3.</string>
+    <string name="contact_crystalpigeon_com" translatable="false">contact@crystalpigeon.com</string>
 
 
 </resources>

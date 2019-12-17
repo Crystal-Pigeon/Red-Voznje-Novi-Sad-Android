@@ -52,7 +52,7 @@ class SettingsFragment : Fragment() {
         (activity as MainActivity).getSettingsButton().visibility = View.GONE
         (activity as MainActivity).setActionBarTitle(R.string.settings_screen)
 
-        ivSupport.setOnClickListener {
+        llSupport.setOnClickListener {
             navController.navigate(R.id.action_settingsFragment_to_supportFragment)
         }
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)

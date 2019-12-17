@@ -32,6 +32,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
+    @Inject
+    lateinit var prefsEditor: SharedPreferences.Editor
+
     init {
         BusNsApp.app.component.inject(this)
     }
@@ -42,10 +45,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        when(sharedPreferences.getString(Const.THEME, null)){
-            "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            "default" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        val theme = sharedPreferences.getString(Const.THEME, null)
+        if(theme == null) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            prefsEditor.putString(Const.THEME, "default")
+        }
+        else {
+            when (theme) {
+                "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                "default" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            }
         }
         setContentView(R.layout.activity_main)
         tryFetch()
@@ -63,7 +73,13 @@ class MainActivity : AppCompatActivity() {
         val res = this.resources
         val dm = res.displayMetrics
         val conf = res.configuration
-        conf.setLocale(Locale(sharedPreferences.getString(Const.LANGUAGE, null)!!))
+        val lang = sharedPreferences.getString(Const.LANGUAGE, null)
+        if (lang == null) {
+            conf.setLocale(Locale("en"))
+            prefsEditor.putString(Const.LANGUAGE, "en")
+        }
+        else conf.setLocale(Locale(lang))
+
         res.updateConfiguration(conf, dm) //TODO deprecated
     }
 
