@@ -51,6 +51,7 @@
     <string name="lines_availability_text">Kada je u pitanju dostupnost, aplikacija radi i u režimu rada bez interneta. To znači da ćete nakon preuzimanja svih podataka biti u mogućnosti da pristupite željenim rasporedima autobusa u bilo kom momentu, čak i ukoliko niste povezani na internet.</string>
     <string name="you_havent_added_any_lines_to_favorites">Niste dodali omiljene linije</string>
     <string name="loading_lines">Učitavaju se linije…</string>
+    <string name="default_theme">Podrazumevana</string>
 
 
 </resources>

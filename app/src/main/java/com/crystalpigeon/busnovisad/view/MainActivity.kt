@@ -1,5 +1,6 @@
 package com.crystalpigeon.busnovisad.view
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import com.crystalpigeon.busnovisad.BusNsApp
+import com.crystalpigeon.busnovisad.Const
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
@@ -16,6 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +28,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var mainViewModel: MainViewModel
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
     init {
         BusNsApp.app.component.inject(this)
@@ -36,7 +42,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        when(sharedPreferences.getString(Const.THEME, null)){
+            "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            "default" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
         setContentView(R.layout.activity_main)
         tryFetch()
         mainViewModel.networkError.observe(this, Observer {
@@ -49,6 +59,12 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton(getString(R.string.cancel)){d, _ -> d.dismiss() }
                 .show()
         })
+
+        val res = this.resources
+        val dm = res.displayMetrics
+        val conf = res.configuration
+        conf.setLocale(Locale(sharedPreferences.getString(Const.LANGUAGE, null)!!))
+        res.updateConfiguration(conf, dm) //TODO deprecated
     }
 
     private fun tryFetch(){

@@ -52,4 +52,5 @@
     <string name="lines_availability_text">We wanted to let you know that the app also works in offline mode. What this means is that once all of the data is downloaded, you will be able to access desired bus schedules at times of need, even when you don\'t have internet connection.</string>
     <string name="you_havent_added_any_lines_to_favorites">You haven\'t added any lines to favorites</string>
     <string name="loading_lines">Loading lines…</string>
+    <string name="default_theme">Default</string>
 </resources>
