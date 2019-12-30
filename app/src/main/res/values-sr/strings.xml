@@ -56,5 +56,6 @@
     <string name="you_havent_added_any_lines_to_favorites">Niste dodali omiljene linije</string>
     <string name="loading_lines">Učitavaju se linije…</string>
     <string name="default_theme">Podrazumevana</string>
+    <string name="sort_favorites">Sortiranje omiljenih</string>
 
 </resources>

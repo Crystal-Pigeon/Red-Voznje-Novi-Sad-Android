@@ -46,11 +46,10 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         val theme = sharedPreferences.getString(Const.THEME, null)
-        if(theme == null) {
+        if (theme == null) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             prefsEditor.putString(Const.THEME, "default")
-        }
-        else {
+        } else {
             when (theme) {
                 "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -66,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                     tryFetch()
                     d.dismiss()
                 }
-                .setNegativeButton(getString(R.string.cancel)){d, _ -> d.dismiss() }
+                .setNegativeButton(getString(R.string.cancel)) { d, _ -> d.dismiss() }
                 .show()
         })
 
@@ -77,13 +76,12 @@ class MainActivity : AppCompatActivity() {
         if (lang == null) {
             conf.setLocale(Locale("en"))
             prefsEditor.putString(Const.LANGUAGE, "en")
-        }
-        else conf.setLocale(Locale(lang))
+        } else conf.setLocale(Locale(lang))
 
         res.updateConfiguration(conf, dm) //TODO deprecated
     }
 
-    private fun tryFetch(){
+    private fun tryFetch() {
         coroutineScope.launch(Dispatchers.IO) {
             mainViewModel.fetchAllSchedule()
         }
@@ -97,7 +95,19 @@ class MainActivity : AppCompatActivity() {
 
     fun getBackButton(): ImageView = back_button
 
-    fun hideBackButton() { back_button.visibility = View.GONE }
+    fun hideBackButton() {
+        back_button.visibility = View.GONE
+    }
 
-    fun showBackButton() { back_button.visibility = View.VISIBLE }
+    fun showBackButton() {
+        back_button.visibility = View.VISIBLE
+    }
+
+    fun hideSortButton() {
+        sort_favorites.visibility = View.GONE
+    }
+
+    fun showSortButton() {
+        sort_favorites.visibility = View.VISIBLE
+    }
 }

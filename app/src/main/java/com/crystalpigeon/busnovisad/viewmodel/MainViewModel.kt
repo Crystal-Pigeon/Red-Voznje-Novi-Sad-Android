@@ -1,20 +1,18 @@
 package com.crystalpigeon.busnovisad.viewmodel
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
-import com.crystalpigeon.busnovisad.BusNsApp
-import com.crystalpigeon.busnovisad.model.repository.LanesRepository
-import com.crystalpigeon.busnovisad.model.repository.ScheduleRepository
-import com.crystalpigeon.busnovisad.model.repository.SeasonRepository
-import javax.inject.Inject
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.model.entity.Schedule
+import com.crystalpigeon.busnovisad.model.repository.LanesRepository
+import com.crystalpigeon.busnovisad.model.repository.ScheduleRepository
+import com.crystalpigeon.busnovisad.model.repository.SeasonRepository
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.awaitAll
 import java.util.*
-import kotlin.collections.ArrayList
+import javax.inject.Inject
 
 
 class MainViewModel {

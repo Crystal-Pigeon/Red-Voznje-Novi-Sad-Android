@@ -4,14 +4,12 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.Const
-import com.crystalpigeon.busnovisad.model.BusDatabase
-import com.crystalpigeon.busnovisad.model.entity.Lane
-import com.crystalpigeon.busnovisad.model.dao.LanesDao
 import com.crystalpigeon.busnovisad.model.Service
 import com.crystalpigeon.busnovisad.model.dao.FavoriteLanesDao
+import com.crystalpigeon.busnovisad.model.dao.LanesDao
+import com.crystalpigeon.busnovisad.model.entity.Lane
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -46,11 +44,11 @@ class LanesRepository {
     }
 
     suspend fun getFavorites(): List<Lane> {
-        return favoriteLanesDao.getFavLanes().map { Lane(it.id, null, null, it.type) }
+        return favoriteLanesDao.getFavLanes()
     }
 
     suspend fun getNonFavorites(): List<Lane> {
-        return lanesDao.getLanesExcept(favoriteLanesDao.getFavLanes().map { it.id })
+        return lanesDao.getNonFavorites()
     }
 
     /*

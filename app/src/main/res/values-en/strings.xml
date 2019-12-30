@@ -53,4 +53,5 @@
     <string name="you_havent_added_any_lines_to_favorites">You haven\'t added any lines to favorites</string>
     <string name="loading_lines">Loading lines…</string>
     <string name="default_theme">Default</string>
+    <string name="sort_favorites">Sort favorites</string>
 </resources>

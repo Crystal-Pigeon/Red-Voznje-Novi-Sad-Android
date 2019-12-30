@@ -2,7 +2,6 @@ package com.crystalpigeon.busnovisad.model.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.model.Service
 import com.crystalpigeon.busnovisad.model.dao.FavoriteLanesDao
@@ -12,7 +11,6 @@ import com.crystalpigeon.busnovisad.model.entity.Schedule
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -34,9 +32,7 @@ class ScheduleRepository {
     }
 
     fun getScheduleFavorites(day: String): LiveData<List<Schedule>> {
-        return Transformations.switchMap(favoriteLanesDao.getFavLanesIds()) {
-            return@switchMap schedulesDao.getSchedulesByDayAndLanes(day, it)
-        }
+        return favoriteLanesDao.getFavoritesByDay(day)
     }
 
     private suspend fun refreshScheduleForBus(id: String, type: String): Boolean {

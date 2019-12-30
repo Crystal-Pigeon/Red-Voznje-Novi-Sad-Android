@@ -5,12 +5,10 @@ import com.crystalpigeon.busnovisad.model.repository.ScheduleRepository
 import com.crystalpigeon.busnovisad.model.repository.SeasonRepository
 import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.LaneAdapter
-import com.crystalpigeon.busnovisad.view.fragment.MainFragment
-import com.crystalpigeon.busnovisad.view.fragment.ScheduleFragment
-import com.crystalpigeon.busnovisad.view.fragment.SettingsFragment
-import com.crystalpigeon.busnovisad.view.fragment.UrbanSuburbanFragment
+import com.crystalpigeon.busnovisad.view.fragment.*
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
+import com.crystalpigeon.busnovisad.viewmodel.SortViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -28,4 +26,6 @@ interface AppComponent {
     fun inject(laneAdapter: LaneAdapter)
     fun inject(mainFragment: MainFragment)
     fun inject(settingsFragment: SettingsFragment)
+    fun inject(sortFragment: SortFavoritesFragment)
+    fun inject(sortViewModel: SortViewModel)
 }

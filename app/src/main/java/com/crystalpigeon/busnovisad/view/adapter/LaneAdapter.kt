@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
-import com.crystalpigeon.busnovisad.model.BusDatabase
 import com.crystalpigeon.busnovisad.model.dao.FavoriteLanesDao
 import com.crystalpigeon.busnovisad.model.entity.FavoriteLane
 import com.crystalpigeon.busnovisad.model.entity.Lane
@@ -24,7 +23,7 @@ class LaneAdapter(
     @Inject
     lateinit var favLanesDao: FavoriteLanesDao
     private val job = Job()
-    private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO + job)
 
     init {
         BusNsApp.app.component.inject(this)
@@ -49,32 +48,37 @@ class LaneAdapter(
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(lane: Lane?) {
-            view.line_number.text = lane?.number
-            view.line_name.text = lane?.laneName
+            view.lane_number.text = lane?.number
+            view.lane_name.text = lane?.laneName
 
             coroutineScope.launch {
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     lane?.let {
-                        if (favLanesDao.getFavLane(it.id).isEmpty()) view.check.visibility = View.INVISIBLE
-                        else view.check.visibility = View.VISIBLE
+                        view.check.visibility = if (favLanesDao.getFavLane(it.id).isEmpty())
+                            View.INVISIBLE else View.VISIBLE
                     }
                 }
             }
             view.setOnClickListener {
-                lane?.let{
+                lane?.let {
                     coroutineScope.launch(Dispatchers.IO) {
-                        if(favLanesDao.getFavLane(it.id).isEmpty()) {
+                        if (favLanesDao.getFavLane(it.id).isEmpty()) {
                             val favLane = FavoriteLane(
                                 it.id,
-                                it.type
+                                it.type,
+                                favLanesDao.getBiggestOrder() ?: 1
                             )
-                            favLanesDao.insertFavLane(favLane)
-                        }
-                        else favLanesDao.deleteFavLane(it.id)
 
+                            favLanesDao.insertFavLane(favLane)
+                        } else {
+                            favLanesDao.deleteFavLane(it.id)
+                        }
+
+                        withContext(Dispatchers.Main){
+                            notifyItemChanged(adapterPosition)
+                        }
                     }
                 }
-                notifyItemChanged(adapterPosition)
             }
         }
     }

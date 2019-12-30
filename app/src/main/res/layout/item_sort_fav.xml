@@ -33,19 +33,18 @@
         android:textColor="@color/textColorCardViewSchedule"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/check"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toEndOf="@+id/lane_number"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/check"
+        android:id="@+id/sort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_check"
-        android:visibility="invisible"
+        android:src="@drawable/sort"
+        android:tint="@color/cardview_dark_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

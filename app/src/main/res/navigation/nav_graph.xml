@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_sortFavoritesFragment"
+            app:destination="@id/sortFavoritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/addLinesFragment"
@@ -40,4 +43,8 @@
         android:name="com.crystalpigeon.busnovisad.view.fragment.SupportFragment"
         android:label="fragment_support"
         tools:layout="@layout/fragment_support" />
+    <fragment
+        android:id="@+id/sortFavoritesFragment"
+        android:name="com.crystalpigeon.busnovisad.view.fragment.SortFavoritesFragment"
+        android:label="SortFavoritesFragment" />
 </navigation>
