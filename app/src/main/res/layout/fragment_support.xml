@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/muli_italic"
+            android:fontFamily="@font/muli_regular"
             android:text="@string/help"
             android:textColor="@color/textColor"
             android:textSize="20sp"
@@ -127,7 +127,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/muli_regular"
-            android:text="@string/add_lines_screen"
+            android:text="@string/settings_screen"
             android:textColor="@color/textColor"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/tvThirdNum"
@@ -141,7 +141,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/muli_regular"
-            android:text="@string/add_lines_screen_text"
+            android:text="@string/settings_screen_text"
             android:textColor="@color/textColor"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -149,17 +149,115 @@
             app:layout_constraintTop_toBottomOf="@id/tvThirdNum" />
 
         <TextView
+            android:id="@+id/tvThirdNum2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/_4"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvAddLaneScreenText"
+            app:layout_constraintTop_toBottomOf="@+id/tvSettingsScreenText" />
+
+        <TextView
+            android:id="@+id/tvSettingsScreen2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/rearrange_favorites_screen"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/tvThirdNum"
+            app:layout_constraintTop_toBottomOf="@+id/tvSettingsScreenText" />
+
+        <TextView
+            android:id="@+id/tvSettingsScreenText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/rearrange_screen_text"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvThirdNum"
+            app:layout_constraintTop_toBottomOf="@+id/tvThirdNum2" />
+
+        <TextView
+            android:id="@+id/tvSettingsScreenText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/update_app_text"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tvThirdNum"
+            app:layout_constraintTop_toBottomOf="@+id/tvUpdate" />
+
+        <TextView
+            android:id="@+id/tvSettingsScreenText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/lines_availability_text"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tvThirdNum"
+            app:layout_constraintTop_toBottomOf="@+id/tvUpdate2" />
+
+        <TextView
+            android:id="@+id/tvUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/update"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tvSettingsScreenText2"
+            app:layout_constraintTop_toBottomOf="@+id/tvSettingsScreenText2" />
+
+        <TextView
+            android:id="@+id/tvUpdate2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/availability"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tvSettingsScreenText3"
+            app:layout_constraintTop_toBottomOf="@+id/tvSettingsScreenText3" />
+
+        <TextView
             android:id="@+id/tvContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/muli_italic"
             android:text="@string/contact"
             android:textColor="@color/textColor"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tvSettingsScreenText"
-            app:layout_constraintTop_toBottomOf="@id/tvSettingsScreenText" />
+            app:layout_constraintTop_toBottomOf="@+id/tvSettingsScreenText4" />
 
         <ImageView
             android:id="@+id/ivEmail"
@@ -186,5 +284,4 @@
             app:layout_constraintTop_toBottomOf="@id/tvContact" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
