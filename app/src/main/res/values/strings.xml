@@ -47,6 +47,9 @@
         \t3.2 Tema\n
         \t\tKlikom na temu otvara se dijalog koji Vam omogućava da birate da li će aplikacija biti prikazana sa tamnom ili svetlom temom.
     </string>
+    <string name="invalid_extras" translatable="false">CRVENO - NISKOPODNI, ZELENO PODVUČENO - NISKOPODNI SA RAMPOM</string>
+    <string name="invalid_extras_second" translatable="false">CRVENO - NISKOPODNI</string>
+    <string name="invalid_extras_third" translatable="false">ZELENO PODVUČENO - NISKOPODNI SA RAMPOM</string>
 
 
 </resources>

@@ -121,7 +121,7 @@ class ScheduleAdapter(var schedules: ArrayList<Schedule>, val context: Context) 
                 schedule.scheduleB?.let { scheduleBAdapter.setSchedule(it, schedule.collapsed) }
             }
 
-            if (schedule.extras != null && !schedule.collapsed) {
+            if (schedule.extras != "" && !schedule.collapsed) {
                 view.extras.visibility = View.VISIBLE
                 view.extras.text = schedule.extras
             } else {

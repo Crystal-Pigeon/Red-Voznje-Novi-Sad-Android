@@ -55,6 +55,11 @@ class ScheduleFragment : Fragment() {
                 if (listOfSchedule.isNotEmpty()) {
                     noLinesGroup.visibility = View.GONE
                     rv_schedule_for_lines.visibility = View.VISIBLE
+                    for (schedule in listOfSchedule)
+                        if (schedule.extras == getString(R.string.invalid_extras)
+                            || schedule.extras == getString(R.string.invalid_extras_second)
+                            || schedule.extras == getString(R.string.invalid_extras_third))
+                            schedule.extras = ""
                     scheduleAdapter.updateSchedule(ArrayList(listOfSchedule))
                 } else {
                     noLinesGroup.visibility = View.VISIBLE

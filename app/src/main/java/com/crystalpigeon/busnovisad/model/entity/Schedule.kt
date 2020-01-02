@@ -21,7 +21,7 @@ data class Schedule(
     val scheduleA: SortedMap<String, ArrayList<String>>?,
     @TypeConverters(Converter::class)
     val scheduleB: SortedMap<String, ArrayList<String>>?,
-    val extras: String?
+    var extras: String?
 ){
     @Ignore var collapsed: Boolean = true
 }
