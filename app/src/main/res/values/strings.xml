@@ -48,6 +48,7 @@
         \t\tKlikom na temu otvara se dijalog koji Vam omogućava da birate da li će aplikacija biti prikazana sa tamnom ili svetlom temom.
     </string>
     <string name="no_favorite_lines">Niste dodali omiljene linije</string>
-
+    <string name="are_you_sure_you_want_to_remove_line">Da li ste sigurni da želite da uklonite liniju?</string>
+    <string name="delete">Ukloni</string>
 
 </resources>

@@ -35,6 +35,10 @@ class ScheduleRepository {
         return favoriteLanesDao.getFavoritesByDay(day)
     }
 
+    suspend fun deleteSchedule(id: String) {
+        return favoriteLanesDao.deleteFavLane(id)
+    }
+
     private suspend fun refreshScheduleForBus(id: String, type: String): Boolean {
         try {
             val schedules = api.getBusSchedule(id, type)

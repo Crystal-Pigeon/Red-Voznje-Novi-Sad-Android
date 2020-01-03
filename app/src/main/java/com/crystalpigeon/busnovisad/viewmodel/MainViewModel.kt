@@ -39,6 +39,10 @@ class MainViewModel {
         return scheduleRepository.getScheduleFavorites(day)
     }
 
+    suspend fun removeSchedule(schedule: Schedule) {
+        scheduleRepository.deleteSchedule(schedule.id)
+    }
+
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager?
