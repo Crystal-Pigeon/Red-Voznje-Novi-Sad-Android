@@ -18,11 +18,12 @@ import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.SortFavoritesAdapter
 import com.crystalpigeon.busnovisad.viewmodel.SortViewModel
 import kotlinx.android.synthetic.main.fragment_sort_favorites.*
+import kotlinx.android.synthetic.main.fragment_sort_favorites.view.*
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 
-class SortFavoritesFragment: Fragment(), OnStartDragListener,
+class SortFavoritesFragment : Fragment(), OnStartDragListener,
     SortFavoritesAdapter.UpdateOrderListener {
 
     @Inject
@@ -52,13 +53,19 @@ class SortFavoritesFragment: Fragment(), OnStartDragListener,
         itemTouchHelper.attachToRecyclerView(rvFavorites)
 
         coroutineScope.launch {
-            adapter.favorites = viewModel.getAllFavorites()
-            withContext(Dispatchers.Main){
-                adapter.notifyDataSetChanged()
+            if (viewModel.getAllFavorites().isEmpty()) {
+                view.tv_no_favorites.visibility = View.VISIBLE
+            } else {
+                view.tv_no_favorites.visibility = View.GONE
+                adapter.favorites = viewModel.getAllFavorites()
+                withContext(Dispatchers.Main) {
+                    adapter.notifyDataSetChanged()
+                }
             }
         }
         val navController =
-            Navigation.findNavController(activity as MainActivity,
+            Navigation.findNavController(
+                activity as MainActivity,
                 R.id.nav_host_fragment
             )
         (activity as MainActivity).getSettingsButton().visibility = View.GONE
