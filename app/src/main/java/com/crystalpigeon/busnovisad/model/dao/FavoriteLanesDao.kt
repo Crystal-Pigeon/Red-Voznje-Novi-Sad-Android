@@ -1,10 +1,7 @@
 package com.crystalpigeon.busnovisad.model.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.crystalpigeon.busnovisad.model.entity.FavoriteLane
 import com.crystalpigeon.busnovisad.model.entity.Lane
 import com.crystalpigeon.busnovisad.model.entity.Schedule

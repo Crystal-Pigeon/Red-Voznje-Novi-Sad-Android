@@ -13,6 +13,7 @@ import com.crystalpigeon.busnovisad.model.repository.SeasonRepository
 import kotlinx.coroutines.Deferred
 import java.util.*
 import javax.inject.Inject
+import kotlin.math.log
 
 
 class MainViewModel {
@@ -51,7 +52,7 @@ class MainViewModel {
     }
 
     fun getTabPositionByDate(): Int {
-        return when (Calendar.getInstance() .get(Calendar.DAY_OF_WEEK)) {
+        return when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
             Calendar.SUNDAY -> 2
             Calendar.SATURDAY -> 1
             else -> 0
@@ -59,11 +60,12 @@ class MainViewModel {
     }
 
     suspend fun fetchAllSchedule() {
-        if (!seasonRepository.shouldUpdate()) return
         if (!isNetworkAvailable()) {
             networkError.postValue(true)
             return
         }
+        if (!seasonRepository.shouldUpdate()) return
+
 
         var successful = true
         isLoading.postValue(true)

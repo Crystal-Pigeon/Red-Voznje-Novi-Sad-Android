@@ -92,8 +92,5 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
 
     override suspend fun onScheduleClicked(schedule: Schedule, position: Int) {
         viewModel.removeSchedule(schedule)
-        /*val i = Intent(activity, MainActivity::class.java)
-        startActivity(i)*/
-
     }
 }
