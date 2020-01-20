@@ -74,7 +74,7 @@ class LaneAdapter(
                             favLanesDao.deleteFavLane(it.id)
                         }
 
-                        withContext(Dispatchers.Main){
+                        withContext(Dispatchers.Main) {
                             notifyItemChanged(adapterPosition)
                         }
                     }

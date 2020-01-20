@@ -83,8 +83,8 @@ class ScheduleHoursAdapter : RecyclerView.Adapter<ScheduleHoursAdapter.ViewHolde
         if (collapsed.size < 3) {
             hoursExpanded.forEach {
                 if (collapsed.size < 3) {
-                   if(collapsed.indexOf(it) == -1)
-                       collapsed.add(it)
+                    if (collapsed.indexOf(it) == -1)
+                        collapsed.add(it)
                 } else {
                     return@forEach
                 }

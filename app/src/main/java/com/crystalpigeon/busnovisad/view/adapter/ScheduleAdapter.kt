@@ -102,10 +102,11 @@ class ScheduleAdapter(
         }
     }
 
-    inner class ViewHolder(val view: View, onScheduleClicked: OnScheduleClicked?) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(val view: View, onScheduleClicked: OnScheduleClicked?) :
+        RecyclerView.ViewHolder(view) {
         private val scheduleAAdapter = ScheduleHoursAdapter()
         private val scheduleBAdapter = ScheduleHoursAdapter()
-        private var onScheduleClicked : OnScheduleClicked ?= null
+        private var onScheduleClicked: OnScheduleClicked? = null
 
         init {
             view.scheduleA.layoutManager = LinearLayoutManager(context)
@@ -148,7 +149,7 @@ class ScheduleAdapter(
                     .setTitle(view.lineName.text)
                     .setMessage(R.string.are_you_sure_you_want_to_remove_line)
                     .setPositiveButton(R.string.delete) { dialog, which ->
-                        var position = schedules.indexOf(schedule)
+                        val position = schedules.indexOf(schedule)
                         schedules.remove(schedule)
                         GlobalScope.launch {
                             onScheduleClicked?.onScheduleClicked(schedule, position)

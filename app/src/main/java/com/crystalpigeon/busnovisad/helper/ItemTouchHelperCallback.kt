@@ -3,7 +3,7 @@ package com.crystalpigeon.busnovisad.helper
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class ItemTouchHelperCallback(val adapter: ItemTouchHelperAdapter): ItemTouchHelper.Callback() {
+class ItemTouchHelperCallback(val adapter: ItemTouchHelperAdapter) : ItemTouchHelper.Callback() {
 
     override fun isItemViewSwipeEnabled() = false
 

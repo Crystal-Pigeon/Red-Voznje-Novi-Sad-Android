@@ -13,7 +13,6 @@ import com.crystalpigeon.busnovisad.model.repository.SeasonRepository
 import kotlinx.coroutines.Deferred
 import java.util.*
 import javax.inject.Inject
-import kotlin.math.log
 
 
 class MainViewModel {

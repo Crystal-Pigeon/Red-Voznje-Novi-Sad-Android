@@ -27,10 +27,9 @@ class SeasonRepository {
 
     suspend fun shouldUpdate(): Boolean {
         val oldValue = sharedPrefs.getString(Const.DATE, null)
-        try{
+        try {
             season = api.getSeason()
-        }
-        catch(e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             return true
         }
