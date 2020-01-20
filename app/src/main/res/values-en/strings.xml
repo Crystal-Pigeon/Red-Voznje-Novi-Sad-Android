@@ -46,5 +46,6 @@
     <string name="no_favorite_lines">You haven\'t added any lines to favorites</string>
     <string name="are_you_sure_you_want_to_remove_line">Are you sure you want to remove this line?</string>
     <string name="delete">Delete</string>
+    <string name="no_lines">Lines are not loaded. Check your internet conection.</string>
 
 </resources>

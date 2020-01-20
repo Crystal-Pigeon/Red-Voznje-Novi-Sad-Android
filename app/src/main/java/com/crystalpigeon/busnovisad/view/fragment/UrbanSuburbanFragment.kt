@@ -1,6 +1,7 @@
 package com.crystalpigeon.busnovisad.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +14,10 @@ import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.adapter.LaneAdapter
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
 import kotlinx.android.synthetic.main.fragment_urban_suburban.*
+import kotlinx.android.synthetic.main.fragment_urban_suburban.view.*
 import javax.inject.Inject
 
-class UrbanSuburbanFragment : Fragment(){
+class UrbanSuburbanFragment : Fragment() {
 
     lateinit var adapter: LaneAdapter
     var type: String? = null
@@ -38,7 +40,7 @@ class UrbanSuburbanFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_urban_suburban,container,false)
+        return inflater.inflate(R.layout.fragment_urban_suburban, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,8 +52,13 @@ class UrbanSuburbanFragment : Fragment(){
         if (arguments != null) type = arguments?.getString(Const.TYPE)
 
         viewModel.getLanes(type!!).observe(this, Observer {
-            adapter.lanes = ArrayList(it)
-            adapter.notifyDataSetChanged()
+            if (it.isEmpty()) {
+                view.tv_no_lines.visibility = View.VISIBLE
+            } else {
+                view.tv_no_lines.visibility = View.GONE
+                adapter.lanes = ArrayList(it)
+                adapter.notifyDataSetChanged()
+            }
         })
     }
 }

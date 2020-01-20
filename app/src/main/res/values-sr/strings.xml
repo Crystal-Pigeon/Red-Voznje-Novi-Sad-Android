@@ -49,6 +49,7 @@
     <string name="no_favorite_lines">Niste dodali omiljene linije</string>
     <string name="are_you_sure_you_want_to_remove_line">Da li ste sigurni da želite da uklonite liniju?</string>
     <string name="delete">Ukloni</string>
+    <string name="no_lines">Linije nisu učitane. Proveri internet konekciju.</string>
 
 
 </resources>
