@@ -55,6 +55,9 @@ class ScheduleFragment : Fragment() {
                 if (listOfSchedule.isNotEmpty()) {
                     noLinesGroup.visibility = View.GONE
                     rv_schedule_for_lines.visibility = View.VISIBLE
+                    for (schedule in listOfSchedule) {
+                        schedule.extras = formattedExtras(schedule.extras)
+                    }
                     scheduleAdapter.updateSchedule(ArrayList(listOfSchedule))
                 } else {
                     noLinesGroup.visibility = View.VISIBLE
@@ -71,6 +74,20 @@ class ScheduleFragment : Fragment() {
             }
             scheduleAdapter.loadingStarted(it)
         })
+    }
+
+    private fun formattedExtras(extras: String?) : String{
+        val extrasList = extras?.split(",")?.toTypedArray()
+        var returnValue = ""
+        if (extrasList != null) {
+            for (element in extrasList){
+                if (element.contains("="))
+                    returnValue += "$element, "
+            }
+        } else return  ""
+        if (returnValue != "" && returnValue.last() == ' ') returnValue = returnValue.dropLast(2)
+
+        return returnValue
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
