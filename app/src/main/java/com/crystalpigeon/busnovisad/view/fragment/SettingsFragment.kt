@@ -79,9 +79,10 @@ class SettingsFragment : Fragment() {
     private fun createAlertDialogForLanguage() {
         val values = arrayOf<CharSequence>(getString(R.string.english), getString(R.string.serbian))
         val builder = AlertDialog.Builder(activity)
+        val selectedLanguage = if (sharedPreferences.getString(Const.LANGUAGE, null) == "en")  0 else 1
 
-        builder.setTitle(R.string.choose_theme)
-        builder.setSingleChoiceItems(values, -1) { dialog, item ->
+        builder.setTitle(R.string.choose_language)
+        builder.setSingleChoiceItems(values, selectedLanguage) { dialog, item ->
             when (item) {
                 0 -> {
                     prefsEdit.putString(Const.LANGUAGE, "en").apply()
@@ -104,11 +105,15 @@ class SettingsFragment : Fragment() {
             getString(R.string.dark),
             getString(R.string.default_theme)
         )
-
         val builder = AlertDialog.Builder(activity)
+        val selectedTheme = when {
+            sharedPreferences.getString(Const.THEME, null) == "light" -> 0
+            sharedPreferences.getString(Const.THEME, null) == "dark" -> 1
+            else -> 2
+        }
 
         builder.setTitle(R.string.choose_theme)
-        builder.setSingleChoiceItems(values, -1) { dialog, item ->
+        builder.setSingleChoiceItems(values, selectedTheme) { dialog, item ->
             when (item) {
                 0 -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
