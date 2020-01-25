@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
+import com.crystalpigeon.busnovisad.model.entity.Schedule
 import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.ScheduleAdapter
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
@@ -19,8 +20,7 @@ import kotlinx.android.synthetic.main.fragment_schedule.*
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
 import javax.inject.Inject
 
-class ScheduleFragment : Fragment() {
-
+class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
     @Inject
     lateinit var viewModel: MainViewModel
     private lateinit var scheduleAdapter: ScheduleAdapter
@@ -50,7 +50,7 @@ class ScheduleFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         day = arguments?.getString("DAY")
 
-        viewModel.getFavorites(day?:"R").observe(this,
+        viewModel.getFavorites(day ?: "R").observe(this,
             Observer { listOfSchedule ->
                 if (listOfSchedule.isNotEmpty()) {
                     noLinesGroup.visibility = View.GONE
@@ -65,7 +65,7 @@ class ScheduleFragment : Fragment() {
             })
 
         viewModel.isLoading.observe(this, Observer {
-            if (it){
+            if (it) {
                 noLinesGroup.visibility = View.GONE
                 rv_schedule_for_lines.visibility = View.VISIBLE
             } else {
@@ -93,7 +93,7 @@ class ScheduleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.rv_schedule_for_lines.layoutManager = LinearLayoutManager(context)
-        scheduleAdapter = ScheduleAdapter(arrayListOf(), context!!)
+        scheduleAdapter = ScheduleAdapter(arrayListOf(), context!!, this)
         rv_schedule_for_lines.adapter = scheduleAdapter
         navController =
             Navigation.findNavController(activity as MainActivity, R.id.nav_host_fragment)
@@ -102,7 +102,11 @@ class ScheduleFragment : Fragment() {
         (activity as MainActivity).getSettingsButton().setOnClickListener {
             navController.navigate(R.id.action_mainFragment_to_settingsFragment)
         }
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
             logo.setImageResource(R.drawable.logo_dark)
+    }
+
+    override suspend fun onScheduleClicked(schedule: Schedule, position: Int) {
+        viewModel.removeSchedule(schedule)
     }
 }

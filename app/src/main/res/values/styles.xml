@@ -28,4 +28,10 @@
         <item name="android:fontFamily">@font/muli_regular</item>
     </style>
 
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">#000000</item>
+    </style>
+
 </resources>

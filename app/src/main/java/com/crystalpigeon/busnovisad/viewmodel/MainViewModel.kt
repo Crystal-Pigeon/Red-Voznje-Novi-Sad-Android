@@ -39,6 +39,10 @@ class MainViewModel {
         return scheduleRepository.getScheduleFavorites(day)
     }
 
+    suspend fun removeSchedule(schedule: Schedule) {
+        scheduleRepository.deleteSchedule(schedule.id)
+    }
+
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager?
@@ -47,7 +51,7 @@ class MainViewModel {
     }
 
     fun getTabPositionByDate(): Int {
-        return when (Calendar.getInstance() .get(Calendar.DAY_OF_WEEK)) {
+        return when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
             Calendar.SUNDAY -> 2
             Calendar.SATURDAY -> 1
             else -> 0
@@ -55,11 +59,12 @@ class MainViewModel {
     }
 
     suspend fun fetchAllSchedule() {
-        if (!seasonRepository.shouldUpdate()) return
         if (!isNetworkAvailable()) {
             networkError.postValue(true)
             return
         }
+        if (!seasonRepository.shouldUpdate()) return
+
 
         var successful = true
         isLoading.postValue(true)
