@@ -47,36 +47,34 @@ class LaneAdapter(
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(lane: Lane?) {
-            view.lane_number.text = lane?.number
-            view.lane_name.text = lane?.laneName
+        fun bind(lane: Lane) {
+            view.lane_number.text = lane.number
+            view.lane_name.text = lane.laneName
 
-            coroutineScope.launch {
-                withContext(Dispatchers.Main) {
-                    lane?.let {
-                        view.check.visibility = if (favLanesDao.getFavLane(it.id).isEmpty())
-                            View.INVISIBLE else View.VISIBLE
-                    }
-                }
+            coroutineScope.launch(Dispatchers.Main) {
+
+                view.check.visibility = if (favLanesDao.getFavLane(lane.id).isEmpty())
+                    View.INVISIBLE else View.VISIBLE
+
+
             }
+
             view.setOnClickListener {
-                lane?.let {
-                    coroutineScope.launch(Dispatchers.IO) {
-                        if (favLanesDao.getFavLane(it.id).isEmpty()) {
-                            val favLane = FavoriteLane(
-                                it.id,
-                                it.type,
-                                favLanesDao.getBiggestOrder() ?: 1
-                            )
+                coroutineScope.launch(Dispatchers.IO) {
+                    if (favLanesDao.getFavLane(lane.id).isEmpty()) {
+                        val favLane = FavoriteLane(
+                            lane.id,
+                            lane.type,
+                            favLanesDao.getBiggestOrder() ?: 1
+                        )
 
-                            favLanesDao.insertFavLane(favLane)
-                        } else {
-                            favLanesDao.deleteFavLane(it.id)
-                        }
+                        favLanesDao.insertFavLane(favLane)
+                    } else {
+                        favLanesDao.deleteFavLane(lane.id)
+                    }
 
-                        withContext(Dispatchers.Main) {
-                            notifyItemChanged(adapterPosition)
-                        }
+                    withContext(Dispatchers.Main) {
+                        notifyItemChanged(adapterPosition)
                     }
                 }
             }

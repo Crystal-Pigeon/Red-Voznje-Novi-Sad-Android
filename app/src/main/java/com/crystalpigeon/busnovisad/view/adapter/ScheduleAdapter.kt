@@ -1,23 +1,21 @@
 package com.crystalpigeon.busnovisad.view.adapter
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.crystalpigeon.busnovisad.model.entity.Schedule
-import kotlinx.android.synthetic.main.schedule_item.view.*
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.ScheduleDiffUtil
+import com.crystalpigeon.busnovisad.model.entity.Schedule
 import kotlinx.android.synthetic.main.loader.view.*
-import androidx.appcompat.app.AlertDialog
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.schedule_item.view.*
 
 
 class ScheduleAdapter(
@@ -151,9 +149,7 @@ class ScheduleAdapter(
                     .setPositiveButton(R.string.delete) { dialog, which ->
                         val position = schedules.indexOf(schedule)
                         schedules.remove(schedule)
-                        GlobalScope.launch {
-                            onScheduleClicked?.onScheduleClicked(schedule, position)
-                        }
+                        onScheduleClicked?.onScheduleClicked(schedule, position)
                         notifyItemRemoved(position)
                     }
                     .setNegativeButton(R.string.cancel, null)
@@ -176,6 +172,6 @@ class ScheduleAdapter(
     }
 
     interface OnScheduleClicked {
-        suspend fun onScheduleClicked(schedule: Schedule, position: Int)
+        fun onScheduleClicked(schedule: Schedule, position: Int)
     }
 }

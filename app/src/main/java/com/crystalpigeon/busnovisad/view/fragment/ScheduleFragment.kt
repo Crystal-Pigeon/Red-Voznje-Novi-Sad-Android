@@ -18,13 +18,15 @@ import com.crystalpigeon.busnovisad.view.adapter.ScheduleAdapter
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
     @Inject
     lateinit var viewModel: MainViewModel
     private lateinit var scheduleAdapter: ScheduleAdapter
-    private var day: String? = ""
+    private var day: String = ""
     lateinit var navController: NavController
 
     companion object {
@@ -48,9 +50,9 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        day = arguments?.getString("DAY")
+        day = arguments?.getString("DAY")?: ""
 
-        viewModel.getFavorites(day ?: "R").observe(this,
+        viewModel.getFavorites(day).observe(this,
             Observer { listOfSchedule ->
                 if (listOfSchedule.isNotEmpty()) {
                     noLinesGroup.visibility = View.GONE
@@ -61,18 +63,19 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
                     scheduleAdapter.updateSchedule(ArrayList(listOfSchedule))
                 } else {
                     noLinesGroup.visibility = View.VISIBLE
+                    rv_schedule_for_lines.visibility = View.GONE
                 }
             })
 
-        viewModel.isLoading.observe(this, Observer {
-            if (it) {
+        viewModel.isLoading.observe(this, Observer { loading ->
+            if (loading) {
                 noLinesGroup.visibility = View.GONE
                 rv_schedule_for_lines.visibility = View.VISIBLE
             } else {
                 noLinesGroup.visibility = View.VISIBLE
                 rv_schedule_for_lines.visibility = View.GONE
             }
-            scheduleAdapter.loadingStarted(it)
+            scheduleAdapter.loadingStarted(loading)
         })
     }
 
@@ -106,7 +109,9 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
             logo.setImageResource(R.drawable.logo_dark)
     }
 
-    override suspend fun onScheduleClicked(schedule: Schedule, position: Int) {
-        viewModel.removeSchedule(schedule)
+    override fun onScheduleClicked(schedule: Schedule, position: Int) {
+        GlobalScope.launch {
+            viewModel.removeSchedule(schedule)
+        }
     }
 }
