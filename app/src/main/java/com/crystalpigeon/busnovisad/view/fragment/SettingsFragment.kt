@@ -46,6 +46,7 @@ class SettingsFragment : Fragment() {
                 activity as MainActivity,
                 R.id.nav_host_fragment
             )
+        (activity as MainActivity).hideSortButton()
         (activity as MainActivity).showBackButton()
         (activity as MainActivity).getBackButton().setOnClickListener {
             navController.popBackStack()

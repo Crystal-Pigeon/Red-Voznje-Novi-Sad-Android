@@ -20,7 +20,7 @@
         android:id="@+id/sort_favorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_gravity="start"
         android:src="@drawable/rearrange_icon"
         tools:ignore="ContentDescription" />

@@ -54,9 +54,4 @@ class MainFragment : Fragment() {
         super.onResume()
         (activity as MainActivity).showSortButton()
     }
-
-    override fun onPause() {
-        super.onPause()
-        (activity as MainActivity).hideSortButton()
-    }
 }
