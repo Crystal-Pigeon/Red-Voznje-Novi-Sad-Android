@@ -53,13 +53,15 @@ class SortFavoritesFragment : Fragment(), OnStartDragListener,
         itemTouchHelper.attachToRecyclerView(rvFavorites)
 
         coroutineScope.launch {
-            if (viewModel.getAllFavorites().isEmpty()) {
-                view.tv_no_favorites.visibility = View.VISIBLE
-            } else {
-                view.tv_no_favorites.visibility = View.GONE
-                adapter.favorites = viewModel.getAllFavorites()
-                withContext(Dispatchers.Main) {
+            val favorites = viewModel.getAllFavorites()
+            withContext(Dispatchers.Main) {
+                if (favorites.isEmpty()) {
+                    view.tv_no_favorites.visibility = View.VISIBLE
+                } else {
+                    view.tv_no_favorites.visibility = View.GONE
+                    adapter.favorites = favorites
                     adapter.notifyDataSetChanged()
+
                 }
             }
         }
@@ -70,6 +72,7 @@ class SortFavoritesFragment : Fragment(), OnStartDragListener,
             )
         (activity as MainActivity).getSettingsButton().visibility = View.GONE
         (activity as MainActivity).showBackButton()
+        (activity as MainActivity).hideSortButton()
         (activity as MainActivity).getBackButton().setOnClickListener {
             navController.popBackStack()
         }
