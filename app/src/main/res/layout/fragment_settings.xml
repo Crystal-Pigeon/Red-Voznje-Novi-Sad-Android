@@ -146,7 +146,7 @@
                     android:id="@+id/ivSupport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/forward_black"
+                    android:src="@drawable/forward"
                     android:layout_gravity="end"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"

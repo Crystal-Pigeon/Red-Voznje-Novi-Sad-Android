@@ -2,20 +2,20 @@ package com.crystalpigeon.busnovisad.view.fragment
 
 
 import android.app.AlertDialog
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.crystalpigeon.busnovisad.BusNsApp
+import com.crystalpigeon.busnovisad.Const
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.MainActivity
 import kotlinx.android.synthetic.main.fragment_settings.*
-import android.content.SharedPreferences
-import com.crystalpigeon.busnovisad.BusNsApp
-import com.crystalpigeon.busnovisad.Const
 import javax.inject.Inject
 
 class SettingsFragment : Fragment() {
@@ -56,8 +56,6 @@ class SettingsFragment : Fragment() {
         llSupport.setOnClickListener {
             navController.navigate(R.id.action_settingsFragment_to_supportFragment)
         }
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-            ivSupport.setImageResource(R.drawable.forward_white)
 
         if (sharedPreferences.getString(Const.LANGUAGE, null) == "en")
             tvLanguage.text = getString(R.string.english)

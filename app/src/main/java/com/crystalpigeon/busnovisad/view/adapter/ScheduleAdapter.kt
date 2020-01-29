@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -80,8 +79,6 @@ class ScheduleAdapter(
 
     inner class LoaderHolder(val view: View) : RecyclerView.ViewHolder(view) {
         init {
-            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-                view.logo.setImageResource(R.drawable.logo_dark)
             val scaleDown = ObjectAnimator.ofPropertyValuesHolder(
                 view.logo,
                 PropertyValuesHolder.ofFloat("scaleX", 1.2f),
