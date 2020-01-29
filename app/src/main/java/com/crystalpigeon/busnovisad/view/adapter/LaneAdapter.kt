@@ -8,15 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.model.dao.FavoriteLanesDao
-import com.crystalpigeon.busnovisad.model.entity.FavoriteLane
 import com.crystalpigeon.busnovisad.model.entity.Lane
+import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
 import kotlinx.android.synthetic.main.line.view.*
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class LaneAdapter(
     var lanes: ArrayList<Lane>,
-    val context: Context
+    val context: Context,
+    val viewModel: LanesViewModel
 ) :
     RecyclerView.Adapter<LaneAdapter.ViewHolder>() {
 
@@ -52,30 +53,14 @@ class LaneAdapter(
             view.lane_name.text = lane.laneName
 
             coroutineScope.launch(Dispatchers.Main) {
-
-                view.check.visibility = if (favLanesDao.getFavLane(lane.id).isEmpty())
-                    View.INVISIBLE else View.VISIBLE
-
-
+                view.check.visibility =
+                    if (viewModel.isFavorite(lane)) View.VISIBLE else View.INVISIBLE
             }
 
             view.setOnClickListener {
                 coroutineScope.launch(Dispatchers.IO) {
-                    if (favLanesDao.getFavLane(lane.id).isEmpty()) {
-                        val favLane = FavoriteLane(
-                            lane.id,
-                            lane.type,
-                            favLanesDao.getBiggestOrder() ?: 1
-                        )
-
-                        favLanesDao.insertFavLane(favLane)
-                    } else {
-                        favLanesDao.deleteFavLane(lane.id)
-                    }
-
-                    withContext(Dispatchers.Main) {
-                        notifyItemChanged(adapterPosition)
-                    }
+                    viewModel.onLaneClicked(lane)
+                    withContext(Dispatchers.Main) { notifyItemChanged(adapterPosition) }
                 }
             }
         }
