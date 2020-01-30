@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
             prefsEditor.putString(Const.LANGUAGE, "en")
         } else conf.setLocale(Locale(lang))
 
-        res.updateConfiguration(conf, dm) //TODO deprecated
+        res.updateConfiguration(conf, dm)
     }
 
     private fun tryFetch() {

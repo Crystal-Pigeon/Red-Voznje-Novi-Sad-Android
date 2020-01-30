@@ -16,6 +16,7 @@ import com.crystalpigeon.busnovisad.Const
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.MainActivity
 import kotlinx.android.synthetic.main.fragment_settings.*
+import java.util.*
 import javax.inject.Inject
 
 class SettingsFragment : Fragment() {
@@ -26,7 +27,7 @@ class SettingsFragment : Fragment() {
     lateinit var prefsEdit: SharedPreferences.Editor
 
     @Inject
-    lateinit var sharedPreferences: SharedPreferences
+    lateinit var sharedPrefs: SharedPreferences
 
     init {
         BusNsApp.app.component.inject(this)
@@ -58,19 +59,19 @@ class SettingsFragment : Fragment() {
             navController.navigate(R.id.action_settingsFragment_to_supportFragment)
         }
 
-        if (sharedPreferences.getString(Const.LANGUAGE, null) == "en")
-            tvLanguage.text = getString(R.string.english)
-        else if (sharedPreferences.getString(Const.LANGUAGE, null) == "ser")
-            tvLanguage.text = getString(R.string.serbian)
+        tvLanguage.text =
+            when (sharedPrefs.getString(Const.LANGUAGE, null) ?: Locale.getDefault().language) {
+                "en" -> getString(R.string.english)
+                "ser" -> getString(R.string.serbian)
+                else -> Locale.getDefault().displayLanguage
+            }
 
-        when {
-            sharedPreferences.getString(Const.THEME, null) == "dark" -> tvTheme.text =
-                getString(R.string.dark)
-            sharedPreferences.getString(Const.THEME, null) == "light" -> tvTheme.text =
-                getString(R.string.light)
-            sharedPreferences.getString(Const.THEME, null) == "default" -> tvTheme.text =
-                getString(R.string.default_theme)
+        tvTheme.text = when(sharedPrefs.getString(Const.THEME, null)) {
+            "dark" ->  getString(R.string.dark)
+            "light" -> getString(R.string.light)
+            else -> getString(R.string.default_theme)
         }
+
         llLanguage.setOnClickListener { createAlertDialogForLanguage() }
         llTheme.setOnClickListener { createAlertDialogForTheme() }
     }
@@ -78,7 +79,8 @@ class SettingsFragment : Fragment() {
     private fun createAlertDialogForLanguage() {
         val values = arrayOf<CharSequence>(getString(R.string.english), getString(R.string.serbian))
         val builder = AlertDialog.Builder(activity)
-        val selectedLanguage = if (sharedPreferences.getString(Const.LANGUAGE, null) == "en")  0 else 1
+        val savedLanguage: String? = sharedPrefs.getString(Const.LANGUAGE, null)
+        val selectedLanguage = if (savedLanguage ?: Locale.getDefault().language == "en") 0 else 1
 
         builder.setTitle(R.string.choose_language)
         builder.setSingleChoiceItems(values, selectedLanguage) { dialog, item ->
@@ -106,8 +108,8 @@ class SettingsFragment : Fragment() {
         )
         val builder = AlertDialog.Builder(activity)
         val selectedTheme = when {
-            sharedPreferences.getString(Const.THEME, null) == "light" -> 0
-            sharedPreferences.getString(Const.THEME, null) == "dark" -> 1
+            sharedPrefs.getString(Const.THEME, null) == "light" -> 0
+            sharedPrefs.getString(Const.THEME, null) == "dark" -> 1
             else -> 2
         }
 
