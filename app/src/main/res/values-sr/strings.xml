@@ -50,7 +50,10 @@
     <string name="no_favorite_lines">Niste dodali omiljene linije</string>
     <string name="are_you_sure_you_want_to_remove_line">Da li ste sigurni da želite da uklonite liniju?</string>
     <string name="delete">Ukloni</string>
-    <string name="no_lines">Linije nisu učitane. Proveri internet konekciju.</string>
-
+    <string name="no_lines">Linije još nisu učitane</string>
+    <string name="error_fetching_scedule">Greška pri povlačenju reda vožnje</string>
+    <string name="error_fetching_lanes">Greška pri povlačenju liste linija, pokušajte ponovo</string>
+    <string name="error_checking_for_update">Greška pri proveri da li je raspored izmenjen, pokušajte ponovo</string>
+    <string name="everything_is_up_to_date">Prikazan je najnoviji raspored</string>
 
 </resources>

@@ -49,7 +49,7 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        day = arguments?.getString("DAY")?: ""
+        day = arguments?.getString("DAY") ?: ""
 
         viewModel.getFavorites(day).observe(this,
             Observer { listOfSchedule ->
@@ -67,26 +67,30 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
             })
 
         viewModel.isLoading.observe(this, Observer { loading ->
-            if (loading) {
-                noLinesGroup.visibility = View.GONE
-                rv_schedule_for_lines.visibility = View.VISIBLE
-            } else {
-                noLinesGroup.visibility = View.VISIBLE
-                rv_schedule_for_lines.visibility = View.GONE
+            loading.getContentIfNotHandled()?.let {
+                if (it) {
+                    noLinesGroup.visibility = View.GONE
+                    rv_schedule_for_lines.visibility = View.VISIBLE
+                } else {
+                    noLinesGroup.visibility = View.VISIBLE
+                    if(scheduleAdapter.itemCount == 0){
+                        rv_schedule_for_lines.visibility = View.GONE
+                    }
+                }
+                scheduleAdapter.loadingStarted(it)
             }
-            scheduleAdapter.loadingStarted(loading)
         })
     }
 
-    private fun formattedExtras(extras: String?) : String{
+    private fun formattedExtras(extras: String?): String {
         val extrasList = extras?.split(",")?.toTypedArray()
         var returnValue = ""
         if (extrasList != null) {
-            for (element in extrasList){
+            for (element in extrasList) {
                 if (element.contains("="))
                     returnValue += "$element, "
             }
-        } else return  ""
+        } else return ""
         if (returnValue != "" && returnValue.last() == ' ') returnValue = returnValue.dropLast(2)
 
         return returnValue

@@ -3,6 +3,7 @@ package com.crystalpigeon.busnovisad.model.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import com.crystalpigeon.busnovisad.BusNsApp
+import com.crystalpigeon.busnovisad.model.Result
 import com.crystalpigeon.busnovisad.model.Service
 import com.crystalpigeon.busnovisad.model.dao.FavoriteLanesDao
 import com.crystalpigeon.busnovisad.model.dao.SchedulesDao
@@ -39,10 +40,10 @@ class ScheduleRepository {
         return favoriteLanesDao.deleteFavLane(id)
     }
 
-    private suspend fun refreshScheduleForBus(id: String, type: String): Boolean {
-        try {
-            val schedules = api.getBusSchedule(id, type)
-            schedules.forEach { s ->
+    private suspend fun refreshScheduleForBus(id: String, type: String) {
+        val schedulesResponse = api.getBusSchedule(id, type)
+        if (schedulesResponse.isSuccessful) {
+            schedulesResponse.body()?.forEach { s ->
                 val schedule = Schedule(
                     s.id,
                     s.number,
@@ -59,18 +60,24 @@ class ScheduleRepository {
 
                 schedulesDao.insert(schedule)
             }
-            return true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
+        }else{
+            throw java.lang.Exception("${schedulesResponse.code()}")
         }
+
     }
 
-    fun cacheSchedule(buses: List<Lane>): ArrayList<Deferred<Boolean>> {
-        val deferredList = arrayListOf<Deferred<Boolean>>()
+    suspend fun cacheSchedule(buses: List<Lane>): Result<Boolean> {
+        val deferredList = arrayListOf<Deferred<Unit>>()
         buses.forEach {
             deferredList.add(GlobalScope.async { refreshScheduleForBus(it.id, it.type) })
         }
-        return deferredList
+        try {
+            deferredList.forEach { it.await() }
+        } catch (e: Exception) {
+            return Result.Error(e)
+        }
+        return Result.Success(true)
     }
+
+
 }

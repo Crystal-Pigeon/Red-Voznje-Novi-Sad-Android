@@ -13,6 +13,7 @@ import com.crystalpigeon.busnovisad.Const
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +46,51 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        configureTheme()
+
+        if (savedInstanceState == null) tryFetch()
+
+        mainViewModel.importantError.observe(this, Observer { message ->
+            message.getContentIfNotHandled()?.let {
+                AlertDialog.Builder(this)
+                    .setTitle(it)
+                    .setPositiveButton(getString(R.string.try_again)) { d, _ ->
+                        tryFetch()
+                        d.dismiss()
+                    }
+                    .setOnDismissListener { tryFetch() }
+                    .show()
+            }
+        })
+
+        mainViewModel.nonImportantError.observe(this, Observer { message ->
+            message.getContentIfNotHandled()?.let {
+                val snackbar = Snackbar.make(
+                    findViewById(android.R.id.content),
+                    it,
+                    Snackbar.LENGTH_LONG
+                )
+
+                snackbar.setAction(getString(R.string.try_again)) { tryFetch() }
+                snackbar.show()
+            }
+        })
+
+        mainViewModel.info.observe(this, Observer { message ->
+            message.getContentIfNotHandled()?.let {
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    it,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        })
+
+        setLanguage()
+    }
+
+    private fun configureTheme() {
         val theme = sharedPreferences.getString(Const.THEME, null)
         if (theme == null) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
@@ -56,19 +102,9 @@ class MainActivity : AppCompatActivity() {
                 "default" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             }
         }
-        setContentView(R.layout.activity_main)
-        tryFetch()
-        mainViewModel.networkError.observe(this, Observer {
-            AlertDialog.Builder(this)
-                .setTitle(getString(R.string.no_internet_connection))
-                .setPositiveButton(getString(R.string.try_again)) { d, _ ->
-                    tryFetch()
-                    d.dismiss()
-                }
-                .setNegativeButton(getString(R.string.cancel)) { d, _ -> d.dismiss() }
-                .show()
-        })
+    }
 
+    private fun setLanguage() {
         val res = this.resources
         val dm = res.displayMetrics
         val conf = res.configuration

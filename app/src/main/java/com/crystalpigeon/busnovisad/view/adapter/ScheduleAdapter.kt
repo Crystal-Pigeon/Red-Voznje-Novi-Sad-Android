@@ -72,7 +72,7 @@ class ScheduleAdapter(
         this.loading = loading
         if (loading) {
             notifyItemInserted(schedules.size + 1)
-        } else {
+        } else if(itemCount == schedules.size + 1){
             notifyItemRemoved(schedules.size)
         }
     }
@@ -155,7 +155,6 @@ class ScheduleAdapter(
             }
         }
     }
-
 
     companion object {
         private const val LOADER = 1

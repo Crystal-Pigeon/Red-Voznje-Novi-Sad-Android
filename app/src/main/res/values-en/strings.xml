@@ -47,6 +47,10 @@
     <string name="no_favorite_lines">You haven\'t added any lines to favorites</string>
     <string name="are_you_sure_you_want_to_remove_line">Are you sure you want to remove this line?</string>
     <string name="delete">Delete</string>
-    <string name="no_lines">Lines are not loaded. Check your internet connection.</string>
+    <string name="no_lines">Lines are not loaded.</string>
+    <string name="error_fetching_scedule">Error while fetching schedule, try again</string>
+    <string name="error_fetching_lanes">Error while fetching lanes, try again</string>
+    <string name="error_checking_for_update">Error while checking for updates, try again</string>
+    <string name="everything_is_up_to_date">Everything is up to date</string>
 
 </resources>

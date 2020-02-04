@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.Const
+import com.crystalpigeon.busnovisad.model.Result
 import com.crystalpigeon.busnovisad.model.Service
 import com.crystalpigeon.busnovisad.model.dao.FavoriteLanesDao
 import com.crystalpigeon.busnovisad.model.dao.LanesDao
@@ -34,13 +35,23 @@ class LanesRepository {
     }
 
     private suspend fun refreshLanes(type: String) {
-        try {
-            val lanes = api.getLanes(type)
-            lanesDao.deleteForType(type)
-            lanes.forEach { lanesDao.insert(Lane(it.id, it.number, it.laneName, type)) }
-        } catch (e: Exception) {
-            e.printStackTrace()
+        val lanesResponse = api.getLanes(type)
+        lanesDao.deleteForType(type)
+        if (lanesResponse.isSuccessful && lanesResponse.body() != null) {
+            lanesResponse.body()?.forEach {
+                lanesDao.insert(
+                    Lane(
+                        it.id,
+                        it.number,
+                        it.laneName,
+                        type
+                    )
+                )
+            }
+        } else {
+            throw java.lang.Exception("$lanesResponse.code()")
         }
+
     }
 
     suspend fun getFavorites(): List<Lane> {
@@ -54,10 +65,16 @@ class LanesRepository {
     /*
     Fetch urban and suburban lanes and store them in database
      */
-    suspend fun cacheAllLanes() {
-        val urban = GlobalScope.async { refreshLanes(Const.LANE_URBAN) }
-        val suburban = GlobalScope.async { refreshLanes(Const.LANE_SUBURBAN) }
-        urban.await()
-        suburban.await()
+    suspend fun cacheAllLanes(): Result<Boolean> {
+        try {
+            val urban = GlobalScope.async { refreshLanes(Const.LANE_URBAN) }
+            val suburban = GlobalScope.async { refreshLanes(Const.LANE_SUBURBAN) }
+            urban.await()
+            suburban.await()
+        } catch (e: Exception) {
+            return Result.Error(e)
+        }
+
+        return Result.Success(true)
     }
 }
