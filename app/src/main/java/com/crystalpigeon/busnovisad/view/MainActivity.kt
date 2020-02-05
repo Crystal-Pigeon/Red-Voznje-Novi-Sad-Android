@@ -1,6 +1,11 @@
 package com.crystalpigeon.busnovisad.view
 
+import android.annotation.TargetApi
+import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -13,6 +18,8 @@ import com.crystalpigeon.busnovisad.Const
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
+import com.crystalpigeon.busnovisad.viewmodel.MainViewModel.Message
+import com.crystalpigeon.busnovisad.viewmodel.MainViewModel.Message.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.coroutines.CoroutineScope
@@ -21,6 +28,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,6 +50,14 @@ class MainActivity : AppCompatActivity() {
 
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
+    private fun toLocalMessage(message: Message): String{
+        return when(message){
+            ERROR_CHECKING_FOR_UPDATE -> getString(R.string.error_checking_for_update)
+            ERROR_FETCHING_DATA -> getString(R.string.error_fetching_scedule)
+            NO_INTERNET -> getString(R.string.no_internet_connection)
+            UP_TO_DATE -> getString(R.string.everything_is_up_to_date)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -54,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.importantError.observe(this, Observer { message ->
             message.getContentIfNotHandled()?.let {
                 AlertDialog.Builder(this)
-                    .setTitle(it)
+                    .setTitle(toLocalMessage(message = it))
                     .setPositiveButton(getString(R.string.try_again)) { d, _ ->
                         tryFetch()
                         d.dismiss()
@@ -68,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             message.getContentIfNotHandled()?.let {
                 val snackbar = Snackbar.make(
                     findViewById(android.R.id.content),
-                    it,
+                    toLocalMessage(it),
                     Snackbar.LENGTH_LONG
                 )
 
@@ -81,13 +97,11 @@ class MainActivity : AppCompatActivity() {
             message.getContentIfNotHandled()?.let {
                 Snackbar.make(
                     findViewById(android.R.id.content),
-                    it,
+                    toLocalMessage(it),
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
         })
-
-        setLanguage()
     }
 
     private fun configureTheme() {
@@ -104,17 +118,42 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setLanguage() {
-        val res = this.resources
-        val dm = res.displayMetrics
-        val conf = res.configuration
-        val lang = sharedPreferences.getString(Const.LANGUAGE, null)
-        if (lang == null) {
-            conf.setLocale(Locale("en"))
-            prefsEditor.putString(Const.LANGUAGE, "en")
-        } else conf.setLocale(Locale(lang))
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(updateBaseContextLocale(newBase))
+    }
 
-        res.updateConfiguration(conf, dm)
+    private fun updateBaseContextLocale(context: Context): Context? {
+        val language: String? = sharedPreferences.getString(Const.LANGUAGE, null)?: return context
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            updateResourcesLocale(context, locale)
+        } else updateResourcesLocaleLegacy(context, locale)
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private fun updateResourcesLocale(
+        context: Context,
+        locale: Locale
+    ): Context? {
+        val configuration: Configuration = context.resources.configuration
+        configuration.setLocale(locale)
+        val appConfig: Configuration = context.resources.configuration
+        appConfig.setLocale(locale)
+        return context.createConfigurationContext(appConfig)
+    }
+
+    @Suppress("DEPRECATION")
+    private fun updateResourcesLocaleLegacy(
+        context: Context,
+        locale: Locale
+    ): Context? {
+        val resources: Resources = context.resources
+        val configuration: Configuration = resources.configuration
+        configuration.locale = locale
+        resources.updateConfiguration(configuration, resources.displayMetrics)
+        return context
     }
 
     private fun tryFetch() {

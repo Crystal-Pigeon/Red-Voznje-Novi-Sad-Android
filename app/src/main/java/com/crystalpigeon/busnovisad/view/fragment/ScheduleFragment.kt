@@ -54,6 +54,11 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
         viewModel.getFavorites(day).observe(this,
             Observer { listOfSchedule ->
                 if (listOfSchedule.isNotEmpty()) {
+                    listOfSchedule.map { schedule ->
+                        schedule.directionA = translateDirection(schedule.directionA ?: "")
+                        schedule.directionB = translateDirection(schedule.directionB ?: "")
+                    }
+
                     noLinesGroup.visibility = View.GONE
                     rv_schedule_for_lines.visibility = View.VISIBLE
                     for (schedule in listOfSchedule) {
@@ -73,7 +78,7 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
                     rv_schedule_for_lines.visibility = View.VISIBLE
                 } else {
                     noLinesGroup.visibility = View.VISIBLE
-                    if(scheduleAdapter.itemCount == 0){
+                    if (scheduleAdapter.itemCount == 0) {
                         rv_schedule_for_lines.visibility = View.GONE
                     }
                 }
@@ -114,5 +119,16 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
         GlobalScope.launch {
             viewModel.removeSchedule(schedule)
         }
+    }
+
+    private fun translateDirection(direction: String): String? {
+        var res: String? = null
+        if (direction.contains("Polasci za")) {
+            res = direction.replace("Polasci za", getString(R.string.departure_to))
+        } else if (direction.contains("Polasci iz")) {
+            res = direction.replace("Polasci iz", getString(R.string.departure_from))
+        }
+
+        return res ?: direction
     }
 }

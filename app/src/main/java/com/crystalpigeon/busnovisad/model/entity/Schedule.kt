@@ -12,8 +12,8 @@ data class Schedule(
     val number: String?,
     val name: String?,
     val lane: String?,
-    val directionA: String?,
-    val directionB: String?,
+    var directionA: String?,
+    var directionB: String?,
     val day: String,
     @TypeConverters(Converter::class)
     val schedule: SortedMap<String, ArrayList<String>>?,

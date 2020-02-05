@@ -62,7 +62,7 @@ class SettingsFragment : Fragment() {
         tvLanguage.text =
             when (sharedPrefs.getString(Const.LANGUAGE, null) ?: Locale.getDefault().language) {
                 "en" -> getString(R.string.english)
-                "ser" -> getString(R.string.serbian)
+                "sr" -> getString(R.string.serbian)
                 else -> Locale.getDefault().displayLanguage
             }
 
@@ -90,7 +90,7 @@ class SettingsFragment : Fragment() {
                     activity?.recreate()
                 }
                 1 -> {
-                    prefsEdit.putString(Const.LANGUAGE, "ser").apply()
+                    prefsEdit.putString(Const.LANGUAGE, "sr").apply()
                     activity?.recreate()
                 }
             }

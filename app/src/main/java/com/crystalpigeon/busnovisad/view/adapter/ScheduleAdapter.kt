@@ -63,8 +63,6 @@ class ScheduleAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == SCHEDULE) {
             (holder as ViewHolder).bind(schedules.elementAt(position))
-        } else {
-            (holder as LoaderHolder).bind()
         }
     }
 
@@ -90,10 +88,6 @@ class ScheduleAdapter(
             scaleDown.repeatMode = ObjectAnimator.REVERSE
 
             scaleDown.start()
-        }
-
-        fun bind() {
-
         }
     }
 

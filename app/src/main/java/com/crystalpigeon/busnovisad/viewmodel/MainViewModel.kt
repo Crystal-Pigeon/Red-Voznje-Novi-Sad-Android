@@ -1,10 +1,8 @@
 package com.crystalpigeon.busnovisad.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.crystalpigeon.busnovisad.BusNsApp
-import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.helper.Event
 import com.crystalpigeon.busnovisad.model.Result
 import com.crystalpigeon.busnovisad.model.entity.Schedule
@@ -26,21 +24,18 @@ class MainViewModel {
     @Inject
     lateinit var lanesRepository: LanesRepository
 
-    @Inject
-    lateinit var context: Context
-
     private val _isLoading = MutableLiveData<Event<Boolean>>()
-    private val _importantError = MutableLiveData<Event<String>>()
-    private val _nonImportantError = MutableLiveData<Event<String>>()
-    private val _info = MutableLiveData<Event<String>>()
+    private val _importantError = MutableLiveData<Event<Message>>()
+    private val _nonImportantError = MutableLiveData<Event<Message>>()
+    private val _info = MutableLiveData<Event<Message>>()
 
-    val info: LiveData<Event<String>>
+    val info: LiveData<Event<Message>>
         get() = _info
 
-    val nonImportantError: LiveData<Event<String>>
+    val nonImportantError: LiveData<Event<Message>>
         get() = _nonImportantError
 
-    val importantError: LiveData<Event<String>>
+    val importantError: LiveData<Event<Message>>
         get() = _importantError
 
     val isLoading: LiveData<Event<Boolean>>
@@ -72,12 +67,12 @@ class MainViewModel {
             if (shouldUpdate.data) {
                 showLoader()
             } else {
-                showSnackBar(context.getString(R.string.everything_is_up_to_date))
+                _info.postValue(Event(Message.UP_TO_DATE))
                 return
             }
         } else if (shouldUpdate is Result.Error) {
             showError(
-                context.getString(R.string.error_checking_for_update),
+                Message.ERROR_CHECKING_FOR_UPDATE,
                 shouldUpdate.exception
             )
             return
@@ -85,7 +80,7 @@ class MainViewModel {
 
         val cacheLanes = lanesRepository.cacheAllLanes()
         if (cacheLanes is Result.Error) {
-            showError(context.getString(R.string.error_fetching_lanes), cacheLanes.exception)
+            showError(Message.ERROR_FETCHING_DATA, cacheLanes.exception)
             return
         }
 
@@ -93,7 +88,7 @@ class MainViewModel {
         val cacheFavLanes = scheduleRepository.cacheSchedule(favorites)
         if (cacheFavLanes is Result.Error) {
             showError(
-                context.getString(R.string.error_fetching_scedule),
+                Message.ERROR_FETCHING_DATA,
                 cacheFavLanes.exception
             )
             return
@@ -106,7 +101,7 @@ class MainViewModel {
             seasonRepository.seasonUpdated()
         } else if (cacheNonFavLanes is Result.Error) {
             showError(
-                context.getString(R.string.error_fetching_scedule),
+                Message.ERROR_FETCHING_DATA,
                 cacheNonFavLanes.exception
             )
             return
@@ -121,10 +116,10 @@ class MainViewModel {
         _isLoading.postValue(Event(false))
     }
 
-    private fun showError(_message: String, exception: Exception) {
+    private fun showError(_message: Message, exception: Exception) {
         var message = _message
         if (exception is UnknownHostException) {
-            message = context.getString(R.string.no_internet_connection)
+            message = Message.NO_INTERNET
         }
 
         if (seasonRepository.isEverUpdated()) {
@@ -135,7 +130,7 @@ class MainViewModel {
         hideLoader()
     }
 
-    private fun showSnackBar(message: String) {
-        _info.postValue(Event(message))
+    enum class Message {
+        UP_TO_DATE, ERROR_FETCHING_DATA, NO_INTERNET, ERROR_CHECKING_FOR_UPDATE
     }
 }
