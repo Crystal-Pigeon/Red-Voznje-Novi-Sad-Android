@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.MainActivity
@@ -19,9 +18,6 @@ import javax.inject.Inject
 class MainFragment : Fragment() {
     @Inject
     lateinit var viewModel: MainViewModel
-
-    private lateinit var navController: NavController
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,8 +28,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController =
-            Navigation.findNavController(activity as MainActivity, R.id.nav_host_fragment)
         (activity as MainActivity).setActionBarTitle(R.string.app_name)
         val adapter = PagerAdapter(childFragmentManager, context!!)
         viewpager.adapter = adapter
@@ -42,13 +36,14 @@ class MainFragment : Fragment() {
         val position = viewModel.getTabPositionByDate()
         viewpager.currentItem = position
         fabAddLines.setOnClickListener {
-            navController.navigate(R.id.action_mainFragment_to_addLinesFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_addLinesFragment)
         }
 
         (activity as MainActivity).sort_favorites.setOnClickListener {
-            navController.navigate(R.id.action_mainFragment_to_sortFavoritesFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_sortFavoritesFragment)
         }
     }
+
 
     override fun onResume() {
         super.onResume()
