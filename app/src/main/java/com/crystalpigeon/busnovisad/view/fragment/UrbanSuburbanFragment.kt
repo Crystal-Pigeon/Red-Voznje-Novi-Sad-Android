@@ -5,28 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.Const
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.adapter.LaneAdapter
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
 import kotlinx.android.synthetic.main.fragment_urban_suburban.*
 import kotlinx.android.synthetic.main.fragment_urban_suburban.view.*
-import javax.inject.Inject
 
 class UrbanSuburbanFragment : Fragment() {
 
+    private val viewModel: LanesViewModel by viewModels()
+
     lateinit var adapter: LaneAdapter
     var type: String? = null
-
-    @Inject
-    lateinit var viewModel: LanesViewModel
-
-    init {
-        BusNsApp.app.component.inject(this)
-    }
 
     companion object {
         fun newInstance(type: String) = UrbanSuburbanFragment().apply {

@@ -5,25 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.model.entity.Schedule
 import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.ScheduleAdapter
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
+import com.crystalpigeon.busnovisad.viewmodel.ScheduleViewModel
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
-    @Inject
-    lateinit var viewModel: MainViewModel
+    private val scheduleVM: ScheduleViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var scheduleAdapter: ScheduleAdapter
     private var day: String = ""
     lateinit var navController: NavController
@@ -43,7 +43,6 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
         savedInstanceState: Bundle?
     ): View? {
         (activity as MainActivity).hideBackButton()
-        BusNsApp.app.component.inject(this)
         return inflater.inflate(R.layout.fragment_schedule, container, false)
     }
 
@@ -51,7 +50,7 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
         super.onActivityCreated(savedInstanceState)
         day = arguments?.getString("DAY") ?: ""
 
-        viewModel.getFavorites(day).observe(this,
+        scheduleVM.schedule.observe(this,
             Observer { listOfSchedule ->
                 if (listOfSchedule.isNotEmpty()) {
                     listOfSchedule.map { schedule ->
@@ -85,6 +84,8 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
                 scheduleAdapter.loadingStarted(it)
             }
         })
+
+        scheduleVM.getFavorites(day)
     }
 
     private fun formattedExtras(extras: String?): String {

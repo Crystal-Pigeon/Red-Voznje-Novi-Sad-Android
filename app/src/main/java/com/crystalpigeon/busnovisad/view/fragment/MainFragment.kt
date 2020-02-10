@@ -5,24 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.PagerAdapter
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.toolbar.*
-import javax.inject.Inject
 
 class MainFragment : Fragment() {
-    @Inject
-    lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        BusNsApp.app.component.inject(this)
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 

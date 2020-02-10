@@ -2,6 +2,7 @@ package com.crystalpigeon.busnovisad.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.helper.Event
 import com.crystalpigeon.busnovisad.model.Result
@@ -14,7 +15,7 @@ import java.util.*
 import javax.inject.Inject
 
 
-class MainViewModel {
+class MainViewModel : ViewModel() {
     @Inject
     lateinit var scheduleRepository: ScheduleRepository
 

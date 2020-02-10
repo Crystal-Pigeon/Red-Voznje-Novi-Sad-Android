@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -16,7 +17,6 @@ import androidx.lifecycle.Observer
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.Const
 import com.crystalpigeon.busnovisad.R
-import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel.Message
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel.Message.*
@@ -33,21 +33,11 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var viewModel: LanesViewModel
-
-    @Inject
-    lateinit var mainViewModel: MainViewModel
-
-    @Inject
     lateinit var sharedPreferences: SharedPreferences
 
     @Inject
     lateinit var prefsEditor: SharedPreferences.Editor
-
-    init {
-        BusNsApp.app.component.inject(this)
-    }
-
+    private val mainViewModel: MainViewModel by viewModels()
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
     private fun toLocalMessage(message: Message): String{
@@ -59,12 +49,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    init {
+        BusNsApp.app.component.inject(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         configureTheme()
-
         if (savedInstanceState == null) tryFetch()
 
         mainViewModel.importantError.observe(this, Observer { message ->
