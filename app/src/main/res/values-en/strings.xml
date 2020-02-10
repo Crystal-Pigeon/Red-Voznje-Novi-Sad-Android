@@ -48,8 +48,8 @@
     <string name="are_you_sure_you_want_to_remove_line">Are you sure you want to remove this line?</string>
     <string name="delete">Delete</string>
     <string name="no_lines">Lines are not loaded.</string>
-    <string name="error_fetching_scedule">Error while fetching schedule, try again</string>
-    <string name="error_checking_for_update">Error while checking for updates, try again</string>
+    <string name="error_fetching_scedule">Error while fetching schedule</string>
+    <string name="error_checking_for_update">Error while checking for updates</string>
     <string name="everything_is_up_to_date">Everything is up to date</string>
     <string name="departure_to">Departure to</string>
     <string name="departure_from">Departure from</string>

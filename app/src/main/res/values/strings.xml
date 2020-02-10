@@ -57,7 +57,7 @@
     <string name="delete">Ukloni</string>
     <string name="no_lines">Linije nisu učitane.</string>
     <string name="error_fetching_scedule">Greška pri povlačenju reda vožnje</string>
-    <string name="error_checking_for_update">Greška pri proveri da li je raspored izmenjen, pokušajte ponovo</string>
+    <string name="error_checking_for_update">Greška pri proveri da li je raspored izmenjen</string>
     <string name="everything_is_up_to_date">Prikazan je najnoviji raspored</string>
     <string name="departure_to">Polasci za</string>
     <string name="departure_from">Polasci iz</string>
