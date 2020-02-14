@@ -100,6 +100,7 @@ class MainViewModel : ViewModel() {
         if (cacheNonFavLanes is Result.Success) {
             hideLoader()
             seasonRepository.seasonUpdated()
+            _info.postValue(Event(Message.UP_TO_DATE))
         } else if (cacheNonFavLanes is Result.Error) {
             showError(
                 Message.ERROR_FETCHING_DATA,

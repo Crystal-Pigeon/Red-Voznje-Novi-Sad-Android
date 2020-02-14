@@ -1,11 +1,6 @@
 package com.crystalpigeon.busnovisad.view
 
-import android.annotation.TargetApi
-import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.Configuration
-import android.content.res.Resources
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -95,6 +90,8 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         })
+
+        setLanguage()
     }
 
     private fun configureTheme() {
@@ -111,42 +108,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(updateBaseContextLocale(newBase))
-    }
-
-    private fun updateBaseContextLocale(context: Context): Context? {
-        val language: String? = sharedPreferences.getString(Const.LANGUAGE, null)?: return context
-        val locale = Locale(language)
-        Locale.setDefault(locale)
-
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            updateResourcesLocale(context, locale)
-        } else updateResourcesLocaleLegacy(context, locale)
-    }
-
-    @TargetApi(Build.VERSION_CODES.N)
-    private fun updateResourcesLocale(
-        context: Context,
-        locale: Locale
-    ): Context? {
-        val configuration: Configuration = context.resources.configuration
-        configuration.setLocale(locale)
-        val appConfig: Configuration = context.resources.configuration
-        appConfig.setLocale(locale)
-        return context.createConfigurationContext(appConfig)
-    }
-
     @Suppress("DEPRECATION")
-    private fun updateResourcesLocaleLegacy(
-        context: Context,
-        locale: Locale
-    ): Context? {
-        val resources: Resources = context.resources
-        val configuration: Configuration = resources.configuration
-        configuration.locale = locale
-        resources.updateConfiguration(configuration, resources.displayMetrics)
-        return context
+    private fun setLanguage() {
+        val res = this.resources
+        val dm = res.displayMetrics
+        val conf = res.configuration
+        val lang = sharedPreferences.getString(Const.LANGUAGE, null)
+        if (lang == null) {
+            conf.setLocale(Locale(Locale.getDefault().language))
+            prefsEditor.putString(Const.LANGUAGE, Locale.getDefault().language)
+        } else conf.setLocale(Locale(lang))
+
+        res.updateConfiguration(conf, dm)
     }
 
     private fun tryFetch() {

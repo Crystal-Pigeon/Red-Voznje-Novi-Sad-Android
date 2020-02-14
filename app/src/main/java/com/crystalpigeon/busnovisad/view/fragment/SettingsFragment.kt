@@ -62,8 +62,7 @@ class SettingsFragment : Fragment() {
         tvLanguage.text =
             when (sharedPrefs.getString(Const.LANGUAGE, null) ?: Locale.getDefault().language) {
                 "en" -> getString(R.string.english)
-                "sr" -> getString(R.string.serbian)
-                else -> Locale.getDefault().displayLanguage
+                else -> getString(R.string.serbian)
             }
 
         tvTheme.text = when(sharedPrefs.getString(Const.THEME, null)) {
