@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.nonImportantError.observe(this, Observer { message ->
             message.getContentIfNotHandled()?.let {
                 val snackbar = Snackbar.make(
-                    findViewById(android.R.id.content),
+                    findViewById(R.id.clayout),
                     toLocalMessage(it),
                     Snackbar.LENGTH_LONG
                 )
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.info.observe(this, Observer { message ->
             message.getContentIfNotHandled()?.let {
                 Snackbar.make(
-                    findViewById(android.R.id.content),
+                    findViewById(R.id.clayout),
                     toLocalMessage(it),
                     Snackbar.LENGTH_SHORT
                 ).show()

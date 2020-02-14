@@ -46,10 +46,6 @@ class MainViewModel : ViewModel() {
         BusNsApp.app.component.inject(this)
     }
 
-    fun getFavorites(day: String): LiveData<List<Schedule>> {
-        return scheduleRepository.getScheduleFavorites(day)
-    }
-
     suspend fun removeSchedule(schedule: Schedule) {
         scheduleRepository.deleteSchedule(schedule.id)
     }
