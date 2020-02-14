@@ -56,13 +56,12 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
                     listOfSchedule.map { schedule ->
                         schedule.directionA = translateDirection(schedule.directionA ?: "")
                         schedule.directionB = translateDirection(schedule.directionB ?: "")
+                        schedule.extras = formattedExtras(schedule.extras)
                     }
 
                     noLinesGroup.visibility = View.GONE
                     rv_schedule_for_lines.visibility = View.VISIBLE
-                    for (schedule in listOfSchedule) {
-                        schedule.extras = formattedExtras(schedule.extras)
-                    }
+
                     scheduleAdapter.updateSchedule(ArrayList(listOfSchedule))
                 } else {
                     noLinesGroup.visibility = View.VISIBLE
