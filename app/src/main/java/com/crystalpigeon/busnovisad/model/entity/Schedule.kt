@@ -12,8 +12,8 @@ data class Schedule(
     val number: String?,
     val name: String?,
     val lane: String?,
-    val directionA: String?,
-    val directionB: String?,
+    var directionA: String?,
+    var directionB: String?,
     val day: String,
     @TypeConverters(Converter::class)
     val schedule: SortedMap<String, ArrayList<String>>?,
@@ -21,7 +21,22 @@ data class Schedule(
     val scheduleA: SortedMap<String, ArrayList<String>>?,
     @TypeConverters(Converter::class)
     val scheduleB: SortedMap<String, ArrayList<String>>?,
-    val extras: String?
-){
-    @Ignore var collapsed: Boolean = true
+    var extras: String?
+) {
+    @Ignore
+    var collapsed: Boolean = true
+
+    override fun equals(other: Any?): Boolean {
+        return if (other is Schedule) {
+            this.id == other.id &&
+                    this.schedule == other.schedule &&
+                    this.scheduleA == other.scheduleA &&
+                    this.directionB == other.directionB &&
+                    this.day == other.day
+        } else false
+    }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
 }

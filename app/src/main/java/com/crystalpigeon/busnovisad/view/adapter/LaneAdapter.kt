@@ -5,30 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.R
-import com.crystalpigeon.busnovisad.model.BusDatabase
-import com.crystalpigeon.busnovisad.model.dao.FavoriteLanesDao
-import com.crystalpigeon.busnovisad.model.entity.FavoriteLane
 import com.crystalpigeon.busnovisad.model.entity.Lane
+import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
 import kotlinx.android.synthetic.main.line.view.*
 import kotlinx.coroutines.*
-import javax.inject.Inject
 
 class LaneAdapter(
     var lanes: ArrayList<Lane>,
-    val context: Context
+    val context: Context,
+    val viewModel: LanesViewModel
 ) :
     RecyclerView.Adapter<LaneAdapter.ViewHolder>() {
-
-    @Inject
-    lateinit var favLanesDao: FavoriteLanesDao
     private val job = Job()
-    private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
-
-    init {
-        BusNsApp.app.component.inject(this)
-    }
+    private val coroutineScope = CoroutineScope(Dispatchers.IO + job)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -48,33 +38,20 @@ class LaneAdapter(
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(lane: Lane?) {
-            view.line_number.text = lane?.number
-            view.line_name.text = lane?.laneName
+        fun bind(lane: Lane) {
+            view.lane_number.text = lane.number
+            view.lane_name.text = lane.laneName
 
-            coroutineScope.launch {
-                withContext(Dispatchers.Main){
-                    lane?.let {
-                        if (favLanesDao.getFavLane(it.id).isEmpty()) view.check.visibility = View.INVISIBLE
-                        else view.check.visibility = View.VISIBLE
-                    }
-                }
+            coroutineScope.launch(Dispatchers.Main) {
+                view.check.visibility =
+                    if (viewModel.isFavorite(lane)) View.VISIBLE else View.INVISIBLE
             }
-            view.setOnClickListener {
-                lane?.let{
-                    coroutineScope.launch(Dispatchers.IO) {
-                        if(favLanesDao.getFavLane(it.id).isEmpty()) {
-                            val favLane = FavoriteLane(
-                                it.id,
-                                it.type
-                            )
-                            favLanesDao.insertFavLane(favLane)
-                        }
-                        else favLanesDao.deleteFavLane(it.id)
 
-                    }
+            view.setOnClickListener {
+                coroutineScope.launch(Dispatchers.IO) {
+                    viewModel.onLaneClicked(lane)
+                    withContext(Dispatchers.Main) { notifyItemChanged(adapterPosition) }
                 }
-                notifyItemChanged(adapterPosition)
             }
         }
     }

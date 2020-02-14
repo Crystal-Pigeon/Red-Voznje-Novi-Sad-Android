@@ -1,23 +1,21 @@
 package com.crystalpigeon.busnovisad.viewmodel
 
-import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.crystalpigeon.busnovisad.BusNsApp
+import com.crystalpigeon.busnovisad.helper.Event
+import com.crystalpigeon.busnovisad.model.Result
+import com.crystalpigeon.busnovisad.model.entity.Schedule
 import com.crystalpigeon.busnovisad.model.repository.LanesRepository
 import com.crystalpigeon.busnovisad.model.repository.ScheduleRepository
 import com.crystalpigeon.busnovisad.model.repository.SeasonRepository
-import javax.inject.Inject
-import android.content.Context.CONNECTIVITY_SERVICE
-import android.net.ConnectivityManager
-import androidx.lifecycle.LiveData
-import com.crystalpigeon.busnovisad.model.entity.Schedule
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.awaitAll
+import java.net.UnknownHostException
 import java.util.*
-import kotlin.collections.ArrayList
+import javax.inject.Inject
 
 
-class MainViewModel {
+class MainViewModel : ViewModel() {
     @Inject
     lateinit var scheduleRepository: ScheduleRepository
 
@@ -27,29 +25,33 @@ class MainViewModel {
     @Inject
     lateinit var lanesRepository: LanesRepository
 
-    @Inject
-    lateinit var context: Context
+    private val _isLoading = MutableLiveData<Event<Boolean>>()
+    private val _importantError = MutableLiveData<Event<Message>>()
+    private val _nonImportantError = MutableLiveData<Event<Message>>()
+    private val _info = MutableLiveData<Event<Message>>()
 
-    val isLoading = MutableLiveData<Boolean>()
-    val networkError = MutableLiveData<Boolean>()
+    val info: LiveData<Event<Message>>
+        get() = _info
+
+    val nonImportantError: LiveData<Event<Message>>
+        get() = _nonImportantError
+
+    val importantError: LiveData<Event<Message>>
+        get() = _importantError
+
+    val isLoading: LiveData<Event<Boolean>>
+        get() = _isLoading
 
     init {
         BusNsApp.app.component.inject(this)
     }
 
-    fun getFavorites(day: String): LiveData<List<Schedule>> {
-        return scheduleRepository.getScheduleFavorites(day)
-    }
-
-    private fun isNetworkAvailable(): Boolean {
-        val connectivityManager =
-            context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager?
-        val activeNetworkInfo = connectivityManager?.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    suspend fun removeSchedule(schedule: Schedule) {
+        scheduleRepository.deleteSchedule(schedule.id)
     }
 
     fun getTabPositionByDate(): Int {
-        return when (Calendar.getInstance() .get(Calendar.DAY_OF_WEEK)) {
+        return when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
             Calendar.SUNDAY -> 2
             Calendar.SATURDAY -> 1
             else -> 0
@@ -57,31 +59,76 @@ class MainViewModel {
     }
 
     suspend fun fetchAllSchedule() {
-        if (!seasonRepository.shouldUpdate()) return
-        if (!isNetworkAvailable()) {
-            networkError.postValue(true)
+        val shouldUpdate = seasonRepository.shouldUpdate()
+        if (shouldUpdate is Result.Success) {
+            if (shouldUpdate.data) {
+                showLoader()
+            } else {
+                _info.postValue(Event(Message.UP_TO_DATE))
+                return
+            }
+        } else if (shouldUpdate is Result.Error) {
+            showError(
+                Message.ERROR_CHECKING_FOR_UPDATE,
+                shouldUpdate.exception
+            )
             return
         }
 
-        var successful = true
-        isLoading.postValue(true)
-        lanesRepository.cacheAllLanes()
-        val jobs: ArrayList<Deferred<Boolean>> = arrayListOf()
-
-        val favorites = lanesRepository.getFavorites()
-        jobs.addAll(scheduleRepository.cacheSchedule(favorites))
-
-        val nonFavorites = lanesRepository.getNonFavorites()
-        jobs.addAll(scheduleRepository.cacheSchedule(nonFavorites))
-
-        for (result in jobs) {
-            if (!result.await()) {
-                successful = false
-                break
-            }
+        val cacheLanes = lanesRepository.cacheAllLanes()
+        if (cacheLanes is Result.Error) {
+            showError(Message.ERROR_FETCHING_DATA, cacheLanes.exception)
+            return
         }
 
-        isLoading.postValue(false)
-        if (successful) seasonRepository.seasonUpdated()
+        val favorites = lanesRepository.getFavorites()
+        val cacheFavLanes = scheduleRepository.cacheSchedule(favorites)
+        if (cacheFavLanes is Result.Error) {
+            showError(
+                Message.ERROR_FETCHING_DATA,
+                cacheFavLanes.exception
+            )
+            return
+        }
+
+        val nonFavorites = lanesRepository.getNonFavorites()
+        val cacheNonFavLanes = scheduleRepository.cacheSchedule(nonFavorites)
+        if (cacheNonFavLanes is Result.Success) {
+            hideLoader()
+            seasonRepository.seasonUpdated()
+            _info.postValue(Event(Message.UP_TO_DATE))
+        } else if (cacheNonFavLanes is Result.Error) {
+            showError(
+                Message.ERROR_FETCHING_DATA,
+                cacheNonFavLanes.exception
+            )
+            return
+        }
+    }
+
+    private fun showLoader() {
+        _isLoading.postValue(Event(true))
+    }
+
+    private fun hideLoader() {
+        _isLoading.postValue(Event(false))
+    }
+
+    private fun showError(_message: Message, exception: Exception) {
+        var message = _message
+        if (exception is UnknownHostException) {
+            message = Message.NO_INTERNET
+        }
+
+        if (seasonRepository.isEverUpdated()) {
+            _nonImportantError.postValue(Event(message))
+        } else {
+            _importantError.postValue(Event(message))
+        }
+        hideLoader()
+    }
+
+    enum class Message {
+        UP_TO_DATE, ERROR_FETCHING_DATA, NO_INTERNET, ERROR_CHECKING_FOR_UPDATE
     }
 }

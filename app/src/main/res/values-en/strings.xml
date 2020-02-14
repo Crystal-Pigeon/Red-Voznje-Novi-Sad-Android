@@ -2,20 +2,14 @@
 <resources>
     <string name="app_name">Bus schedule - Novi Sad</string>
     <string name="no_internet_connection">No internet connection</string>
-    <string name="ok">@android:string/ok</string>
     <string name="add_lines">Add lines</string>
     <string name="urban">Urban</string>
     <string name="suburban">Suburban</string>
-    <string name="problem_with_server">Problem with server</string>
     <string name="work_day">Work day</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="click_the_plus_button_to_add_buses">Click the \"+\" button to add buses</string>
-    <string name="there_is_no_schedule">There is no schedule</string>
-    <string name="are_you_sure_you_want_remove_the_line">Are you sure you want remove the line?</string>
-    <string name="remove">Remove</string>
     <string name="cancel">Cancel</string>
-    <string name="done">Done</string>
     <string name="support">Support</string>
     <string name="help">Help</string>
     <string name="contact">Contact</string>
@@ -24,32 +18,40 @@
     <string name="add_lines_screen">Add lines screen</string>
     <string name="add_lines_screen_text">When you open the add lines screen you will be shown urban lines. Switching between urban and suburban lines can be done by clicking on the tabs or by scrolling left-right. By clicking on one of the lines, it is being selected and added to the main screen, while clicking on already selected line it is being unselected and removed from the home screen.</string>
     <string name="settings_screen">Settings screen</string>
-    <string name="on_the_settings_screen_you_can_change">On the settings screen you can change:</string>
     <string name="language">Language</string>
-    <string name="language_text">Clicking on language opens a dialog that allows you to select the language in which the content will be displayed.</string>
     <string name="Theme">Theme</string>
-    <string name="theme_text">Clicking on theme opens a dialog that allows you to choose whether the application will be displayed with a dark or a light theme.</string>
     <string name="update">Update</string>
     <string name="update_app_text">The app is updated every time the driving season changes.</string>
-    <string name="settings">Settings</string>
     <string name="english">English</string>
-    <string name="dark_theme">Dark Theme</string>
-    <string name="application_update">Updating application</string>
     <string name="dark">Dark</string>
     <string name="light">Light</string>
     <string name="change_the_language_in_the_application">Change the language in the application</string>
     <string name="change_the_theme_in_the_application">Change the theme in the application</string>
     <string name="open_the_support_window">Open the support window</string>
     <string name="serbian">Serbian</string>
-    <string name="light_theme">Light Theme</string>
-    <string name="choose_language">Choose language</string>
     <string name="choose_theme">Choose theme</string>
-    <string name="rearrange">Rearrange</string>
+    <string name="choose_language">Choose language</string>
     <string name="rearrange_favorites_screen">Rearrange favorites screen</string>
     <string name="rearrange_screen_text">This screen contains all the lines you\'ve previously added to your home screen as your favorites, and on which you can rearrange them as you see fit.</string>
     <string name="try_again">Try again</string>
     <string name="availability">Availability</string>
     <string name="lines_availability_text">We wanted to let you know that the app also works in offline mode. What this means is that once all of the data is downloaded, you will be able to access desired bus schedules at times of need, even when you don\'t have internet connection.</string>
-    <string name="you_havent_added_any_lines_to_favorites">You haven\'t added any lines to favorites</string>
-    <string name="loading_lines">Loading lines…</string>
+    <string name="default_theme">Default</string>
+    <string name="sort_favorites">Sort favorites</string>
+    <string name="settings_screen_text">On the settings screen you can change:\n
+        \t3.1 Language\n
+        \t\tClicking on language opens a dialog that allows you to select the language in which the content will be displayed.\n
+        \t3.2 Theme\n
+        \t\tClicking on theme opens a dialog that allows you to choose whether the application will be displayed with a dark or a light theme.
+    </string>
+    <string name="no_favorite_lines">You haven\'t added any lines to favorites</string>
+    <string name="are_you_sure_you_want_to_remove_line">Are you sure you want to remove this line?</string>
+    <string name="delete">Delete</string>
+    <string name="no_lines">Lines are not loaded.</string>
+    <string name="error_fetching_scedule">Error while fetching schedule</string>
+    <string name="error_checking_for_update">Error while checking for updates</string>
+    <string name="everything_is_up_to_date">Everything is up to date</string>
+    <string name="departure_to">Departure to</string>
+    <string name="departure_from">Departure from</string>
+
 </resources>

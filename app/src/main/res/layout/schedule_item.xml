@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite">
+        android:background="@color/backgroundCardView">
 
         <TextView
             android:id="@+id/circle_id"
@@ -38,8 +38,8 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:fontFamily="@font/muli_semibold"
-            android:textColor="@color/textColor"
-            android:textSize="15sp"
+            android:textColor="@color/textColorCardViewSchedule"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@+id/circle_id"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/circle_id"
@@ -53,7 +53,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:textColor="@color/textColor"
+            android:textSize="12sp"
+            android:textColor="@color/textColorCardViewSchedule"
             android:visibility="visible"
             app:layout_constraintEnd_toStartOf="@+id/directionB"
             app:layout_constraintHorizontal_bias="0.5"
@@ -67,8 +68,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:textColor="@color/textColor"
+            android:textColor="@color/textColorCardViewSchedule"
             android:visibility="visible"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/directionA"
@@ -128,7 +130,7 @@
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:textColor="@color/textColor40"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

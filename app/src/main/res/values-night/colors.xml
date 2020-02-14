@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#282828</color>
+    <color name="colorPrimaryDark">#282828</color>
+    <color name="colorAccent">#82FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="colorOrange">#FD983B</color>
+    <color name="textColorBaseSchedule">#BFFFFFFF</color>
+    <color name="textColorCardViewSchedule">#BFFFFFFF</color>
+    <color name="backgroundCardView">#424242</color>
+    <color name="textColor20">#FFFFFF</color>
+    <color name="textColor40">#BFFFFFFF</color>
+    <color name="viewAddLanes">#BFFFFFFF</color>
+    <color name="floatingButton">#016AFA</color>
+    <color name="background">#323232</color>
+    <color name="backgroundSettings">#323232</color>
+    <color name="viewSettings">#40FFFFFF</color>
+    <color name="textColorSettings">#80FFFFFF</color>
+    <color name="emailText">#FFFFFF</color>
+
+</resources>

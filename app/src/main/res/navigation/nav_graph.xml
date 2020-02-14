@@ -17,10 +17,39 @@
             app:exitAnim="@anim/slide_out_left_exit"
             app:popEnterAnim="@anim/slide_in_left_enter"
             app:popExitAnim="@anim/slide_out_right_exit" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_sortFavoritesFragment"
+            app:destination="@id/sortFavoritesFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/addLinesFragment"
         android:name="com.crystalpigeon.busnovisad.view.fragment.AddLinesFragment"
         android:label="fragment_add_lines"
-        tools:layout="@layout/fragment_add_lines" />
+        tools:layout="@layout/fragment_add_lines" >
+        <action
+            android:id="@+id/action_addLinesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.crystalpigeon.busnovisad.view.fragment.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_supportFragment"
+            app:destination="@id/supportFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/supportFragment"
+        android:name="com.crystalpigeon.busnovisad.view.fragment.SupportFragment"
+        android:label="fragment_support"
+        tools:layout="@layout/fragment_support" />
+    <fragment
+        android:id="@+id/sortFavoritesFragment"
+        android:name="com.crystalpigeon.busnovisad.view.fragment.SortFavoritesFragment"
+        android:label="SortFavoritesFragment" />
 </navigation>

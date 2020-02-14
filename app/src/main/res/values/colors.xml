@@ -8,4 +8,15 @@
     <color name="textColor20">#33454F73</color>
     <color name="textColor40">#66454F73</color>
     <color name="colorOrange">#FD983B</color>
+    <color name="textColorBaseSchedule">#A9A9B1</color>
+    <color name="textColorCardViewSchedule">#454F73</color>
+    <color name="circleColor">#016AFA</color>
+    <color name="backgroundCardView">#FFFFFF</color>
+    <color name="viewAddLanes">#454F73</color>
+    <color name="floatingButton">#FFFFFF</color>
+    <color name="background">#FFFFFF</color>
+    <color name="backgroundSettings">#F4F4F4</color>
+    <color name="viewSettings">#33454F73</color>
+    <color name="textColorSettings">#80454F73</color>
+    <color name="emailText">#016AFA</color>
 </resources>

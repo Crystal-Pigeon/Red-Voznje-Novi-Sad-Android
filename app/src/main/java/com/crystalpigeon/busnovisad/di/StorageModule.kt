@@ -48,9 +48,7 @@ class StorageModule {
             context,
             BusDatabase::class.java,
             "bus_database"
-        )
-            .fallbackToDestructiveMigration()//TODO remove for production
-            .build()
+        ).build()
     }
 
     @Singleton

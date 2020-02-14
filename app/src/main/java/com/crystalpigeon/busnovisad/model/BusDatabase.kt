@@ -10,7 +10,7 @@ import com.crystalpigeon.busnovisad.model.entity.FavoriteLane
 import com.crystalpigeon.busnovisad.model.entity.Lane
 import com.crystalpigeon.busnovisad.model.entity.Schedule
 
-@Database(entities = [Lane::class, Schedule::class, FavoriteLane::class], version = 13, exportSchema = false)
+@Database(entities = [Lane::class, Schedule::class, FavoriteLane::class], version = 5, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class BusDatabase : RoomDatabase() {
 

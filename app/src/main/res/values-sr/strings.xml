@@ -11,14 +11,8 @@
     <string name="click_the_plus_button_to_add_buses">Pritisnite \"+\" kako biste dodali autobuse</string>
 
     <string name="no_internet_connection">Nema internet konekcije</string>
-    <string name="ok">U redu</string>
     <string name="add_lines">Dodaj linije</string>
-    <string name="problem_with_server">Greška na serveru</string>
-    <string name="there_is_no_schedule">Nema rasporeda</string>
-    <string name="are_you_sure_you_want_remove_the_line">Da li ste sigurni da želite da uklonite liniju?</string>
-    <string name="remove">Ukloni</string>
     <string name="cancel">Odustani</string>
-    <string name="done">U redu</string>
     <string name="support">Podrška</string>
     <string name="help">Uputstvo</string>
     <string name="contact">Kontakt</string>
@@ -27,34 +21,40 @@
     <string name="add_lines_screen">Ekran za dodavanje linija</string>
     <string name="add_lines_screen_text">Pri otvaranju ekrana za dodavanje linija prikazaće Vam se gradske linije autobusa. Prebacivanje sa gradskih na prigradske linije moguće je izvršiti klikom na tabove ili skrolovanjem levo-desno. Klikom na neku od linija, ona se označava i dodaje se na glavni ekran. Ponovnim klikom na već odabranu liniju skida se oznaka i data linija se briše sa glavnog ekrana.</string>
     <string name="settings_screen">Ekran za podešavanja</string>
-    <string name="on_the_settings_screen_you_can_change">Na ekranu za podešavanja možete da podešavate:</string>
     <string name="language">Jezik</string>
-    <string name="language_text">Klikom na jezik otvara se dijalog za biranje jezika na kojem će sadržaj aplikacije biti prikazan.</string>
     <string name="Theme">Tema</string>
-    <string name="theme_text">Klikom na temu otvara se dijalog koji Vam omogućava da birate da li će aplikacija biti prikazana sa tamnom ili svetlom temom.</string>
     <string name="update">Ažuriranje</string>
     <string name="update_app_text">Ažuriranje aplikacije vrši se svaki put kada se promeni sezona vožnji.</string>
-    <string name="settings">Podešavanja</string>
     <string name="english">Engleski</string>
-    <string name="dark_theme">Tamna Tema</string>
     <string name="dark">Tamna</string>
     <string name="light">Svetla</string>
     <string name="change_the_language_in_the_application">Promenite jezik u aplikaciji</string>
     <string name="change_the_theme_in_the_application">Promenite temu u aplikaciji</string>
     <string name="open_the_support_window">Otvorite ekran za podršku</string>
     <string name="serbian">Srpski</string>
-    <string name="light_theme">Svetla Tema</string>
-    <string name="choose_language">Izaberite jezik</string>
     <string name="choose_theme">Izaberite temu</string>
-    <string name="application_update">Ažuriranje aplikacije</string>
-    <string name="rearrange">Redosled</string>
+    <string name="choose_language">Izaberite jezik</string>
     <string name="rearrange_favorites_screen">Ekran za promenu redosleda linija</string>
     <string name="rearrange_screen_text">Ovaj ekran sadrži sve linije koje ste prethodno dodali na početni ekran kao svoje favorite i na kojem možete da promenite njihov redosled kako Vam odgovara.</string>
     <string name="try_again">Pokušajte ponovo</string>
     <string name="availability">Dostupnost</string>
     <string name="lines_availability_text">Kada je u pitanju dostupnost, aplikacija radi i u režimu rada bez interneta. To znači da ćete nakon preuzimanja svih podataka biti u mogućnosti da pristupite željenim rasporedima autobusa u bilo kom momentu, čak i ukoliko niste povezani na internet.</string>
-    <string name="you_havent_added_any_lines_to_favorites">Niste dodali omiljene linije</string>
-    <string name="loading_lines">Učitavaju se linije…</string>
-
+    <string name="default_theme">Podrazumevana</string>
+    <string name="sort_favorites">Sortiranje omiljenih</string>
+    <string name="settings_screen_text">Na ekranu za podešavanja možete da podešavate:\n
+        \t3.1 Jezik\n
+        \t\tKlikom na jezik otvara se dijalog za biranje jezika na kojem će sadržaj aplikacije biti prikazan.\n
+        \t3.2 Tema\n
+        \t\tKlikom na temu otvara se dijalog koji Vam omogućava da birate da li će aplikacija biti prikazana sa tamnom ili svetlom temom.
+    </string>
+    <string name="no_favorite_lines">Niste dodali omiljene linije</string>
+    <string name="are_you_sure_you_want_to_remove_line">Da li ste sigurni da želite da uklonite liniju?</string>
+    <string name="delete">Ukloni</string>
+    <string name="no_lines">Linije još nisu učitane</string>
+    <string name="error_fetching_scedule">Greška pri povlačenju reda vožnje</string>
+    <string name="error_checking_for_update">Greška pri proveri da li je raspored izmenjen, pokušajte ponovo</string>
+    <string name="everything_is_up_to_date">Prikazan je najnoviji raspored</string>
+    <string name="departure_to">Polasci za</string>
+    <string name="departure_from">Polasci iz</string>
 
 </resources>
