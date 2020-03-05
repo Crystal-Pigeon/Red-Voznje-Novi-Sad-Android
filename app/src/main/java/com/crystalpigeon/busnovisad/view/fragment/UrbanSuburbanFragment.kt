@@ -44,7 +44,7 @@ class UrbanSuburbanFragment : Fragment() {
 
         if (arguments != null) type = arguments?.getString(Const.TYPE)
 
-        viewModel.getLanes(type!!).observe(this, Observer {
+        viewModel.getLanes(type!!).observe(viewLifecycleOwner, Observer {
             if (it.isEmpty()) {
                 view.tv_no_lines.visibility = View.VISIBLE
             } else {

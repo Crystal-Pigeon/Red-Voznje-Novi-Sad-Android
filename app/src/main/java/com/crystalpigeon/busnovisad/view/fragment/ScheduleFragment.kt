@@ -50,7 +50,7 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
         super.onActivityCreated(savedInstanceState)
         day = arguments?.getString("DAY") ?: ""
 
-        scheduleVM.schedule.observe(this,
+        scheduleVM.schedule.observe(viewLifecycleOwner,
             Observer { listOfSchedule ->
                 if (listOfSchedule.isNotEmpty()) {
                     listOfSchedule.map { schedule ->
@@ -69,7 +69,7 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
                 }
             })
 
-        viewModel.isLoading.observe(this, Observer { loading ->
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { loading ->
             loading.getContentIfNotHandled()?.let {
                 if (it) {
                     noLinesGroup.visibility = View.GONE
