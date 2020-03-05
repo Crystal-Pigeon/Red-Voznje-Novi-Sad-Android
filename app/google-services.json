@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "895444465653",
+    "firebase_url": "https://busns-8c7ff.firebaseio.com",
+    "project_id": "busns-8c7ff",
+    "storage_bucket": "busns-8c7ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895444465653:android:2e4934cc2673c79d3812bc",
+        "android_client_info": {
+          "package_name": "com.crystalpigeon.busnovisad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "895444465653-dvneiqavo1ka0i3pus1lne4qale5qer8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMVA7zOtW7jlSWxFhFAK06CSUTzwP3JqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895444465653-dvneiqavo1ka0i3pus1lne4qale5qer8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
