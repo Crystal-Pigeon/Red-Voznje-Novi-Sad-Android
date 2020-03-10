@@ -16,6 +16,7 @@ import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel.Message
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel.Message.*
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -69,9 +70,10 @@ class MainActivity : AppCompatActivity() {
         })
 
         mainViewModel.nonImportantError.observe(this, Observer { message ->
+            val cLayout:View? = findViewById(R.id.clayout)
             message.getContentIfNotHandled()?.let {
                 val snackbar = Snackbar.make(
-                    findViewById(R.id.clayout),
+                    cLayout?:findViewById(R.id.root),
                     toLocalMessage(it),
                     Snackbar.LENGTH_LONG
                 )
@@ -82,9 +84,10 @@ class MainActivity : AppCompatActivity() {
         })
 
         mainViewModel.info.observe(this, Observer { message ->
+            val cLayout:View? = findViewById(R.id.clayout)
             message.getContentIfNotHandled()?.let {
                 Snackbar.make(
-                    findViewById(R.id.clayout),
+                    cLayout?:findViewById(R.id.root),
                     toLocalMessage(it),
                     Snackbar.LENGTH_SHORT
                 ).show()
