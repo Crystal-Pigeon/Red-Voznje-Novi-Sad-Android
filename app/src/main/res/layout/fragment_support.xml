@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundSettings"
+    tools:context=".view.fragment.SupportFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundSettings"
+        tools:context=".view.fragment.SupportFragment">
+
+        <TextView
+            android:id="@+id/tvHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/help"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvFirstNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/_1"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvHelp"
+            app:layout_constraintTop_toBottomOf="@id/tvHelp" />
+
+        <TextView
+            android:id="@+id/tvHomeScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/home_screen"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/tvFirstNum"
+            app:layout_constraintTop_toBottomOf="@id/tvHelp" />
+
+        <TextView
+            android:id="@+id/tvHomeScreenText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/home_screen_text"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvFirstNum"
+            app:layout_constraintTop_toBottomOf="@id/tvHomeScreen" />
+
+        <TextView
+            android:id="@+id/tvSecondNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/_2"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvHomeScreenText"
+            app:layout_constraintTop_toBottomOf="@id/tvHomeScreenText" />
+
+        <TextView
+            android:id="@+id/tvAddLaneScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/add_lines_screen"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/tvSecondNum"
+            app:layout_constraintTop_toBottomOf="@id/tvHomeScreenText" />
+
+        <TextView
+            android:id="@+id/tvAddLaneScreenText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/add_lines_screen_text"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvSecondNum"
+            app:layout_constraintTop_toBottomOf="@id/tvSecondNum" />
+
+        <TextView
+            android:id="@+id/tvThirdNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/_3"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvAddLaneScreenText"
+            app:layout_constraintTop_toBottomOf="@id/tvAddLaneScreenText" />
+
+        <TextView
+            android:id="@+id/tvSettingsScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/settings_screen"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/tvThirdNum"
+            app:layout_constraintTop_toBottomOf="@id/tvAddLaneScreenText" />
+
+        <TextView
+            android:id="@+id/tvSettingsScreenText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/settings_screen_text"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvThirdNum"
+            app:layout_constraintTop_toBottomOf="@id/tvThirdNum" />
+
+        <TextView
+            android:id="@+id/tvThirdNum2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/_4"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvAddLaneScreenText"
+            app:layout_constraintTop_toBottomOf="@+id/tvSettingsScreenText" />
+
+        <TextView
+            android:id="@+id/tvSettingsScreen2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/rearrange_favorites_screen"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/tvThirdNum"
+            app:layout_constraintTop_toBottomOf="@+id/tvSettingsScreenText" />
+
+        <TextView
+            android:id="@+id/tvSettingsScreenText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/rearrange_screen_text"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvThirdNum"
+            app:layout_constraintTop_toBottomOf="@+id/tvThirdNum2" />
+
+        <TextView
+            android:id="@+id/tvSettingsScreenText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/update_app_text"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tvThirdNum"
+            app:layout_constraintTop_toBottomOf="@+id/tvUpdate" />
+
+        <TextView
+            android:id="@+id/tvSettingsScreenText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/lines_availability_text"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tvThirdNum"
+            app:layout_constraintTop_toBottomOf="@+id/tvUpdate2" />
+
+        <TextView
+            android:id="@+id/tvUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/update"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tvSettingsScreenText2"
+            app:layout_constraintTop_toBottomOf="@+id/tvSettingsScreenText2" />
+
+        <TextView
+            android:id="@+id/tvUpdate2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/availability"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tvSettingsScreenText3"
+            app:layout_constraintTop_toBottomOf="@+id/tvSettingsScreenText3" />
+
+        <TextView
+            android:id="@+id/tvContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/muli_italic"
+            android:text="@string/contact"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tvSettingsScreenText"
+            app:layout_constraintTop_toBottomOf="@+id/tvSettingsScreenText4" />
+
+        <ImageView
+            android:id="@+id/ivEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/email_blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvContact"
+            app:layout_constraintTop_toBottomOf="@id/tvContact"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:autoLink="email"
+            android:fontFamily="@font/muli_regular"
+            android:text="@string/contact_crystalpigeon_com"
+            android:textColorLink="@color/emailText"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivEmail"
+            app:layout_constraintTop_toBottomOf="@id/tvContact" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
