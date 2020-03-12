@@ -24,4 +24,4 @@ Bus schedule - Novi Sad is an application which was created with intention to al
 * Choose Emulator or some other device to run the app
 
 ## Installation
-Visit Play Store: [Bus schedule - Novi Sad] (https://play.google.com/store/apps/details?id=com.crystalpigeon.busnovisad&hl=en)
+Visit Play Store: [Bus schedule - Novi Sad](https://play.google.com/store/apps/details?id=com.crystalpigeon.busnovisad&hl=en)
