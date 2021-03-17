@@ -16,7 +16,6 @@ import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel.Message
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel.Message.*
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

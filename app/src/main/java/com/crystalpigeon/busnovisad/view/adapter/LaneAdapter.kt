@@ -1,6 +1,7 @@
 package com.crystalpigeon.busnovisad.view.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.model.entity.Lane
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.line.view.*
 import kotlinx.coroutines.*
 
@@ -19,6 +21,8 @@ class LaneAdapter(
     RecyclerView.Adapter<LaneAdapter.ViewHolder>() {
     private val job = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + job)
+
+    private val firebaseAnalytics = FirebaseAnalytics.getInstance(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -51,6 +55,9 @@ class LaneAdapter(
                 coroutineScope.launch(Dispatchers.IO) {
                     viewModel.onLaneClicked(lane)
                     withContext(Dispatchers.Main) { notifyItemChanged(adapterPosition) }
+                    val params = Bundle()
+                    params.putString("lane_number", lane.number)
+                    firebaseAnalytics.logEvent("select_favorite_bus_event", params)
                 }
             }
         }

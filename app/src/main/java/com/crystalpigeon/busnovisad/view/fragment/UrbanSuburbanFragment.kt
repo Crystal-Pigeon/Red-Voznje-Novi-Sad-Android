@@ -38,7 +38,7 @@ class UrbanSuburbanFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = LaneAdapter(arrayListOf(), context!!, viewModel)
+        adapter = LaneAdapter(arrayListOf(), requireContext(), viewModel)
         rv_lines.layoutManager = LinearLayoutManager(context)
         rv_lines.adapter = adapter
 
