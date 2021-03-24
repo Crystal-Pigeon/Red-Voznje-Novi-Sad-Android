@@ -15,6 +15,7 @@ import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.Const
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.view.MainActivity
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_settings.*
 import java.util.*
 import javax.inject.Inject
@@ -22,6 +23,7 @@ import javax.inject.Inject
 class SettingsFragment : Fragment() {
 
     lateinit var navController: NavController
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     @Inject
     lateinit var prefsEdit: SharedPreferences.Editor
@@ -42,6 +44,7 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
         navController =
             Navigation.findNavController(
                 activity as MainActivity,
@@ -57,6 +60,7 @@ class SettingsFragment : Fragment() {
 
         llSupport.setOnClickListener {
             navController.navigate(R.id.action_settingsFragment_to_supportFragment)
+            firebaseAnalytics.logEvent("open_support_screen", null)
         }
 
         tvLanguage.text =
@@ -87,16 +91,24 @@ class SettingsFragment : Fragment() {
                 0 -> {
                     prefsEdit.putString(Const.LANGUAGE, "en").apply()
                     activity?.recreate()
+                    createEventOnLanguageChanged("en")
                 }
                 1 -> {
                     prefsEdit.putString(Const.LANGUAGE, "sr").apply()
                     activity?.recreate()
+                    createEventOnLanguageChanged("sr")
                 }
             }
             dialog.dismiss()
         }
         val alertDialog = builder.create()
         alertDialog.show()
+    }
+
+    private fun createEventOnLanguageChanged(lang: String) {
+        val params = Bundle()
+        params.putString("lang", lang)
+        firebaseAnalytics.logEvent("change_language_event", params)
     }
 
     private fun createAlertDialogForTheme() {
@@ -119,21 +131,30 @@ class SettingsFragment : Fragment() {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     activity?.recreate()
                     prefsEdit.putString(Const.THEME, "light").apply()
+                    createEventOnThemeChanged("light")
                 }
                 1 -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     activity?.recreate()
                     prefsEdit.putString(Const.THEME, "dark").apply()
+                    createEventOnThemeChanged("dark")
                 }
                 2 -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                     activity?.recreate()
                     prefsEdit.putString(Const.THEME, "default").apply()
+                    createEventOnThemeChanged("default")
                 }
             }
             dialog.dismiss()
         }
         val alertDialog = builder.create()
         alertDialog.show()
+    }
+
+    private fun createEventOnThemeChanged(theme: String) {
+        val params = Bundle()
+        params.putString("theme", theme)
+        firebaseAnalytics.logEvent("change_theme_event", params)
     }
 }

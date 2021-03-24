@@ -17,10 +17,10 @@ import com.crystalpigeon.busnovisad.model.entity.Lane
 import com.crystalpigeon.busnovisad.view.MainActivity
 import com.crystalpigeon.busnovisad.view.adapter.SortFavoritesAdapter
 import com.crystalpigeon.busnovisad.viewmodel.SortViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_sort_favorites.*
 import kotlinx.android.synthetic.main.fragment_sort_favorites.view.*
 import kotlinx.coroutines.*
-
 
 class SortFavoritesFragment : Fragment(), OnStartDragListener,
     SortFavoritesAdapter.UpdateOrderListener {
@@ -29,6 +29,8 @@ class SortFavoritesFragment : Fragment(), OnStartDragListener,
     private val job = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + job)
     private lateinit var itemTouchHelper: ItemTouchHelper
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,6 +41,7 @@ class SortFavoritesFragment : Fragment(), OnStartDragListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
         (activity as MainActivity).setActionBarTitle(R.string.sort_favorites)
         val layoutManager = LinearLayoutManager(context)
         val adapter = SortFavoritesAdapter(arrayListOf(), this, this)
@@ -58,7 +61,6 @@ class SortFavoritesFragment : Fragment(), OnStartDragListener,
                     view.tv_no_favorites.visibility = View.GONE
                     adapter.favorites = favorites
                     adapter.notifyDataSetChanged()
-
                 }
             }
         }
@@ -80,6 +82,7 @@ class SortFavoritesFragment : Fragment(), OnStartDragListener,
     }
 
     override fun updateOrder(favorites: List<Lane>) {
+        firebaseAnalytics.logEvent("sort_favorite_lanes", null)
         coroutineScope.launch {
             viewModel.updateOrder(favorites)
         }

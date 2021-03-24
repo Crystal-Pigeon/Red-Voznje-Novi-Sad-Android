@@ -89,4 +89,6 @@ dependencies {
     // Firebase
     implementation 'com.google.firebase:firebase-analytics:18.0.2'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:17.4.0'
+
+    implementation 'androidx.preference:preference-ktx:1.1.1'
 }

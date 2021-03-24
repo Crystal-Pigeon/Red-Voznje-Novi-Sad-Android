@@ -1,7 +1,6 @@
 package com.crystalpigeon.busnovisad.view.adapter
 
 import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,11 +52,8 @@ class LaneAdapter(
 
             view.setOnClickListener {
                 coroutineScope.launch(Dispatchers.IO) {
-                    viewModel.onLaneClicked(lane)
+                    viewModel.onLaneClicked(lane, firebaseAnalytics)
                     withContext(Dispatchers.Main) { notifyItemChanged(adapterPosition) }
-                    val params = Bundle()
-                    params.putString("lane_number", lane.number)
-                    firebaseAnalytics.logEvent("select_favorite_bus_event", params)
                 }
             }
         }

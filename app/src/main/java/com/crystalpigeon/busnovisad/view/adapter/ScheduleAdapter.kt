@@ -3,6 +3,7 @@ package com.crystalpigeon.busnovisad.view.adapter
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.ScheduleDiffUtil
 import com.crystalpigeon.busnovisad.model.entity.Schedule
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.loader.view.*
 import kotlinx.android.synthetic.main.schedule_item.view.*
 
@@ -23,6 +25,8 @@ class ScheduleAdapter(
     onScheduleClicked: OnScheduleClicked
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val firebaseAnalytics = FirebaseAnalytics.getInstance(context)
     private var loading: Boolean = false
     var onScheduleClicked: OnScheduleClicked? = null
 
@@ -106,6 +110,7 @@ class ScheduleAdapter(
             view.setOnClickListener {
                 schedules[adapterPosition].collapsed = !schedules[adapterPosition].collapsed
                 notifyItemChanged(adapterPosition)
+                firebaseAnalytics.logEvent("collapse_schedule", null)
             }
         }
 
@@ -134,14 +139,17 @@ class ScheduleAdapter(
             }
 
             view.setOnLongClickListener {
+                val params = Bundle()
+                params.putString("lane_number", schedule.lane)
                 AlertDialog.Builder(context, R.style.AlertDialogStyle)
                     .setTitle(view.lineName.text)
                     .setMessage(R.string.are_you_sure_you_want_to_remove_line)
-                    .setPositiveButton(R.string.delete) { dialog, which ->
+                    .setPositiveButton(R.string.delete) { _, _ ->
                         val position = schedules.indexOf(schedule)
                         schedules.remove(schedule)
                         onScheduleClicked?.onScheduleClicked(schedule, position)
                         notifyItemRemoved(position)
+                        firebaseAnalytics.logEvent("delete_lane_on_long_press", params)
                     }
                     .setNegativeButton(R.string.cancel, null)
                     .show()

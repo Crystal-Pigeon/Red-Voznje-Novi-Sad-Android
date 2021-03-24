@@ -2,7 +2,7 @@ package com.crystalpigeon.busnovisad.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import androidx.room.Room
 import com.crystalpigeon.busnovisad.model.BusDatabase
 import com.crystalpigeon.busnovisad.model.dao.FavoriteLanesDao
