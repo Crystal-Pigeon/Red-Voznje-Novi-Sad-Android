@@ -52,6 +52,7 @@
         tools:ignore="ContentDescription" />
 
     <View
+        android:id="@+id/underline"
         android:layout_width="match_parent"
         android:layout_height="0.3dp"
         android:background="@color/viewAddLanes"

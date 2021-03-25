@@ -42,6 +42,11 @@ class LaneAdapter(
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(lane: Lane) {
+            if (adapterPosition == lanes.lastIndex) {
+                view.underline.visibility = View.GONE
+            } else {
+                view.underline.visibility = View.VISIBLE
+            }
             view.lane_number.text = lane.number
             view.lane_name.text = lane.laneName
 
