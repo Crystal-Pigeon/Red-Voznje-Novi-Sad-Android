@@ -37,7 +37,7 @@ class LanesViewModel : ViewModel(){
 
             favLanesDao.insertFavLane(favLane)
             val params = Bundle()
-            params.putString("lane_number", lane.number)
+            params.putString("line", lane.number)
             firebaseAnalytics.logEvent("bus_favourite", params)
         } else {
             favLanesDao.deleteFavLane(lane.id)
