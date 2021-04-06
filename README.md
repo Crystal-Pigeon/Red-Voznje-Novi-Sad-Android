@@ -9,13 +9,13 @@ Bus schedule - Novi Sad is an application which was created with intention to al
 ## Framework and technology
 * Android Studio 3.5.1, Kotlin programming language
 * Kotlin coroutines
-* Dependency injection
-* MVVM architecture
 * Dagger 2
+* MVVM architecture
+* LiveData
 * Retrofit
 * Navigation Component
 * Room
-* Firebase for crashlytics
+* Firebase Crashlytics and Analytics
 
 ## Building the code
 * Install Android Studio
