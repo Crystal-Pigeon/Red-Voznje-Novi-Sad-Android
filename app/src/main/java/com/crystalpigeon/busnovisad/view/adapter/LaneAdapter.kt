@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.crystalpigeon.busnovisad.R
 import com.crystalpigeon.busnovisad.model.entity.Lane
 import com.crystalpigeon.busnovisad.viewmodel.LanesViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.line.view.*
 import kotlinx.coroutines.*
 
@@ -19,6 +20,8 @@ class LaneAdapter(
     RecyclerView.Adapter<LaneAdapter.ViewHolder>() {
     private val job = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + job)
+
+    private val firebaseAnalytics = FirebaseAnalytics.getInstance(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -39,6 +42,11 @@ class LaneAdapter(
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(lane: Lane) {
+            if (adapterPosition == lanes.lastIndex) {
+                view.underline.visibility = View.GONE
+            } else {
+                view.underline.visibility = View.VISIBLE
+            }
             view.lane_number.text = lane.number
             view.lane_name.text = lane.laneName
 
@@ -49,7 +57,7 @@ class LaneAdapter(
 
             view.setOnClickListener {
                 coroutineScope.launch(Dispatchers.IO) {
-                    viewModel.onLaneClicked(lane)
+                    viewModel.onLaneClicked(lane, firebaseAnalytics)
                     withContext(Dispatchers.Main) { notifyItemChanged(adapterPosition) }
                 }
             }

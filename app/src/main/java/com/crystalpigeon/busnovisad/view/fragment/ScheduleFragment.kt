@@ -48,10 +48,13 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        noLinesGroup.visibility = View.GONE
         day = arguments?.getString("DAY") ?: ""
 
         scheduleVM.schedule.observe(viewLifecycleOwner,
             Observer { listOfSchedule ->
+                loader.visibility = View.GONE
+
                 if (listOfSchedule.isNotEmpty()) {
                     listOfSchedule.map { schedule ->
                         schedule.directionA = translateDirection(schedule.directionA ?: "")
@@ -103,8 +106,10 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loader.visibility = View.VISIBLE
+
         view.rv_schedule_for_lines.layoutManager = LinearLayoutManager(context)
-        scheduleAdapter = ScheduleAdapter(arrayListOf(), context!!, this)
+        scheduleAdapter = ScheduleAdapter(arrayListOf(), requireContext(), this)
         rv_schedule_for_lines.adapter = scheduleAdapter
         navController =
             Navigation.findNavController(activity as MainActivity, R.id.nav_host_fragment)
@@ -121,7 +126,7 @@ class ScheduleFragment : Fragment(), ScheduleAdapter.OnScheduleClicked {
         }
     }
 
-    private fun translateDirection(direction: String): String? {
+    private fun translateDirection(direction: String): String {
         var res: String? = null
         if (direction.contains("Polasci za")) {
             res = direction.replace("Polasci za", getString(R.string.departure_to))

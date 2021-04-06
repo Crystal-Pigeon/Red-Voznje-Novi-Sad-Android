@@ -25,7 +25,8 @@ class AddLinesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setActionBarTitle(R.string.add_lines)
         (activity as MainActivity).showBackButton()
-        viewpager_add_lines.adapter = UrbanSuburbanPagerAdapter(childFragmentManager,context!!)
+        viewpager_add_lines.adapter =
+            UrbanSuburbanPagerAdapter(childFragmentManager, requireContext())
         tablayout.setupWithViewPager(viewpager_add_lines)
         (activity as MainActivity).hideSortButton()
         (activity as MainActivity).getBackButton().setOnClickListener {

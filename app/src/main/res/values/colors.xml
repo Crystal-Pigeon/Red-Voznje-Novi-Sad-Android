@@ -19,4 +19,6 @@
     <color name="viewSettings">#33454F73</color>
     <color name="textColorSettings">#80454F73</color>
     <color name="emailText">#016AFA</color>
+    <color name="snackbarBackground">#323232</color>
+    <color name="snackbarTextColor">#FFFFFF</color>
 </resources>

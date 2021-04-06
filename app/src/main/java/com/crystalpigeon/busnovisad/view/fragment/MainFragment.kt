@@ -27,7 +27,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setActionBarTitle(R.string.app_name)
-        val adapter = PagerAdapter(childFragmentManager, context!!)
+        val adapter = PagerAdapter(childFragmentManager, requireContext())
         viewpager.adapter = adapter
         viewpager.offscreenPageLimit = 2
         tablayout.setupWithViewPager(viewpager)

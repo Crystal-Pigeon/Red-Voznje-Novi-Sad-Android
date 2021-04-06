@@ -4,10 +4,12 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.crystalpigeon.busnovisad.BusNsApp
 import com.crystalpigeon.busnovisad.Const
@@ -16,7 +18,6 @@ import com.crystalpigeon.busnovisad.viewmodel.MainViewModel
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel.Message
 import com.crystalpigeon.busnovisad.viewmodel.MainViewModel.Message.*
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +25,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels()
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
-    private fun toLocalMessage(message: Message): String{
-        return when(message){
+    private fun toLocalMessage(message: Message): String {
+        return when (message) {
             ERROR_CHECKING_FOR_UPDATE -> getString(R.string.error_checking_for_update)
             ERROR_FETCHING_DATA -> getString(R.string.error_fetching_scedule)
             NO_INTERNET -> getString(R.string.no_internet_connection)
@@ -70,31 +70,42 @@ class MainActivity : AppCompatActivity() {
         })
 
         mainViewModel.nonImportantError.observe(this, Observer { message ->
-            val cLayout:View? = findViewById(R.id.clayout)
+            val cLayout: View? = findViewById(R.id.clayout)
             message.getContentIfNotHandled()?.let {
                 val snackbar = Snackbar.make(
-                    cLayout?:findViewById(R.id.root),
+                    cLayout ?: findViewById(R.id.root),
                     toLocalMessage(it),
                     Snackbar.LENGTH_LONG
                 )
 
                 snackbar.setAction(getString(R.string.try_again)) { tryFetch() }
+                setUpSnackbarColors(snackbar)
                 snackbar.show()
             }
         })
 
         mainViewModel.info.observe(this, Observer { message ->
-            val cLayout:View? = findViewById(R.id.clayout)
+            val cLayout: View? = findViewById(R.id.clayout)
             message.getContentIfNotHandled()?.let {
-                Snackbar.make(
-                    cLayout?:findViewById(R.id.root),
+               val snackbar = Snackbar.make(
+                    cLayout ?: findViewById(R.id.root),
                     toLocalMessage(it),
                     Snackbar.LENGTH_SHORT
-                ).show()
+                )
+                setUpSnackbarColors(snackbar)
+                snackbar.show()
             }
         })
 
         setLanguage()
+    }
+
+    private fun setUpSnackbarColors(snackbar: Snackbar) {
+        val snackBarView: View = snackbar.view
+        snackBarView.setBackgroundColor(ContextCompat.getColor(this, R.color.snackbarBackground))
+        val textView =
+            snackBarView.findViewById<View>(R.id.snackbar_text) as TextView
+        textView.setTextColor(ContextCompat.getColor(this, R.color.snackbarTextColor))
     }
 
     private fun configureTheme() {
